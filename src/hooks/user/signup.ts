@@ -14,17 +14,16 @@ export default async function singup(formData: {
 
 
   const user_id = data.user?.id;
-  console.log(user_id);
-
+  
 
   if (data.user) {
     const supabaseAdmin = createClient();
     const { data, error } = await supabaseAdmin
       .from("user_role")
-      .insert([{ id: user_id, role: formData.role,email:formData.email }])
+      .insert({ id: user_id, role: formData.role,email:formData.email })
       .select();
-      return { data, error };
+      return error;
   }
 
-  return { data, error };
+  return  error;
 }

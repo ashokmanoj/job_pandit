@@ -5,8 +5,9 @@ import * as Yup from "yup";
 import { Resolver, useForm } from "react-hook-form";
 import ErrorMsg from "../common/error-msg";
 import icon from "@/assets/images/icon/icon_60.svg";
-import { createClient } from "@/utils/supabase/client";
 import singup from "@/hooks/user/signup";
+import { notifyError , notifySuccess} from "@/utils/toast";
+
 
 
 // form data type
@@ -47,8 +48,7 @@ const resolver: Resolver<IFormData> = async (values) => {
 
 const RegisterForm = ( { isCandidate }: { isCandidate: boolean }) => {
   const [showPass, setShowPass] = useState<boolean>(false);
-  const [error, setError] = useState<any>(null);
-  const [confirm, setConfirm] = useState<any>(null);
+
   // react hook form
   const {
     register,
@@ -58,21 +58,25 @@ const RegisterForm = ( { isCandidate }: { isCandidate: boolean }) => {
   } = useForm<IFormData>({ resolver });
   // on submit
   const onSubmit = async (formData: IFormData) => {
-    setError(null);
-    setConfirm(null);
     if (formData) {
       const sendData = {...formData,role: isCandidate?"candidate":"employer"}
-      const {data, error } = await singup(sendData);
-      console.log(data, error);
+      const error  = await singup(sendData);
+      console.log( error);
       if(error){
-        setError(error);
+
+        notifyError("Something went wrong. Please try again");
+
+
+        reset();
+        return;
       }
-      if(data.user){
-        setConfirm("Check your email to confirm your account");
-      }
-    }
+      
+        
+      notifySuccess("Verify Your Email");
+    
     reset();
   };
+};
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="row">
@@ -146,14 +150,11 @@ const RegisterForm = ( { isCandidate }: { isCandidate: boolean }) => {
           <button type="submit" className="btn-eleven fw-500 tran3s d-block mt-20">
             Register
           </button>
-          {error && <div className="alert alert-danger text-center mt-20 "><ErrorMsg msg={error.message} /></div>}
-          {confirm && <div className="alert alert-success text-center mt-20 text-green-500 "><ErrorMsg msg={confirm} /></div>}
+          
         </div>
       </div>
     </form>
   );
-};
+}
 
 export default RegisterForm;
-
-

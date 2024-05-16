@@ -41,12 +41,13 @@ const NiceSelect = ({
 
   return (
     <div
-      className={`nice-select ${cls?cls:''} ${open && "open"}`}
+      className={`nice-select w-25 ${cls?cls:''} ${open && "open"}`}
       role="button"
       tabIndex={0}
       onClick={() => setOpen((prev) => !prev)}
       ref={ref}
     >
+      
       <span className="current">{current?.label || placeholder}</span>
       <ul
         className="list"
@@ -66,6 +67,7 @@ const NiceSelect = ({
           </li>
         ))}
       </ul>
+      
     </div>
   );
 };
