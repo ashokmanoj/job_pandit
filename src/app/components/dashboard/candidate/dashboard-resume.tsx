@@ -13,6 +13,16 @@ type IProps = {
 
 const DashboardResume = ({setIsOpenSidebar}:IProps) => {
   const [isVideoOpen, setIsVideoOpen] = useState<boolean>(false);
+  const [Overview, setOverview] = useState<string>('');
+  const [Video, setVideo] = useState<string>('');
+  const [About, setAbout] = useState<string>('');
+  const [Objective, setObjective] = useState<string>('');
+  const [Education, setEducation] = useState<string>('');
+  const [Experience, setExperience] = useState<string>('');
+  const [Skills, setSkills] = useState<string>('');
+  const [Languages, setLanguages] = useState<string>('');
+  const [Hobbies, setHobbies] = useState<string>('');
+
   return (
     <>
     <div className="dashboard-body">
@@ -28,14 +38,7 @@ const DashboardResume = ({setIsOpenSidebar}:IProps) => {
           <div className="dash-input-wrapper mb-20">
             <label htmlFor="">CV Attachment*</label>
 
-            <div className="attached-file d-flex align-items-center justify-content-between mb-15">
-              <span>MyCvResume.PDF</span>
-              <a href="#" className="remove-btn"><i className="bi bi-x"></i></a>
-            </div>
-            <div className="attached-file d-flex align-items-center justify-content-between">
-              <span>CandidateCV02.PDF</span>
-              <a href="#" className="remove-btn"><i className="bi bi-x"></i></a>
-            </div>
+            
           </div>
 
           <div className="dash-btn-one d-inline-block position-relative me-3">
@@ -51,14 +54,14 @@ const DashboardResume = ({setIsOpenSidebar}:IProps) => {
           <h4 className="dash-title-three">Intro & Overview</h4>
           <div className="dash-input-wrapper mb-35 md-mb-20">
             <label htmlFor="">Overview*</label>
-            <textarea className="size-lg" placeholder="Write something interesting about you...."></textarea>
+            <textarea className="size-lg" placeholder="Write something interesting about you...." onChange={(e) => setOverview(e.target.value)} value={Overview}></textarea>
             <div className="alert-text">Brief description for your resume. URLs are hyperlinked.</div>
           </div>
 
           <div className="row">
             <div className="col-sm-6 d-flex">
               <div className="intro-video-post position-relative mt-20" style={{ backgroundImage: `url(${video_bg.src})` }}>
-                <a className="fancybox rounded-circle video-icon tran3s text-center" onClick={() => setIsVideoOpen(true)} style={{ cursor: 'pointer' }}>
+                <a className="fancybox rounded-circle video-icon tran3s text-center" >
                   <i className="bi bi-play"></i>
                 </a>
                 <a href="#" className="close"><i className="bi bi-x"></i></a>
@@ -67,7 +70,7 @@ const DashboardResume = ({setIsOpenSidebar}:IProps) => {
             <div className="col-sm-6 d-flex">
               <div className="intro-video-post position-relative empty mt-20">
                 <span>+ Add Intro Video</span>
-                <input type="file" id="uploadVdo" name="uploadVdo" placeholder="" />
+                <input type="file" id="uploadVdo" name="uploadVdo" placeholder=""  />
               </div>
             </div>
           </div>
@@ -110,70 +113,6 @@ const DashboardResume = ({setIsOpenSidebar}:IProps) => {
                         <input type="text" placeholder="Google Arts Collage & University" />
                       </div>
 
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-lg-2">
-                      <div className="dash-input-wrapper mb-30 md-mb-10">
-                        <label htmlFor="">Year*</label>
-                      </div>
-                    </div>
-                    <div className="col-lg-10">
-                      <div className="row">
-                        <div className="col-sm-6">
-                        <SelectYear/>
-                        </div>
-                        <div className="col-sm-6">
-                        <SelectYear/>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-lg-2">
-                      <div className="dash-input-wrapper mb-30 md-mb-10">
-                        <label htmlFor="">Description*</label>
-                      </div>
-                    </div>
-                    <div className="col-lg-10">
-                      <div className="dash-input-wrapper mb-30">
-                        <textarea className="size-lg" placeholder="Morbi ornare ipsum sed sem condimentum, et pulvinar tortor luctus. Suspendisse condimentum lorem ut elementum aliquam et pulvinar tortor luctus."></textarea>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="accordion-item">
-              <div className="accordion-header" id="headingTwo">
-                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                  Add Education*
-                </button>
-              </div>
-              <div id="collapseTwo" className="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionOne">
-                <div className="accordion-body">
-                  <div className="row">
-                    <div className="col-lg-2">
-                      <div className="dash-input-wrapper mb-30 md-mb-10">
-                        <label htmlFor="">Title*</label>
-                      </div>
-                    </div>
-                    <div className="col-lg-10">
-                      <div className="dash-input-wrapper mb-30">
-                        <input type="text" placeholder="Product Designer (Google)" />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-lg-2">
-                      <div className="dash-input-wrapper mb-30 md-mb-10">
-                        <label htmlFor="">Academy*</label>
-                      </div>
-                    </div>
-                    <div className="col-lg-10">
-                      <div className="dash-input-wrapper mb-30">
-                        <input type="text" placeholder="Google Arts Collage & University" />
-                      </div>
                     </div>
                   </div>
                   <div className="row">
