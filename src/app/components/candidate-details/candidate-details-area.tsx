@@ -55,7 +55,7 @@ const CandidateDetailsArea = () => {
                 <div className="inner-card border-style mb-60 lg-mb-50">
                   <h3 className="title">Work Experience</h3>
                   {/* WorkExperience */}
-                  <WorkExperience />
+                  <WorkExperience experience={null} />
                   {/* WorkExperience */}
                 </div>
                 <h3 className="title">Portfolio</h3>

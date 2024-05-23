@@ -1,9 +1,9 @@
 import React from "react";
 
-const WorkExperience = ({experience}: {experience: [{title:string,company:string,from:string,to:string,description:string}]}) => {
+const WorkExperience = ({experience}:any) => {
   return (
     <div className="time-line-data position-relative pt-15">
-      {experience?.map((item, index) => (
+      {experience?.map((item:any, index:any) => (
         <div className="info position-relative" key={index}>
         <div className="numb fw-500 rounded-circle d-flex align-items-center justify-content-center">
           {index + 1}
