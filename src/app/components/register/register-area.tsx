@@ -1,10 +1,14 @@
+'use client';
 import React from "react";
 import Image from "next/image";
 import RegisterForm from "../forms/register-form";
 import google from "@/assets/images/icon/google.png";
 import facebook from "@/assets/images/icon/facebook.png";
+import { signUpGoogle } from "@/hooks/user/signUpGoogle";
 
 const RegisterArea = () => {
+
+
   return (
     <section className="registration-section position-relative pt-100 lg-pt-80 pb-150 lg-pb-80">
       <div className="container">
@@ -46,13 +50,7 @@ const RegisterArea = () => {
                 id="fc1"
               >
                 <RegisterForm isCandidate={true} />
-              </div>
-              <div className="tab-pane fade" role="tabpanel" id="fc2">
-                <RegisterForm isCandidate={false} />
-              </div>
-            </div>
-
-            <div className="d-flex align-items-center mt-30 mb-10">
+                <div className="d-flex align-items-center mt-30 mb-10">
               <div className="line"></div>
               <span className="pe-3 ps-3">OR</span>
               <div className="line"></div>
@@ -60,7 +58,7 @@ const RegisterArea = () => {
             <div className="row">
               <div className="col-sm-6">
                 <a
-                  href="#"
+                  onClick={()=>{signUpGoogle(true)}}
                   className="social-use-btn d-flex align-items-center justify-content-center tran3s w-100 mt-10"
                 >
                   <Image src={google} alt="google-img" />
@@ -77,6 +75,38 @@ const RegisterArea = () => {
                 </a>
               </div>
             </div>
+              </div>
+              <div className="tab-pane fade" role="tabpanel" id="fc2">
+                <RegisterForm isCandidate={false} />
+                <div className="d-flex align-items-center mt-30 mb-10">
+              <div className="line"></div>
+              <span className="pe-3 ps-3">OR</span>
+              <div className="line"></div>
+            </div>
+            <div className="row">
+              <div className="col-sm-6">
+                <a
+                  onClick={()=>{signUpGoogle(false)}}
+                  className="social-use-btn d-flex align-items-center justify-content-center tran3s w-100 mt-10"
+                >
+                  <Image src={google} alt="google-img" />
+                  <span className="ps-2">Signup with Google</span>
+                </a>
+              </div>
+              <div className="col-sm-6">
+                <a
+                  href="#"
+                  className="social-use-btn d-flex align-items-center justify-content-center tran3s w-100 mt-10"
+                >
+                  <Image src={facebook} alt="facebook-img" />
+                  <span className="ps-2">Signup with Facebook</span>
+                </a>
+              </div>
+            </div>
+              </div>
+            </div>
+
+            
             <p className="text-center mt-10">
               Have an account?{" "}
               <a

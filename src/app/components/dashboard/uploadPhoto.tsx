@@ -22,7 +22,7 @@ const UploadPhoto = ({ avatar, setAvatar }: { avatar: string; setAvatar: any }) 
           .upload(user +"/"+Date.now(), file, {
             cacheControl: "3600",
             upsert: false,
-            contentType: 'image/jpeg',
+            contentType: 'image/*',
           });
         if (error) {
           console.error("Error uploading image:", error.message);
