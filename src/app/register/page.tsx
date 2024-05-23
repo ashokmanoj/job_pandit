@@ -19,12 +19,11 @@ const RegisterPage = () => {
         {/* header end */}
 
         {/*breadcrumb start */}
-        <CompanyBreadcrumb
+        {/* <CompanyBreadcrumb
           title="Register"
           subtitle="Create an account & Start posting or hiring talents"
-        />
+        /> */}
         {/*breadcrumb end */}
-
         {/* register area start */}
         <RegisterArea/>
         {/* register area end */}

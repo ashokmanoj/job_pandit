@@ -12,27 +12,21 @@ import { notifyError , notifySuccess} from "@/utils/toast";
 
 // form data type
 type IFormData = {
-  name: string;
   email: string;
   password: string;
 };
 
 // schema
 const schema = Yup.object().shape({
-  name: Yup.string().required().label("Name"),
   email: Yup.string().required().email().label("Email"),
   password: Yup.string().required().min(6).label("Password"),
 });
 // resolver
 const resolver: Resolver<IFormData> = async (values) => {
   return {
-    values: values.name ? values : {},
-    errors: !values.name
+    values: values.email ? values : {},
+    errors: !values.email
       ? {
-        name: {
-          type: "required",
-          message: "Name is required.",
-        },
         email: {
           type: "required",
           message: "Email is required.",
@@ -46,8 +40,9 @@ const resolver: Resolver<IFormData> = async (values) => {
   };
 };
 
-const RegisterForm = ( { isCandidate }: { isCandidate: boolean }) => {
+const RegisterForm = () => {
   const [showPass, setShowPass] = useState<boolean>(false);
+  const [isAccepted, setIsAccepted] = useState<boolean>(false);
 
   // react hook form
   const {
@@ -58,42 +53,26 @@ const RegisterForm = ( { isCandidate }: { isCandidate: boolean }) => {
   } = useForm<IFormData>({ resolver });
   // on submit
   const onSubmit = async (formData: IFormData) => {
-    if (formData) {
-      const sendData = {...formData,role: isCandidate?"candidate":"employer"}
-      const error  = await singup(sendData);
+    if (isAccepted) {
+  
+      const error  = await singup(formData);
       console.log( error);
       if(error){
-
         notifyError("Something went wrong. Please try again");
-
-
         reset();
         return;
       }
-      
-        
       notifySuccess("Verify Your Email");
-    
     reset();
-  };
+  }else{
+       
+    notifyError("Accept Terms and Conditions to proceed");
+
+};
 };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="row">
-        <div className="col-12">
-          <div className="input-group-meta position-relative mb-25">
-            <label>Name*</label>
-            <input
-              type="text"
-              placeholder="James Brower"
-              {...register("name", { required: `Name is required!` })}
-              name="name"
-            />
-            <div className="help-block with-errors">
-              <ErrorMsg msg={errors.name?.message!} />
-            </div>
-          </div>
-        </div>
         <div className="col-12">
           <div className="input-group-meta position-relative mb-25">
             <label>Email*</label>
@@ -132,14 +111,17 @@ const RegisterForm = ( { isCandidate }: { isCandidate: boolean }) => {
           </div>
         </div>
         <div className="col-12">
-          <div className="agreement-checkbox d-flex justify-content-between align-items-center">
+          <div className=" d-flex justify-content-between align-items-center">
             <div>
               <input
                 type="checkbox"
                 name="remember"
+                checked={isAccepted}
+                id="remember"
+                onChange={() => setIsAccepted(!isAccepted)}
               />
               <label htmlFor="remember">
-                By hitting the Register button, you agree to the{" "}
+                By registering, you agree to the{" "}
                 <a href="#">Terms conditions</a> &{" "}
                 <a href="#">Privacy Policy</a>
               </label>
@@ -150,7 +132,6 @@ const RegisterForm = ( { isCandidate }: { isCandidate: boolean }) => {
           <button type="submit" className="btn-eleven fw-500 tran3s d-block mt-20">
             Register
           </button>
-          
         </div>
       </div>
     </form>
