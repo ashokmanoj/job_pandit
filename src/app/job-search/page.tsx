@@ -6,6 +6,7 @@ import FooterOne from "@/layouts/footers/footer-one";
 import JobBreadcrumb from "../components/jobs/breadcrumb/job-breadcrumb";
 import JobPortalIntro from "../components/job-portal-intro/job-portal-intro";
 import SearchItemsCom from "../components/search-area/search-items";
+import SearchItemsWrapper from "../components/search-area/SearchItemsWrapper";
 
 export const metadata: Metadata = {
   title: "Search Page",
@@ -24,7 +25,7 @@ const SearchPage = () => {
         {/* search breadcrumb end */}
 
         {/* SearchItems start */}
-        <SearchItemsCom />
+        <SearchItemsWrapper />
         {/* SearchItems end */}
 
         {/* job portal intro start */}
