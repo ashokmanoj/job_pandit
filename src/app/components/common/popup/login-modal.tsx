@@ -4,6 +4,7 @@ import Link from "next/link";
 import LoginForm from "../../forms/login-form";
 import google from "@/assets/images/icon/google.png";
 import facebook from "@/assets/images/icon/facebook.png";
+import { signInGoogle } from "@/hooks/user/signInGoogle";
 
 const LoginModal = () => {
 
@@ -43,11 +44,11 @@ const LoginModal = () => {
               <div className="row">
                 <div className="col-md-6">
                   <a
-                    href="#"
-                    className="social-use-btn d-flex align-items-center justify-content-center tran3s w-100 mt-10"
+                    onClick={signInGoogle}
+                    className="social-use-btn d-flex align-items-center justify-content-center tran3s w-100 mt-10 couser-pointer"
                   >
                     <Image src={google} alt="google-img" />
-                    <span className="ps-2">Login with Google</span>
+                    <span className="ps-2" >Login with Google</span>
                   </a>
                 </div>
                 <div className="col-md-6">

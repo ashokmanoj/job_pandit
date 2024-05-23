@@ -538,3 +538,52 @@
 .bg-greeen{
     background: #d2f34c;
 }
+
+
+.resume-preview {
+position: relative;
+display: flex;
+align-items: center;
+height: 100%;
+width:200px;
+justify-content: center;
+
+
+    
+.preview{
+    padding: 0 0 10px 0;
+    .resume {
+        width: 100%;
+        max-width: 100%;
+        border-radius: 15px;
+        border: #85858554 solid 1px ; 
+    }
+    .view { 
+        position: absolute;
+        width: 100%; 
+        height: 100%; 
+        z-index: 2; 
+        top:30px;
+        left:87px;
+        i{
+            font-size: 25px;
+          
+        }
+
+    }
+}
+.delete {
+    position: absolute;
+    right:65px;
+    top:0;
+    z-index: 1;
+    i{
+        font-size:15px;
+        border-radius: 50%;
+        padding: 2px;
+        color: red;
+      
+    }
+}
+
+}

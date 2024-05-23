@@ -8,16 +8,18 @@ type IPropType = {
   videoId: string;
 };
 
+
 const VideoPopup = ({
   isVideoOpen,
   setIsVideoOpen,
-  videoId = "-6ZbrfSRWKc",
+  videoId ,
 }: IPropType) => {
+  console.log(videoId);
   return (
     <ModalVideo
-      channel="youtube"
+      channel="custom"
       isOpen={isVideoOpen}
-      videoId={videoId}
+      url={videoId as string}
       onClose={() => setIsVideoOpen(false)}
     />
   );
