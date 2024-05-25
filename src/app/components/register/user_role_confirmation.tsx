@@ -6,6 +6,7 @@ import google from "@/assets/images/icon/google.png";
 import facebook from "@/assets/images/icon/facebook.png";
 import { signUpGoogle } from "@/hooks/user/signUpGoogle";
 import UserRoleForm from "../forms/user-role";
+import EmployeRoleForm from "../forms/employe-role";
 
 const UserRoleConfirmation = () => {
     
@@ -28,7 +29,7 @@ const UserRoleConfirmation = () => {
                                     aria-selected="true"
                                     tabIndex={-1}
                                 >
-                                    Candidates
+                                    Candidate
                                 </button>
                             </li>
                             <li className="nav-item" role="presentation">
@@ -65,10 +66,10 @@ const UserRoleConfirmation = () => {
                                 <UserRoleForm />
                             </div>
                             <div className="tab-pane fade" role="tabpanel" id="fc2">
-                                
+                                <EmployeRoleForm/>
                             </div>
                             <div className="tab-pane fade" role="tabpanel" id="fc3">
-                                
+                                 <EmployeRoleForm/>
                             </div>
                         </div>
 

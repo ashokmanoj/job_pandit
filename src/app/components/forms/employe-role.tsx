@@ -10,35 +10,29 @@ import { useRouter } from "next/navigation";
 
 // form data type
 type IFormData = {
-    firstName: string;
-    lastName: string;
+    company: string;
     countryCode: string;
-    phoneNumber: string; // Optional field for OTP
+    phoneNumber: string;
 };
 
 // schema
 const schema = Yup.object().shape({
-    firstName: Yup.string().required().label("First Name"),
-    lastName: Yup.string().required().label("Last Name"),
+    company: Yup.string().required().label("Company"),
     countryCode: Yup.string().required().label("Country Code"),
     phoneNumber: Yup.string().required().min(6).label("Phone Number"),
+   
 });
 
 // resolver
 const resolver: Resolver<IFormData> = async (values) => {
     const errors: any = {};
-    if (!values.firstName) {
+    if (!values.company) {
         errors.firstName = {
             type: "required",
             message: "First Name is required.",
         };
     }
-    if (!values.lastName) {
-        errors.lastName = {
-            type: "required",
-            message: "Last Name is required.",
-        };
-    }
+    
     if (!values.countryCode) {
         errors.countryCode = {
             type: "required",
@@ -57,7 +51,7 @@ const resolver: Resolver<IFormData> = async (values) => {
     };
 };
 
-const UserRoleForm = () => {
+const EmployeRoleForm = () => {
     const [user, setUser] = useState<any>({});
     const [isUploading, setIsUploading] = useState(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -144,10 +138,9 @@ const UserRoleForm = () => {
                     .from("user_role")
                     .update(
                         {
-                            first_name: formData.firstName,
-                            last_name: formData.lastName,
+                            first_name: formData.company,
                             phone_number: `${formData.countryCode}${formData.phoneNumber}`,
-                            role: "candidate",
+                            role: "company",
                         }
                     ).eq("id", user.id).select();
                 console.log(data, error);
@@ -155,15 +148,8 @@ const UserRoleForm = () => {
                     notifyError(error.message);
                 } else {
                     notifySuccess("User added successfully");
-                   
-                    reset();
-                    setIsLoading(false);
-                    setOtpSent(false);
-                    setCountdown(0);
-                    setOtp('');
-                    setUserOtp('');
                     setIsUploading(false);
-                    router.push("/dashboard/candidate-dashboard/profile");
+                    router.push("/dashboard/company-dashboard/profile");
                 }
             } else {
                 notifyError("Something went wrong. Please try again");
@@ -187,29 +173,15 @@ const UserRoleForm = () => {
             <div className="row">
                 <div className="col-12">
                     <div className="input-group-meta position-relative mb-25">
-                        <label htmlFor="firstName">First Name*</label>
+                        <label htmlFor="firstName">Company Name*</label>
                         <input
                             type="text"
-                            placeholder="First Name*"
-                            {...register("firstName", { required: "First Name is required!" })}
+                            placeholder="Company Name as per PAN*"
+                            {...register("company", { required: "First Name is required!" })}
                             name="firstName"
                         />
                         <div className="help-block with-errors">
-                            <ErrorMsg msg={errors.firstName?.message!} />
-                        </div>
-                    </div>
-                </div>
-                <div className="col-12">
-                    <div className="input-group-meta position-relative mb-25">
-                        <label htmlFor="lastName">Last Name*</label>
-                        <input
-                            type="text"
-                            placeholder="Last Name*"
-                            {...register("lastName", { required: "Last Name is required!" })}
-                            name="lastName"
-                        />
-                        <div className="help-block with-errors">
-                            <ErrorMsg msg={errors.lastName?.message!} />
+                            <ErrorMsg msg={errors.company?.message!} />
                         </div>
                     </div>
                 </div>
@@ -308,4 +280,4 @@ const UserRoleForm = () => {
     );
 };
 
-export default UserRoleForm;
+export default EmployeRoleForm;

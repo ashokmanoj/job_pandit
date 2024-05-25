@@ -17,7 +17,7 @@ const RegisterArea = () => {
             <h2>Create Account</h2>
           </div>
           <div className="form-wrapper m-auto">
-            <div className="tab-content mt-40">
+            <div className="mt-40">
               <div
                 className="tab-pane fade show active"
               >
