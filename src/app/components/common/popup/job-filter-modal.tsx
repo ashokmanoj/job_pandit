@@ -1,7 +1,5 @@
 "use client"
 import React from "react";
-import { resetFilter } from "@/redux/features/filterSlice";
-import { useAppDispatch } from "@/redux/hook";
 import SearchFilter from "../../jobs/filter/job-filter-2/search-filter";
 import FilterCategory from "../../jobs/filter/job-filter-2/filter-category";
 import FilterLocation from "../../jobs/filter/job-filter-2/filter-location";
@@ -9,6 +7,7 @@ import FilterEnglishFluency from "../../jobs/filter/job-filter-2/filter-english-
 import FilterJobType from "../../jobs/filter/job-filter-2/filter-job-type";
 import FilterExperience from "../../jobs/filter/job-filter-2/filter-experience";
 import { SalaryRangeSlider } from "../../jobs/filter/job-prices";
+import useFilterStore from "@/lib/store/filter";
 
 // prop type
 type IProps = {
@@ -18,10 +17,11 @@ type IProps = {
 };
 
 const JobFilterModal = ({ priceValue, setPriceValue, maxPrice }: IProps) => {
-  const dispatch = useAppDispatch();
+  const {resetFilter} = useFilterStore((state) => state);
+
   // handleReset
   const handleReset = () => {
-    dispatch(resetFilter());
+    resetFilter();
     setPriceValue([0, maxPrice]);
   };
   return (
