@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import CandidateProfileSlider from './candidate-profile-slider';
 import avatar from '@/assets/images/candidates/img_01.jpg';
@@ -8,20 +8,34 @@ import Skills from './skills';
 import WorkExperience from './work-experience';
 import CandidateBio from './bio';
 import EmailSendForm from '../forms/email-send-form';
+import { createClient } from '@/utils/supabase/client';
 
-const CandidateDetailsArea = () => {
+const CandidateDetailsArea = ({ candidateId }: { candidateId: string }) => {
   const [isVideoOpen, setIsVideoOpen] = useState<boolean>(false);
+  const [data, setData] = useState<any>({});
+  useEffect(() => {
+    const fetchData = async () => {
+      const supabase = createClient();
+      console.log(candidateId);
+      const { data, error } = await supabase
+        .from('candidate_resume_details')
+        .select('*').eq('user_id', candidateId).single();
+      setData(data);
+      console.log(data, error)
+    }
+    fetchData()
+  }, [candidateId]);
+
   return (
     <>
-      <section className="candidates-profile pt-100 lg-pt-70 pb-150 lg-pb-80">
+      {data&&<section className="candidates-profile pt-100 lg-pt-70 pb-150 lg-pb-80">
         <div className="container">
           <div className="row">
             <div className="col-xxl-9 col-lg-8">
               <div className="candidates-profile-details me-xxl-5 pe-xxl-4">
                 <div className="inner-card border-style mb-65 lg-mb-40">
                   <h3 className="title">Overview</h3>
-                  <p>Hello my name is Ariana Gande Connor and I’m a Financial Supervisor from Netherlands, Rotterdam. In pharetra orci dignissim, blandit mi semper, ultricies diam. Suspendisse malesuada suscipit nunc non volutpat. Sed porta nulla id orci laoreet tempor non consequat enim. Sed vitae aliquam velit. Aliquam Integer vehicula rhoncus molestie. Morbi ornare ipsum sed sem condimentum, et pulvinar tortor luctus. Suspendisse condimentum lorem ut elementum aliquam. </p> <br />
-                  <p>Mauris nec erat ut libero vulputate pulvinar. Aliquam ante erat, blandit at pretium et, accumsan ac est. Integer vehicula rhoncus molestie. Morbi ornare ipsum sed sem condimentum, et pulvinar tortor luctus. Suspendisse condimentum lorem ut elementum aliquam. Mauris nec.</p>
+                  <p>{data?.overview}</p>
                 </div>
                 <h3 className="title">Intro</h3>
                 <div className="video-post d-flex align-items-center justify-content-center mt-25 lg-mt-20 mb-75 lg-mb-50">
@@ -32,35 +46,53 @@ const CandidateDetailsArea = () => {
                 <div className="inner-card border-style mb-75 lg-mb-50">
                   <h3 className="title">Education</h3>
                   <div className="time-line-data position-relative pt-15">
-                    <div className="info position-relative">
-                      <div className="numb fw-500 rounded-circle d-flex align-items-center justify-content-center">1</div>
-                      <div className="text_1 fw-500">University of Boston</div>
-                      <h4>Bachelor Degree of Design</h4>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a ipsum tellus. Interdum primis</p>
-                    </div>
-                    <div className="info position-relative">
-                      <div className="numb fw-500 rounded-circle d-flex align-items-center justify-content-center">2</div>
-                      <div className="text_1 fw-500">Design Collage</div>
-                      <h4>UI/UX Design Course</h4>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a ipsum tellus. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
-                    </div>
+                    {data.educations?.map((item: any, index: number) => (
+                      <div className="info position-relative" key={index}>
+                        <div className="numb fw-500 rounded-circle d-flex align-items-center justify-content-center">{index + 1}</div>
+                        <div className="text_1 fw-500">{item?.college}</div>
+                        <h4>{item?.title}</h4>
+                        <p>{item?.description}.</p>
+                      </div>
+                    ))}
                   </div>
                 </div>
                 <div className="inner-card border-style mb-75 lg-mb-50">
                   <h3 className="title">Skills</h3>
                   {/* skill area */}
-                  <Skills />
+                  <Skills skills={data?.skills} />
                   {/* skill area */}
                 </div>
                 <div className="inner-card border-style mb-60 lg-mb-50">
                   <h3 className="title">Work Experience</h3>
                   {/* WorkExperience */}
-                  <WorkExperience experience={null} />
+                  <WorkExperience experience={data?.experiences} />
                   {/* WorkExperience */}
                 </div>
-                <h3 className="title">Portfolio</h3>
+                {/* <h3 className="title">Projects</h3> */}
                 {/* Candidate Profile Slider */}
-                <CandidateProfileSlider />
+                {/* <CandidateProfileSlider projects={data.projects} /> */}
+                <div className="inner-card border-style mb-75 lg-mb-50">
+                  <h3 className="title">Projects</h3>
+                  <div className="time-line-data position-relative pt-15 row">
+                    {data.projects?.map((item: any, index: number) => (
+                      <div className="info position-relative col-xxl-6 col-lg-6"  key={index}>
+                        <div className="text_1 fw-500">
+                          <Image
+                            src={`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/project_images/${item.image}`}
+                            alt=""
+                            className="w-100 h-100 lazy-img rounded " 
+                            style={{ width: "100%", height: "100%" }}
+                            width={500}
+                            height={500}
+                          />
+                        </div>
+                        <h4>{item.title}</h4>
+                        <p className="text-truncate h-20">{item?.description}.</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
                 {/* Candidate Profile Slider */}
               </div>
             </div>
@@ -88,13 +120,13 @@ const CandidateDetailsArea = () => {
                 <h4 className="sidebar-title">Email James Brower.</h4>
                 <div className="email-form bg-wrapper bg-color">
                   <p>Your email address & profile will be shown to the recipient.</p>
-                  <EmailSendForm/>
+                  <EmailSendForm />
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </section>}
       {/* video modal start */}
       <VideoPopup isVideoOpen={isVideoOpen} setIsVideoOpen={setIsVideoOpen} videoId={'-6ZbrfSRWKc'} />
       {/* video modal end */}

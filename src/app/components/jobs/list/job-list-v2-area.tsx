@@ -5,19 +5,17 @@ import ListItemTwo from "./list-item-2";
 import { IJobType } from "@/types/job-data-type";
 import Pagination from "@/ui/pagination";
 import JobGridItem from "../grid/job-grid-item";
-import { useAppSelector } from "@/redux/hook";
 import slugify from "slugify";
 import NiceSelect from "@/ui/nice-select";
 import FilterAreaTwo from "../filter/job-filter-2/filter-area-2";
+import useFilterStore from "@/lib/store/filter";
 
 const JobListV2Area = ({ itemsPerPage,grid_style=false }: { itemsPerPage: number;grid_style?:boolean }) => {
   let all_jobs = job_data;
   const maxPrice = job_data.reduce((max, job) => {
     return job.salary > max ? job.salary : max;
   }, 0);
-  const { category, experience, job_type, location,english_fluency,search_key } = useAppSelector(
-    (state) => state.filter
-  );
+  const { category, experience, job_type, location,english_fluency,search_key } = useFilterStore((state) => state);
   const [currentItems, setCurrentItems] = useState<IJobType[] | null>(null);
   const [filterItems, setFilterItems] = useState<IJobType[]>([]);
   const [pageCount, setPageCount] = useState(0);

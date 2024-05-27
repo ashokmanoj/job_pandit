@@ -4,17 +4,17 @@ import Image from "next/image";
 import Link from "next/link";
 import verify from "@/assets/images/icon/icon_51.svg";
 import { IJobType } from "@/types/job-data-type";
-import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import { add_to_wishlist } from "@/redux/features/wishlist";
+import useWishlistStore from "@/lib/store/wishlist";
+
 
 const ListItemThree = ({ item }: { item: IJobType }) => {
   const { id,logo, duration, salary, salary_duration, location, experience,title } = item || {};
-  const {wishlist} = useAppSelector(state => state.wishlist);
+  const {wishlist,add_to_wishlist} = useWishlistStore((state) => state);
   const isActive = wishlist.some(p => p.id === id);
-  const dispatch = useAppDispatch();
+
   // handle add wishlist
   const handleAddWishlist = (item: IJobType) => {
-    dispatch(add_to_wishlist(item));
+    add_to_wishlist(item);
   };
   return (
     <div className="job-list-three d-flex h-100 w-100">

@@ -1,18 +1,17 @@
 import React from "react";
 import job_data from "@/data/job-data";
-import { setExperience } from "@/redux/features/filterSlice";
-import { useAppDispatch, useAppSelector } from "@/redux/hook";
+import useFilterStore from "@/lib/store/filter";
+
 
 export function JobExperienceItems({showLength = true}: {showLength?: boolean}) {
   const uniqueExperiences = [...new Set(job_data.map((job) => job.experience))];
-  const { experience } = useAppSelector((state) => state.filter);
-  const dispatch = useAppDispatch();
+  const { experience,setExperience } = useFilterStore((state) => state);
   return (
     <>
       {uniqueExperiences.map((e, index) => (
         <li key={index}>
           <input
-            onChange={() => dispatch(setExperience(e))}
+            onChange={() => setExperience(e)}
             type="checkbox"
             name={e}
             defaultValue={e}

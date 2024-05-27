@@ -6,12 +6,25 @@ import JobPortalIntro from "../components/job-portal-intro/job-portal-intro";
 import CandidateProfileBreadcrumb from "../components/candidate-details/profile-bredcrumb";
 import FooterOne from "@/layouts/footers/footer-one";
 import CandidateDetailsArea from "../components/candidate-details/candidate-details-area";
+import { createClient } from "@/utils/supabase/server";
 
 export const metadata: Metadata = {
   title: "Candidate Details v1",
 };
 
-const CandidateProfileDetailsPage = () => {
+const CandidateProfileDetailsPage = async () => {
+ 
+const fetchData = async () => {
+  const supabase = createClient();
+  const {data,error} = await supabase.auth.getUser();
+   
+
+  return data?.user?.id
+}
+
+  const userId = await fetchData();
+  console.log(userId)
+
   return (
     <Wrapper>
       <div className="main-page-wrapper">
@@ -24,7 +37,7 @@ const CandidateProfileDetailsPage = () => {
         {/* breadcrumb end */}
 
         {/* candidate details area start */}
-        <CandidateDetailsArea />
+        <CandidateDetailsArea candidateId={userId||''} />
         {/* candidate details area end */}
 
         {/* job portal intro start */}

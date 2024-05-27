@@ -2,11 +2,12 @@ import React from "react";
 import slugify from "slugify";
 import job_data from "@/data/job-data";
 import NiceSelect from "@/ui/nice-select";
-import { useAppDispatch } from "@/redux/hook";
-import { setCategory } from "@/redux/features/filterSlice";
+import useFilterStore from "@/lib/store/filter";
+
 
 const FilterCategory = () => {
-  const dispatch = useAppDispatch()
+
+  const {setCategory} = useFilterStore((state) => state);
   const uniqueCategories = [
     ...new Set(job_data.flatMap((job) => job.category)),
   ];
@@ -14,7 +15,7 @@ const FilterCategory = () => {
     return { value: slugify(c, "-"), label: c };
   });
   const handleCategory = (item: { value: string; label: string }) => {
-    dispatch(setCategory(item.value))
+    setCategory(item.value)
   };
   return (
     <div className="filter-block pb-50 lg-pb-20">

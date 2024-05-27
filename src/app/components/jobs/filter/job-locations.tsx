@@ -2,14 +2,14 @@ import React from 'react';
 import slugify from 'slugify';
 import job_data from '@/data/job-data';
 import NiceSelect from '@/ui/nice-select';
-import { useAppDispatch } from "@/redux/hook";
-import { setLocation } from '@/redux/features/filterSlice';
+import useFilterStore from '@/lib/store/filter';
+
 
 const JobLocations = () => {
   const uniqueLocations = [...new Set(job_data.map(job => job.location))];
-  const dispatch = useAppDispatch();
+  const {  setLocation } = useFilterStore((state) => state);
   const handleLocation = (item: { value: string; label: string }) => { 
-    dispatch(setLocation(item.value))
+    setLocation(item.value)
   };
   const options = uniqueLocations.map((l) => {
     return {value:slugify(l.split(',').join('-').toLowerCase(),'-'),label:l}

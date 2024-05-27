@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import job_data from "@/data/job-data";
-import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import { setCategory } from "@/redux/features/filterSlice";
+import useFilterStore from "@/lib/store/filter";
+
 
 const JobCategory = () => {
   const uniqueCategories = [
     ...new Set(job_data.flatMap((job) => job.category)),
   ];
   const [isShowMore, setIsShowMore] = useState(false);
-  const { category } = useAppSelector((state) => state.filter);
-  const dispatch = useAppDispatch();
+  const { category,setCategory } = useFilterStore((state) => state);
+
 
   const visibleCategories = isShowMore
     ? uniqueCategories
@@ -21,7 +21,7 @@ const JobCategory = () => {
         {visibleCategories.map((c, i) => (
           <li key={i}>
             <input
-              onChange={() => dispatch(setCategory(c))}
+              onChange={() => setCategory(c)}
               type="checkbox"
               name={c}
               defaultValue={c}

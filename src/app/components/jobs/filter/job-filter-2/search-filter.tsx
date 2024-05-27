@@ -1,13 +1,13 @@
+import useFilterStore from "@/lib/store/filter";
 import React from "react";
-import { useAppDispatch } from "@/redux/hook";
-import { setSearchKey } from "@/redux/features/filterSlice";
+
 
 const SearchFilter = () => {
-  const dispatch = useAppDispatch();
+const {setSearchKey} = useFilterStore((state) => state);
 
   // handle search 
   const handleSearch = (e:React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setSearchKey(e.target.value))
+    setSearchKey(e.target.value)
   }
   return (
     <div className="filter-block pb-50 lg-pb-20">
