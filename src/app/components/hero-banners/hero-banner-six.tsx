@@ -1,7 +1,7 @@
 "use client"
 import React from 'react';
-import banner_1 from '@/assets/images/assets/banner_img_01.jpg';
-import banner_2 from '@/assets/images/assets/banner_img_02.jpg';
+import banner_1 from '@/assets/images/assets/banner-one.jpg';
+import banner_2 from '@/assets/images/assets/banner-1.jpg';
 import useSearchFormSubmit from '@/hooks/use-search-form-submit';
 import JobCategorySelect from '../select/job-category';
 import CounterOne from '../counter/counter-one';

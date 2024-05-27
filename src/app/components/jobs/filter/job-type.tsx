@@ -1,20 +1,19 @@
 import React from "react";
 import job_data from "@/data/job-data";
-import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import { setJobType } from "@/redux/features/filterSlice";
+import useFilterStore from "@/lib/store/filter";
+
 
 // job type items
 
 export function JobTypeItems({ showLength = true }: { showLength?: boolean }) {
   const jobDuration = [...new Set(job_data.map((job) => job.duration))];
-  const { job_type } = useAppSelector((state) => state.filter);
-  const dispatch = useAppDispatch();
+  const { job_type ,setJobType} = useFilterStore((state) => state);
   return (
     <>
       {jobDuration.map((duration, index) => (
         <li key={index}>
           <input
-            onChange={() => dispatch(setJobType(duration))}
+            onChange={() => setJobType(duration)}
             type="checkbox"
             name="JobType"
             defaultValue={duration}

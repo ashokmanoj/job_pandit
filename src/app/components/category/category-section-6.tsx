@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import category_dropdown from "@/data/category-dropdown";
 
-const CategorySectionSix = ({style_2=false}:{style_2?:boolean}) => {
+const CategorySectionSix = ({style_2=true}:{style_2?:boolean}) => {
   const category_items = category_dropdown.flatMap(
     (category) => category.category_items
   );

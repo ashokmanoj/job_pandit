@@ -51,26 +51,10 @@ const [user, setUser] = useState<any>(null);
   const supabase = createClient();
 
   async function handleAdd(){
-    if(overview===''){
-      return notifyError('Please Enter Overview');
-    }
-    else if(educations.length===0){
-      return notifyError('Please Add Education');
-    }
-    else if(experiences.length===0){
-      return notifyError('Please Add Experience');
-    }
-    else if(projects.length===0){
-      return notifyError('Please Add Projects');
-    }
-    else if(skills.length===0){
-      return notifyError('Please Add Skills');
-    }
-    else{
+   
 
 if(isData){
-
-  const { error } = await supabase
+  const { data,error } = await supabase
     .from('candidate_resume_details')
     .update({
       resume,
@@ -80,19 +64,34 @@ if(isData){
      experiences,
       skills,
       projects
-    }).eq('user_id', user.id);
+    }).eq('user_id', user.id).single();
   if (error) {
     console.error("Error updating data:", error.message);
-    notifyError("Error updating data");
+    notifyError("Error updating data",);
     setIsData(false);
     
   } else {
-    console.log("Data updated successfully");
-    notifySuccess("Data updated successfully");
+    console.log("Data updated successfully",data);
+    notifySuccess("Data updated successfully",);
     setIsData(false);
   }
 }else{
-
+  if(overview===''){
+    return notifyError('Please Enter Overview');
+  }
+  else if(educations.length===0){
+    return notifyError('Please Add Education');
+  }
+  else if(experiences.length===0){
+    return notifyError('Please Add Experience');
+  }
+  else if(projects.length===0){
+    return notifyError('Please Add Projects');
+  }
+  else if(skills.length===0){
+    return notifyError('Please Add Skills');
+  }
+  else{
   const { error } = await supabase
     .from('candidate_resume_details').insert([{user_id:user?.id, resume,overview, video,  educations, experiences, skills, projects}]);
   if (error) {

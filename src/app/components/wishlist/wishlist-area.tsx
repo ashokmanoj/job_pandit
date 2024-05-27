@@ -3,11 +3,12 @@ import React, {useState } from "react";
 import ListItemTwo from "../jobs/list/list-item-2";
 import JobGridItem from "../jobs/grid/job-grid-item";
 import { IJobType } from "@/types/job-data-type";
-import { useAppSelector } from "@/redux/hook";
+import useWishlistStore from "@/lib/store/wishlist";
+
 
 const WishlistArea = () => {
   const [jobType, setJobType] = useState<string>("list");
-  const {wishlist} = useAppSelector(state => state.wishlist)
+  const {wishlist} = useWishlistStore((state) => state);
   
 
   return (

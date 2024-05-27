@@ -7,6 +7,8 @@ import { Resolver, useForm } from "react-hook-form";
 import ErrorMsg from "../common/error-msg";
 import icon from "@/assets/images/icon/icon_60.svg";
 import { useRouter } from "next/navigation";
+import { notifySuccess } from "@/utils/toast";
+import { useUserStore } from "@/lib/store/user";
 
 // form data type
 type IFormData = {
@@ -44,7 +46,7 @@ const LoginForm = () => {
   const [showPass, setShowPass] = useState<boolean>(false);
   const [error, setError] = useState<any>(null);
   const router = useRouter();
-  
+  const { setUser } = useUserStore();
   // react hook form
   const {
     register,
@@ -64,15 +66,13 @@ const LoginForm = () => {
       if (error) {
         setError(error);
       }
-      
-
-   
-        router.refresh();
         document.getElementById("closeBtn")?.click();
-        router.push("/dashboard/candidate-dashboard");
-       
+        notifySuccess("Login Successful");
+        const {session} = (await supabase.auth.getSession()).data;
+        setUser(session?.user);
+        router.push("/");
         
-      
+
     } catch (error) {
       setError(error);
     }

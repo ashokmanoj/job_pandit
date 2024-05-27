@@ -3,16 +3,16 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { IJobType } from "@/types/job-data-type";
-import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import { add_to_wishlist } from "@/redux/features/wishlist";
+import useWishlistStore from "@/lib/store/wishlist";
+
 
 const ListItemTwo = ({ item }: { item: IJobType }) => {
-  const {wishlist} = useAppSelector(state => state.wishlist);
+  const {wishlist,add_to_wishlist} = useWishlistStore((state) => state);
   const isActive = wishlist.some(p => p.id === item.id);
-  const dispatch = useAppDispatch();
+
   // handle add wishlist
   const handleAddWishlist = (item: IJobType) => {
-    dispatch(add_to_wishlist(item));
+    add_to_wishlist(item)
   };
   return (
     <div className="job-list-one style-two position-relative border-style mb-20">

@@ -7,7 +7,7 @@ import port_2 from "@/assets/images/candidates/CP_02.jpg";
 import port_3 from "@/assets/images/candidates/CP_03.jpg";
 import port_4 from "@/assets/images/candidates/CP_02.jpg";
 
-const CandidateProfileSlider = () => {
+const CandidateProfileSlider = ({projects}: any) => {
   // slider setting
   const slider_setting = {
     dots: true,
@@ -34,17 +34,19 @@ const CandidateProfileSlider = () => {
   };
 
   // portfolio data
-  const portfolio_data = [port_1, port_2, port_3, port_4];
+  const portfolio_data = projects;
   return (
     <Slider {...slider_setting} className="candidate-portfolio-slider">
-      {portfolio_data.map((img, i) => (
+      {portfolio_data.map((item: any, i:number) => (
         <div className="item" key={i}>
           <a href="#" className="w-100 d-blok">
-            <Image
-              src={img}
+          <Image
+              src={`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/project_images/${item.image}`}
               alt=""
               className="w-100"
               style={{ width: "100%", height: "auto" }}
+              width={500}
+              height={500}
             />
           </a>
         </div>

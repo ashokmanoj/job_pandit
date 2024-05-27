@@ -1,28 +1,19 @@
-"use client"
+'use client'
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Menus from "./component/menus";
-import logo from "@/assets/images/logo/logo_01.png";
+import logo from "@/assets/images/logo/logo_j.png";
 import CategoryDropdown from "./component/category-dropdown";
 import LoginModal from "@/app/components/common/popup/login-modal";
 import useSticky from "@/hooks/use-sticky";
-import { createClient } from "@/utils/supabase/client";
+import { useUserStore } from "@/lib/store/user";
+import SessionProvider from "@/ui/session-provider";
 
 const Header =  ({}) => {
   const { sticky } = useSticky();
-  const [isUser, setIsUser] = useState(false);
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      const supabase = createClient();
-      const user = await supabase.auth.getUser();
-      if (user.data.user !== null) {
-        setIsUser(true);
-      }
-    };
-    fetchUser();
-  }, [isUser]);
+  const user = useUserStore((state) => state.user);
+  
 
   return (
     <>
@@ -32,7 +23,7 @@ const Header =  ({}) => {
           <div className="d-flex align-items-center">
             <div className="logo order-lg-0">
               <Link href="/" className="d-flex align-items-center">
-                <Image src={logo} alt="logo" priority />
+                <Image src={logo} alt="logo" priority width={150}/>
               </Link>
             </div>
             <div className="right-widget ms-auto order-lg-3">
@@ -43,8 +34,8 @@ const Header =  ({}) => {
                   
                 </li>
                 <li className="d-none d-md-block ms-4">
-                  {isUser ?  <Link href="/dashboard/candidate-dashboard" className="btn-one">
-                   DashBoard
+                  {user ?  <Link href="/dashboard/candidate-dashboard" className="btn-one">
+                    Dashboard
                   </Link> :<a
                     href="#"
                     className="login-btn-one"
@@ -108,6 +99,7 @@ const Header =  ({}) => {
 
     {/* login modal start */}
     <LoginModal/>
+    <SessionProvider/>
     {/* login modal end */}
     </>
   );

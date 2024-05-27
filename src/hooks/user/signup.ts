@@ -10,10 +10,11 @@ export default async function singup(formData: {
     email: formData.email,
     password: formData.password,
     options: {
-    emailRedirectTo: process.env.NEXT_REDIRECT_URL || "http://localhost:3000/confirm-role",
-    
+    emailRedirectTo:`${location.origin}/confirm-role`,
+    data: {
+      role:'candidate'
     }
-    
+    }
   });
   return  error;
 }

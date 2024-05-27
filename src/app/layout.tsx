@@ -3,7 +3,8 @@ import { Metadata } from "next";
 import localFont from 'next/font/local';
 import { EB_Garamond } from "next/font/google";
 import BackToTopCom from "./components/common/back-to-top-com";
-import { Providers } from "@/redux/provider";
+
+import SessionProvider from "@/ui/session-provider";
 
 const gordita = localFont({
   src: [
@@ -59,10 +60,9 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
       <body suppressHydrationWarning={true} className={`${gordita.variable} ${garamond.variable}`}>
-        <Providers>
           {children}
-        </Providers>
         <BackToTopCom />
+        <SessionProvider/>
       </body>
     </html>
   );

@@ -6,8 +6,8 @@ import JobExperience from './job-experience';
 import JobCategory from './job-category';
 import JobTags from './job-tags';
 import JobPrices from './job-prices';
-import { useAppDispatch } from '@/redux/hook';
-import { resetFilter } from '@/redux/features/filterSlice';
+import useFilterStore from '@/lib/store/filter';
+
 
 // prop type 
 type IProps = {
@@ -16,12 +16,12 @@ type IProps = {
   maxPrice:number;
 }
 const FilterArea = ({priceValue,setPriceValue,maxPrice}:IProps) => {
-  const dispatch = useAppDispatch();
+  const {resetFilter} = useFilterStore((state) => state)
   // handleReset
   const handleReset = () => {
-    dispatch(resetFilter());
+    resetFilter()
     setPriceValue([0,maxPrice])
-  }
+}
   return (
     <div className="filter-area-tab offcanvas offcanvas-start" id="filteroffcanvas">
       <button type="button" className="btn-close text-reset d-lg-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>

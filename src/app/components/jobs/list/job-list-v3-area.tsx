@@ -3,20 +3,18 @@ import React, { useState, useEffect } from "react";
 import job_data from "@/data/job-data";
 import { IJobType } from "@/types/job-data-type";
 import Pagination from "@/ui/pagination";
-import { useAppSelector } from "@/redux/hook";
 import slugify from "slugify";
 import NiceSelect from "@/ui/nice-select";
 import ListItemThree from "./list-item-3";
 import JobFilterModal from "../../common/popup/job-filter-modal";
+import useFilterStore from "@/lib/store/filter";
 
 const JobListV3Area = ({ itemsPerPage }: { itemsPerPage: number }) => {
   let all_jobs = job_data;
   const maxPrice = job_data.reduce((max, job) => {
     return job.salary > max ? job.salary : max;
   }, 0);
-  const { category, experience, job_type, location, english_fluency, search_key } = useAppSelector(
-    (state) => state.filter
-  );
+  const { category, experience, job_type, location, english_fluency, search_key } = useFilterStore((state) => state);
   const [currentItems, setCurrentItems] = useState<IJobType[] | null>(null);
   const [filterItems, setFilterItems] = useState<IJobType[]>([]);
   const [pageCount, setPageCount] = useState(0);
