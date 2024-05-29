@@ -19,23 +19,16 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
   const [socialLinks, setSocialLinks] = useState([{ label: "", value: "" }]);
   const [singleLink, setSingleLink] = useState<any>({ label: "", value: "" });
   const [address, setAddress] = useState('');
-    const [country, setCountry] = useState('');
-    const [city, setCity] = useState('');
-    const [pincode, setPinCode] = useState('');
-    const [state, setState] = useState('');
-    const [mapSrc, setMapSrc] = useState('');
-    const [user, setUser] = useState<any>(null);
-    const [isData, setIsData] = useState<boolean>(false);
-    const [uploading, setUploading] = useState<boolean>(false);
+  const [country, setCountry] = useState('');
+  const [city, setCity] = useState('');
+  const [pincode, setPinCode] = useState('');
+  const [state, setState] = useState('');
+  const [mapSrc, setMapSrc] = useState('');
+  const [user, setUser] = useState<any>(null);
+  const [isData, setIsData] = useState<boolean>(false);
+  const [uploading, setUploading] = useState<boolean>(false);
 
 
-    useEffect(() => {
-        // Generate the map source dynamically based on the address
-        const formattedAddress = `${address}, ${city}, ${state}, ${pincode}, ${country}`;
-        const encodedAddress = encodeURIComponent(formattedAddress);
-        const mapSrc = `https://maps.google.com/maps?q=${encodedAddress}&output=embed`;
-        setMapSrc(mapSrc);
-    }, [address, country, city, pincode, state]);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -43,7 +36,7 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
       const user = await supabase.auth.getUser();
       setUser(user.data.user);
       const { data, error } = await supabase.from('candidate_profile').select('*').eq('id', user.data.user?.id).single();
-      if(data && user){
+      if (data && user) {
         setAvatar(data.avatar);
         setName(data.name);
         setBio(data.bio);
@@ -55,15 +48,22 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
         setPinCode(data.pincode);
         setState(data.state);
         setIsData(true);
-        
+
       }
-      else{
+      else {
         console.log(error);
       }
     }
 
     fetchUser();
-  },[]);
+  }, []);
+  useEffect(() => {
+    // Generate the map source dynamically based on the address
+    const formattedAddress = `${address}, ${city}, ${state}, ${pincode}, ${country}`;
+    const encodedAddress = encodeURIComponent(formattedAddress);
+    const mapSrc = `https://maps.google.com/maps?q=${encodedAddress}&output=embed`;
+    setMapSrc(mapSrc);
+  }, [address, country, city, pincode, state]);
 
   function handleAddLink(event: React.MouseEvent<HTMLButtonElement>): void {
     event.preventDefault();
@@ -72,8 +72,8 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
       setSocialLinks([...socialLinks, singleLink]);
       setSingleLink({ label: "", value: "" });
     }
- 
-    
+
+
 
   }
   function handleDeleteLink(
@@ -87,69 +87,115 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
     ]);
   }
 
-  const handleCancle = ()=>{
-  setAvatar('');
-  setBio('');
-  setName('');
-  setSocialLinks([{ label: "", value: "" }]);
-  setSingleLink({ label: "", value: "" });
-  setAddress('');
-  setCountry('');
-  setCity('');
-  setPinCode('');
-  setState('');
+  const handleCancle = () => {
+    setAvatar('');
+    setBio('');
+    setName('');
+    setSocialLinks([{ label: "", value: "" }]);
+    setSingleLink({ label: "", value: "" });
+    setAddress('');
+    setCountry('');
+    setCity('');
+    setPinCode('');
+    setState('');
   }
-  const handleSave =async (event:any) =>{
+  const handleSave = async (event: any) => {
     event.preventDefault();
-    if( !name || !bio || !address || !country || !city || !pincode || !state){
-      notifyError("Please fill all the fields");
-      return
-    }
-    
-    try{
-      
-    if(isData){
-      const supabase = createClient();
-      console.log(user.id)
-        const {data,error} = await supabase.from('candidate_profile').update({avatar, name, bio, address, country, city, pincode, state, social_links: socialLinks}).eq('id',user.id);
-        console.log("updata Data ") 
-        if(error){
-          notifyError("something went worng. Please Retry");
-        }else{
-          notifySuccess("Profile Updated Successfully");
+    if (!name) {
+      notifyError("Please Enter Name");
+      return;
+    } else if (!address) {
+      notifyError("Please Enter Address");
+      return;
+    } else if (!country) {
+      notifyError("Please Enter Country");
+      return;
+    } else if (!city) {
+      notifyError("Please Enter City");
+      return;
+    } else if (!pincode) {
+      notifyError("Please Enter Pincode");
+      return;
+    } else if (!state) {
+      notifyError("Please Enter State");
+      return;
+    } else if (!bio) {
+      notifyError("Please Enter Bio");
+      return;
+    } else if (!avatar) {
+      notifyError("Please Upload Avatar");
+      return;
+    } else if (!socialLinks) {
+      notifyError("Please Enter Social Links");
+      return;
+    } else {
+
+      try {
+
+        if (isData) {
+          const supabase = createClient();
+          console.log(user.id)
+          const { data, error } = await supabase.from('candidate_profile').update({ avatar, name, bio, address, country, city, pincode, state, social_links: socialLinks }).eq('id', user.id).select('*').single();
+          console.log("updata Data ")
+          if (error) {
+            notifyError("something went worng. Please Retry");
+          } else {
+            notifySuccess("Profile Updated Successfully");
+            setAvatar(data.avatar);
+            setName(data.name);
+            setBio(data.bio);
+            setSocialLinks(data.social_links);
+            setSingleLink({ label: "", value: "" });
+            setAddress(data.address);
+            setCountry(data.country);
+            setCity(data.city);
+            setPinCode(data.pincode);
+            setState(data.state);
+            setIsData(true);
+          }
+
+        } else {
+
+
+
+
+          if (user) {
+
+
+            const supabase = createClient();
+            const { data, error } = await supabase.from('candidate_profile').insert([{ id: user?.id, avatar, name, bio, address, country, city, pincode, state, social_links: socialLinks.slice(1, socialLinks.length) }]).select('*').single();
+            console.log("create Data ")
+            console.log(data, error);
+            if (!error) {
+              notifySuccess("Profile Created Successfully");
+              setAvatar(data.avatar);
+              setName(data.name);
+              setBio(data.bio);
+              setSocialLinks(data.social_links);
+              setSingleLink({ label: "", value: "" });
+              setAddress(data.address);
+              setCountry(data.country);
+              setCity(data.city);
+              setPinCode(data.pincode);
+              setState(data.state);
+              setIsData(true);
+            } else {
+              notifyError("something went worng. Please Retry");
+            }
+          }
+
+
         }
 
-    }else{
 
+      } catch (error) {
+        console.log(error);
+        notifyError("something went worng. Please Retry");
+      }
 
-  
-
-       if(user){
-       
-
-        const supabase = createClient();
-        const {data,error} = await supabase.from('candidate_profile').insert([{id:user?.id,avatar, name, bio, address, country, city, pincode, state, social_links: socialLinks.slice(1,socialLinks.length)}]);
-        console.log("create Data ") 
-        console.log(data,error);
-        if(!error){
-          notifySuccess("Profile Created Successfully");  
-        }else{
-          notifyError("something went worng. Please Retry");
-        }
-       }
-    
 
     }
-      
-
-    }catch(error){
-      console.log(error);
-      notifyError("something went worng. Please Retry");
-    }
-
-    
   }
-
 
 
 
@@ -196,10 +242,10 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
                   className="dash-input-wrapper mb-20 d-flex gap-2"
                   key={index}
                 >
-                  <div className="w-25 text-capitalize fw-500 mb-0 border-1 border  border-secondary  p-2 text-center rounded bg-greeen  ">
+                  <div className="w-25 text-capitalize fw-500 mb-0 border-1 border  border-secondary  p-2 text-center rounded bg-greeen    ">
                     {link?.label}
                   </div>
-                  <div className="w-75  fw-500 mb-0 border-1 border border-secondary  p-2 text-center rounded  text-truncate">
+                  <div className="w-75  fw-500 mb-0 border-1 border border-secondary  p-2 text-center rounded  text-truncate lg-col-3 sm-col-6">
                     {link?.value}
                   </div>
                   <button
@@ -213,10 +259,12 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
             }
           })}
           <div className="dash-input-wrapper mb-20 d-flex gap-2">
-            <SocialLinkSelect
-              setSingleLink={setSingleLink}
-              singleLink={singleLink}
-            />
+            <div className="col-3">
+              <SocialLinkSelect
+                setSingleLink={setSingleLink}
+                singleLink={singleLink}
+              />
+            </div>
             <input
               type="text"
               placeholder="#"
@@ -314,9 +362,19 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
         </div>
 
         <div className="button-group d-inline-flex align-items-center mt-30">
-          <a href="#" className="dash-btn-two tran3s me-3" onClick={handleSave}>
-            Save
-          </a>
+          {uploading ? (
+            <button className="dash-btn-two tran3s me-3" disabled>
+              <span
+                className="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
+            </button>
+          ) : (
+            <button className="dash-btn-two tran3s me-3" onClick={handleSave}>
+              Save
+            </button>
+          )}
           <a href="#" className="dash-cancel-btn tran3s" onClick={handleCancle}>
             Cancel
           </a>

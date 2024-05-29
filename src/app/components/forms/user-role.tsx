@@ -170,6 +170,7 @@ const UserRoleForm = () => {
             }
         } else {
             notifyError("Invalid OTP");
+            setIsUploading(false);
             return
         }
         reset();

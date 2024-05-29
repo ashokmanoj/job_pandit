@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { createClient } from '@/utils/supabase/client';
-import video_bg from '@/assets/dashboard/images/video_post.jpg';
-import VideoPopup from '../../common/video-popup';
 import { notifyError } from '@/utils/toast';
 
 const VideoUploader = ({ video, setVideo }: { video: string, setVideo: any }) => {
@@ -11,35 +9,34 @@ const VideoUploader = ({ video, setVideo }: { video: string, setVideo: any }) =>
     useEffect(() => {
         
       const fecthUrl = async () => {
-          
-          const { data, error } = await supabase
-              .storage
-              .from('resume_videos')
-              .createSignedUrl(video, 120)
-          console.log(data);
-        if(data){
-          setVideoUrl(data?.signedUrl)
-        }else{
 
-        }
-      }
+        const { data, error } = await supabase
+            .storage
+            .from('resume_videos')
+            .createSignedUrl(video, 120)
+        setVideoUrl(data?.signedUrl)
+    }
+    fecthUrl();
+}, [video]);
 
-      fecthUrl();
-  }, [video]);
-
-    const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files && event.target.files[0];
-
-        if(video!==""){
-          notifyError("Please delete previous video before uploading new one");
-          return
-        }
         if (file ) {
-          
           try {
             setUploading(true);
             const user: any = (await supabase.auth.getUser()).data.user?.id;
-            
+            const videos = await supabase
+            .storage
+            .from('resume_videos')
+            .list('' + user)
+            if(videos?.data){
+                const filtered = videos.data?.filter((item: any) => item.name !== video?.split("/")[1]);
+                if(filtered.length>0){
+                  const filteredFileName = filtered.map((item: any) => user + "/" + item.name);
+
+                await supabase.storage.from('resume_videos').remove(filteredFileName);
+                }
+            }
             const { data, error } = await supabase.storage
               .from("resume_videos")
               .upload(user +"/"+Date.now(), file, {
@@ -48,10 +45,8 @@ const VideoUploader = ({ video, setVideo }: { video: string, setVideo: any }) =>
                 contentType: 'video/*',
               });
             if (error) {
-              console.error("Error uploading Video:", error.message);
-            } else {
-              console.log("Video uploaded successfully:", data);
-              
+              notifyError("please Upload Video in MP4 Format");
+            } else { 
               setVideo(data.path);
             }
           } catch (error: any) {
@@ -61,15 +56,13 @@ const VideoUploader = ({ video, setVideo }: { video: string, setVideo: any }) =>
           }
         }
       };
-      async function handleDeleteVideo(imagePath: string) {
+async function handleDeleteVideo(imagePath: string) {
         try {
           console.log(imagePath);
           const { error } = await supabase.storage.from('resume_videos').remove([imagePath]);
-          if (error) {
-            console.error("Error deleting video:", error.message);
-          } else {
-            console.log("Video deleted successfully:", imagePath);
-            setVideo(""); // Clear the avatar path in state upon successful deletion
+          if(!error){
+            setVideo(null); // Clear the avatar path in state upon successful deletion
+            setVideoUrl('');
           }
         } catch (error: any) {
           console.error("Error deleting video:", error.message);
@@ -99,7 +92,6 @@ const VideoUploader = ({ video, setVideo }: { video: string, setVideo: any }) =>
               </div>
             </div>}
           </div>
-         
 </>
 
   )
