@@ -6,11 +6,12 @@ import { redirect } from 'next/navigation';
 
 const EmployDashboardPage = async () => {
   const role = await getRole();
+  console.log(role);
  if (!role) {
    redirect('/register');
  }else if( role ==='user'){
    redirect('/confirm-role');
- }else if( role !=='candidate'){
+ }else if( role !=='company'){
    redirect('/');
  }
   return (

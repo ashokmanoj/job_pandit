@@ -7,8 +7,9 @@ import { Resolver, useForm } from "react-hook-form";
 import ErrorMsg from "../common/error-msg";
 import icon from "@/assets/images/icon/icon_60.svg";
 import { useRouter } from "next/navigation";
-import { notifySuccess } from "@/utils/toast";
+import { notifyError, notifySuccess } from "@/utils/toast";
 import { useUserStore } from "@/lib/store/user";
+
 
 // form data type
 type IFormData = {
@@ -44,7 +45,6 @@ const resolver: Resolver<IFormData> = async (values) => {
 
 const LoginForm = () => {
   const [showPass, setShowPass] = useState<boolean>(false);
-  const [error, setError] = useState<any>(null);
   const router = useRouter();
   const { setUser } = useUserStore();
   // react hook form
@@ -64,17 +64,19 @@ const LoginForm = () => {
       });
       
       if (error) {
-        setError(error);
+        notifyError(error.message);
+        return;
       }
-        document.getElementById("closeBtn")?.click();
-        notifySuccess("Login Successful");
-        const {session} = (await supabase.auth.getSession()).data;
-        setUser(session?.user);
-        router.push("/");
         
+        notifySuccess("Login Successful");
+        const userData = await supabase.from('user_role').select('*').eq('id',data.session?.user.id).single();
+       setUser(userData.data); 
+       document.getElementById("closeBtn")?.click();
+      router.refresh();
+       router.push('/');
 
-    } catch (error) {
-      setError(error);
+    } catch (error:any) {
+      notifyError(error.message);
     }
     reset();
   };
@@ -134,7 +136,6 @@ const LoginForm = () => {
           >
             Login
           </button>
-          {error && <div className="alert alert-danger text-center mt-20 "><ErrorMsg msg={error.message} /></div>}
         </div>
       </div>
     </form>

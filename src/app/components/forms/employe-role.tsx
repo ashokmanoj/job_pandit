@@ -27,9 +27,9 @@ const schema = Yup.object().shape({
 const resolver: Resolver<IFormData> = async (values) => {
     const errors: any = {};
     if (!values.company) {
-        errors.firstName = {
+        errors.company = {
             type: "required",
-            message: "First Name is required.",
+            message: "Company Name is required.",
         };
     }
     
@@ -149,13 +149,14 @@ const EmployeRoleForm = () => {
                 } else {
                     notifySuccess("User added successfully");
                     setIsUploading(false);
-                    router.push("/dashboard/company-dashboard/profile");
+                    router.push("/dashboard/employ-dashboard/profile");
                 }
             } else {
                 notifyError("Something went wrong. Please try again");
             }
         } else {
             notifyError("Invalid OTP");
+            setIsUploading(false);
             return
         }
         reset();
@@ -177,8 +178,8 @@ const EmployeRoleForm = () => {
                         <input
                             type="text"
                             placeholder="Company Name as per PAN*"
-                            {...register("company", { required: "First Name is required!" })}
-                            name="firstName"
+                            {...register("company", { required: "Company Name is required!" })}
+                            name="company"
                         />
                         <div className="help-block with-errors">
                             <ErrorMsg msg={errors.company?.message!} />
@@ -214,7 +215,6 @@ const EmployeRoleForm = () => {
                         </div>
                         <div className="position-absolute top-50 end-0 translate-middle-y z-1 ">
                             {otpSent ? <div className="pr-10">
-
                                 <button
                                     type="button"
                                     className="btn-nine fw-500 tran3s d-block btn-margin "

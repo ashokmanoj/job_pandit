@@ -8,10 +8,15 @@ const supabase= createClient();
 const setUser = useUserStore((state) => state.setUser)  
 
     const readUserSession =async () => {
-        const {data} = await supabase.auth.getSession()
-        setUser(data.session?.user);
+        const {session} = await (await supabase.auth.getSession()).data
+        if(session){
+            const {data,error} = await supabase.from('user_role').select('*').eq('id',session.user.id).single();
+            if(data){
+              console.log(data);
+                setUser(data);
+            }
+        }
     }
-
      useEffect(() => {
          readUserSession();
          //next-lint-disable-next-line

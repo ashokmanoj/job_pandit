@@ -16,7 +16,18 @@ const UploadPhoto = ({ avatar, setAvatar }: { avatar: string; setAvatar: any }) 
       try {
         setUploading(true);
         const user: any = (await supabase.auth.getUser()).data.user?.id;
-        
+        const videos = await supabase
+            .storage
+            .from('avatars')
+            .list('' + user)
+            if(videos?.data){
+                const filtered = videos.data?.filter((item: any) => item.name !== avatar?.split("/")[1]);
+                if(filtered.length>0){
+                  const filteredFileName = filtered.map((item: any) => user + "/" + item.name);
+
+                await supabase.storage.from('avatars').remove(filteredFileName);
+                }
+            }
         const { data, error } = await supabase.storage
           .from("avatars")
           .upload(user +"/"+Date.now(), file, {

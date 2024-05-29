@@ -11,6 +11,7 @@ import NiceSelect from "@/ui/nice-select";
 import useFilterStore from "@/lib/store/filter";
 
 
+
 const JobListThree = ({ itemsPerPage,grid_style=false }: { itemsPerPage: number;grid_style?:boolean }) => {
   let all_jobs = job_data;
   const maxPrice = job_data.reduce((max, job) => {
@@ -139,7 +140,6 @@ const handleShort = (item: { value: string; label: string }) => {
                     <ListItemTwo key={job.id} item={job} />
                   ))}
               </div>
-
               <div
                 className={`accordion-box grid-style ${jobType === "grid" ? "show" : ""}`}
               >

@@ -1,10 +1,5 @@
-'use client';
-import React, { useState } from "react";
-import Image from "next/image";
-import RegisterForm from "../forms/register-form";
-import google from "@/assets/images/icon/google.png";
-import facebook from "@/assets/images/icon/facebook.png";
-import { signUpGoogle } from "@/hooks/user/signUpGoogle";
+
+import React from "react";
 import UserRoleForm from "../forms/user-role";
 import EmployeRoleForm from "../forms/employe-role";
 
