@@ -2,28 +2,22 @@ import React from "react";
 import { Metadata } from "next";
 import Header from "@/layouts/headers/header";
 import Wrapper from "@/layouts/wrapper";
-import JobPortalIntro from "../components/job-portal-intro/job-portal-intro";
-import CandidateProfileBreadcrumb from "../components/candidate-details/profile-bredcrumb";
+import JobPortalIntro from "../../components/job-portal-intro/job-portal-intro";
+import CandidateProfileBreadcrumb from "../../components/candidate-details/profile-bredcrumb";
 import FooterOne from "@/layouts/footers/footer-one";
-import CandidateDetailsArea from "../components/candidate-details/candidate-details-area";
-import { createClient } from "@/utils/supabase/server";
+import CandidateDetailsArea from "../../components/candidate-details/candidate-details-area";
+import CandidateProfileBreadcrumbTwo from "@/app/components/candidate-details/breadcrumb-2";
+import { fetchCandidate } from "@/hooks/server-request/candidate";
+
 
 export const metadata: Metadata = {
   title: "Candidate Details v1",
 };
 
-const CandidateProfileDetailsPage = async () => {
+const CandidateProfileDetailsPage = async ({params}:{params:{candidateId:string}}) => {
  
-const fetchData = async () => {
-  const supabase = createClient();
-  const {data,error} = await supabase.auth.getUser();
-   
+  const candidate = await fetchCandidate({ candidateId: params.candidateId });
 
-  return data?.user?.id
-}
-
-  const userId = await fetchData();
-  console.log(userId)
 
   return (
     <Wrapper>
@@ -33,15 +27,15 @@ const fetchData = async () => {
         {/* header end */}
 
         {/* breadcrumb start */}
-        <CandidateProfileBreadcrumb title="Candidate Profile" subtitle="Candidate Profile" />
+        <CandidateProfileBreadcrumbTwo candidate={candidate} />
         {/* breadcrumb end */}
 
         {/* candidate details area start */}
-        <CandidateDetailsArea candidateId={userId||''} />
+        <CandidateDetailsArea candidate={candidate} />
         {/* candidate details area end */}
 
         {/* job portal intro start */}
-        <JobPortalIntro top_border={true} />
+        <JobPortalIntro top_border={true}/>
         {/* job portal intro end */}
 
         {/* footer start */}

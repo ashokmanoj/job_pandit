@@ -5,6 +5,7 @@ import SocialLinkSelect from "./selectSocialLink";
 import UploadPhoto from "../uploadPhoto";
 import { notifyError, notifySuccess } from "@/utils/toast";
 import { createClient } from "@/utils/supabase/client";
+import NiceSelect from "@/ui/nice-select";
 
 
 // props type
@@ -15,7 +16,12 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
 
   const [avatar, setAvatar] = useState<string>("");
   const [name, setName] = useState<string>("");
+  const [contactEmail, setcontactEmail] = useState<string>("");
+  const [gender, setGender] = useState<string>("");
+  const [dob, setDob] = useState<string>("");
   const [bio, setBio] = useState<string>("");
+  const [qualification, setQualification] = useState<string>("");
+  const [experience, setExperience] = useState<string>("");
   const [socialLinks, setSocialLinks] = useState([{ label: "", value: "" }]);
   const [singleLink, setSingleLink] = useState<any>({ label: "", value: "" });
   const [address, setAddress] = useState('');
@@ -28,8 +34,6 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
   const [isData, setIsData] = useState<boolean>(false);
   const [uploading, setUploading] = useState<boolean>(false);
 
-
-
   useEffect(() => {
     const fetchUser = async () => {
       const supabase = createClient();
@@ -39,6 +43,11 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
       if (data && user) {
         setAvatar(data.avatar);
         setName(data.name);
+        setcontactEmail(data.contact_email);
+        setQualification(data.qualification);
+        setExperience(data.experience);
+        setGender(data.gender);
+        setDob(data.dob);
         setBio(data.bio);
         setSocialLinks(data.social_links);
         setSingleLink({ label: "", value: "" });
@@ -48,6 +57,7 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
         setPinCode(data.pincode);
         setState(data.state);
         setIsData(true);
+
 
       }
       else {
@@ -98,6 +108,14 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
     setCity('');
     setPinCode('');
     setState('');
+    setcontactEmail('');
+    setGender('');
+    setDob('');
+    setIsData(false);
+    setQualification('');
+    setExperience('');
+
+
   }
   const handleSave = async (event: any) => {
     event.preventDefault();
@@ -135,14 +153,20 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
         if (isData) {
           const supabase = createClient();
           console.log(user.id)
-          const { data, error } = await supabase.from('candidate_profile').update({ avatar, name, bio, address, country, city, pincode, state, social_links: socialLinks }).eq('id', user.id).select('*').single();
+          const { data, error } = await supabase.from('candidate_profile').update({ avatar, name,contact_email: contactEmail,qualification,experience, gender, dob, bio, address, country, city, pincode, state, social_links: socialLinks, mapSrc }).eq('id', user.id).select('*').single();
           console.log("updata Data ")
           if (error) {
             notifyError("something went worng. Please Retry");
+            console.log(error,"error in update");
           } else {
             notifySuccess("Profile Updated Successfully");
             setAvatar(data.avatar);
             setName(data.name);
+            setcontactEmail(data.contact_email);
+            setQualification(data.qualification);
+            setExperience(data.experience);
+            setGender(data.gender);
+            setDob(data.dob);
             setBio(data.bio);
             setSocialLinks(data.social_links);
             setSingleLink({ label: "", value: "" });
@@ -155,21 +179,20 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
           }
 
         } else {
-
-
-
-
           if (user) {
-
-
             const supabase = createClient();
-            const { data, error } = await supabase.from('candidate_profile').insert([{ id: user?.id, avatar, name, bio, address, country, city, pincode, state, social_links: socialLinks.slice(1, socialLinks.length) }]).select('*').single();
-            console.log("create Data ")
-            console.log(data, error);
+            console.log(user?.id, avatar, name, contactEmail, qualification, experience, gender, dob, bio, address, country, city, pincode, state, socialLinks, mapSrc);
+            const { data, error } = await supabase.from('candidate_profile').insert([{ id: user?.id, avatar, name, contact_email: contactEmail,qualification,experience, gender, dob, bio, address, country, city, pincode, state, social_links: socialLinks.slice(1, socialLinks.length), mapSrc }]).select('*').single();
+            console.log("error insert Data ", error,data)
             if (!error) {
               notifySuccess("Profile Created Successfully");
               setAvatar(data.avatar);
               setName(data.name);
+              setcontactEmail(data.contact_email);
+              setGender(data.gender);
+              setDob(data.dob);
+              setQualification(data.qualification);
+              setExperience(data.experience);
               setBio(data.bio);
               setSocialLinks(data.social_links);
               setSingleLink({ label: "", value: "" });
@@ -178,6 +201,7 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
               setCity(data.city);
               setPinCode(data.pincode);
               setState(data.state);
+
               setIsData(true);
             } else {
               notifyError("something went worng. Please Retry");
@@ -211,13 +235,106 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
         <div className="bg-white card-box border-20">
           <UploadPhoto avatar={avatar} setAvatar={setAvatar} />
           <div className="dash-input-wrapper mb-30">
-            <label htmlFor="">Full Name*</label>
+            <label htmlFor="">Full Name<span className="text-danger">*</span></label>
             <input
               type="text"
-              placeholder="Md James Brower"
+              placeholder="Ex: Madhu Kiran"
               onChange={(e) => setName(e.target.value)}
               value={name}
             />
+          </div>
+          <div className="dash-input-wrapper mb-30 ">
+            <label htmlFor="">Contact Email <span className="text-danger">*</span></label>
+            <input
+              type="email"
+              placeholder="Ex: madhu@email.com"
+              onChange={(e) => setcontactEmail(e.target.value)}
+              value={contactEmail}
+            />
+          </div>
+          <div className="row">
+          <div className="dash-input-wrapper mb-30 col-6">
+            <label htmlFor="">Qualification<span className="text-danger">*</span></label>
+            <NiceSelect
+              options={[
+                { value: "10th", label: "10th" },
+                { value: "12th", label: "12th" },
+                {value:"Diploma(Computer Science)",label:"Diploma(Computer Science)"},
+                {value:"Diploma(Other)",label:"Diploma(Other)"},
+                {value:"BA",label:"BA"},
+                {value:"BCom",label:"BCom"},
+                {value:"BSc",label:"BSc(Computer Science)"},
+                {value:"BSc",label:"BSc(Other)"},
+                {value:"BCA",label:"BCA"},
+                {value:"B.Tech",label:"B.Tech"},
+                {value:"BE",label:"BE"},
+                {value:"MBA",label:"MBA"},
+                {value:"MCom",label:"MCom"},
+                {value:"MCA",label:"MCA"},
+                {value:"MSc",label:"MSc"},
+                {value:"M.Tech",label:"M.Tech"},
+                {value:"Other",label:"Other"},
+              ]}
+              defaultCurrent={0}
+              onChange={(item) => setQualification(item.value)}
+              name="experience"
+              cls="category"
+              value={qualification}
+            />
+          </div>
+          <div className="dash-input-wrapper mb-30 col-6">
+            <label htmlFor="">Experience  <span className="text-danger">*</span></label>
+            <NiceSelect
+              options={[
+                { value: "fresher", label: "Fresher" },
+                { value: "1 year", label: "1 year" },
+                { value: "2 year", label: "2 year" },
+                { value: "3 year", label: "3 year" },
+                { value: "4 year", label: "4 year" },
+                { value: "5 year", label: "5 year" },
+                { value: "6 year", label: "6 year" },
+                { value: "7 year", label: "7 year" },
+                { value: "8 year", label: "8 year" },
+                { value: "9 year", label: "9 year" },
+                { value: "10+ year", label: "10+ year" },
+           
+              ]}
+              defaultCurrent={0}
+              onChange={(item) => setExperience(item.value)}
+              name="experience"
+              cls="category"
+              value={experience}
+            />
+          </div>
+          </div>
+          <div className="row">
+            
+          <div className="dash-input-wrapper mb-30 col-6">
+            <label htmlFor="">Gender <span className="text-danger">*</span></label>
+
+            <NiceSelect
+              options={[
+                { value: "Male", label: "Male" },
+                { value: "Female", label: "Female" },
+                { value: "Other", label: "Other" },
+
+              ]}
+              defaultCurrent={0}
+              onChange={(item) => setGender(item.value)}
+              name="gender"
+              cls="category"
+              value={gender}
+            />
+          </div>
+          <div className="dash-input-wrapper mb-30 col-6">
+            <label htmlFor="">Date of Birth*</label>
+            <input
+              type="date"
+              placeholder="Date of Birth"
+              onChange={(e) => setDob(e.target.value)}
+              value={dob}
+            />
+          </div>
           </div>
           <div className="dash-input-wrapper">
             <label htmlFor="">Bio*</label>
@@ -236,13 +353,13 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
         <div className="bg-white card-box border-20 mt-40">
           <h4 className="dash-title-three">Social Media</h4>
           {socialLinks?.map((link: any, index: number) => {
-            if (index > 0) {
+            if (index >= 0) {
               return (
                 <div
                   className="dash-input-wrapper mb-20 d-flex gap-2"
                   key={index}
                 >
-                  <div className="w-25 text-capitalize fw-500 mb-0 border-1 border  border-secondary  p-2 text-center rounded bg-greeen    ">
+                  <div className="w-25 text-capitalize fw-500 mb-0 border-1 border  border-secondary  p-2 text-center rounded bg-greeen col-3   ">
                     {link?.label}
                   </div>
                   <div className="w-75  fw-500 mb-0 border-1 border border-secondary  p-2 text-center rounded  text-truncate lg-col-3 sm-col-6">

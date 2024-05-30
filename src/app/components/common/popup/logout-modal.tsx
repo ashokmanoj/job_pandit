@@ -3,14 +3,16 @@ import Image from "next/image";
 import icon from "@/assets/dashboard/images/icon/icon_22.svg";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
+import { useUserStore } from "@/lib/store/user";
 
 
 const LogoutModal = () => {
+  const {setUser} = useUserStore();
    const router = useRouter();
   function logOut(){
-  
     const supbase = createClient();
     supbase.auth.signOut();
+    setUser(undefined);
     document.getElementById('closeBtn-log')?.click();
     router.push('/');
     

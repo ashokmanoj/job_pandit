@@ -5,7 +5,7 @@ import candidate_img from '@/assets/images/candidates/img_01.jpg';
 import shape_1 from '@/assets/images/shape/shape_02.svg';
 import shape_2 from '@/assets/images/shape/shape_03.svg';
 
-const CandidateProfileBreadcrumbTwo = () => {
+const CandidateProfileBreadcrumbTwo = ({ candidate }: { candidate: any }) => {
   return (
     <div className="inner-banner-one position-relative">
       <div className="container">
@@ -13,35 +13,35 @@ const CandidateProfileBreadcrumbTwo = () => {
           <div className="d-flex align-items-start align-items-xl-center">
             <div className="cadidate-avatar position-relative d-block me-auto ms-auto">
               <a href="#" className="rounded-circle">
-                <Image src={candidate_img} alt="" className="lazy-img rounded-circle" />
+                <Image src={candidate?.profile?.avatar ?`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/avatars/${candidate.profile?.avatar}`:"/assets/images/candidates/01.png"}alt="" className="lazy-img rounded-circle" width={100} height={100} />
               </a>
             </div>
             <div className="right-side">
               <div className="row gx-1 align-items-center">
                 <div className="col-xl-2 order-xl-0">
                   <div className="position-relative">
-                    <h4 className="candidate-name text-white mb-0">James Brower</h4>
+                    <h4 className="candidate-name text-white mb-0">{candidate?.profile?.name}</h4>
                     <div className="candidate-post">UI Designer</div>
                   </div>
                 </div>
                 <div className="col-xl-3 order-xl-3">
                   <ul className="cadidate-skills style-none d-flex flex-wrap align-items-center">
-                    <li>Design</li>
-                    <li>UI</li>
-                    <li>Digital</li>
+                    {candidate?.resume?.skills?.map((item: any, index: number) => (
+                      <li key={index}>{item}</li>
+                    ))}
                     <li className="more">2+</li>
                   </ul>
                 </div>
                 <div className="col-xl-2 col-md-4 order-xl-1">
                   <div className="candidate-info">
-                    <span>Location</span>
-                    <div>New York, US</div>
+                    <span>Education</span>
+                    <div>{candidate?.profile?.qualification}</div>
                   </div>
                 </div>
                 <div className="col-xl-2 col-md-4 order-xl-2">
                   <div className="candidate-info">
-                    <span>Salary</span>
-                    <div>$30k-$50k/yr</div>
+                    <span>Experience</span>
+                    <div>{candidate?.profile?.experience}</div>
                   </div>
                 </div>
                 <div className="col-xl-3 col-md-4 order-xl-4">
