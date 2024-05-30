@@ -24,6 +24,8 @@ const {user} = useUserStore();
   const [phone_number, setPhone] = useState(user?.phone_number.slice(3, user?.phone_number.length) || "");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isAdding,setIsAdding] = useState<boolean>(false);
+  const [isPassword,setIsPassword] = useState<boolean>(false);
   const [otpSent, setOtpSent] = useState(false);
   const [otp, setOtp] = useState<string>('');
   const [userOtp, setUserOtp] = useState<string>('');
@@ -80,9 +82,8 @@ const {user} = useUserStore();
   }, [countdown]);
 
 
-  async function handlerAdd() {
-
-    console.log(first_name, last_name, email, phone_number, password)
+  async function handlerAdd(e:any) {
+    e.preventDefault();
     if (!first_name) {
       notifyError('Please Enter First Name')
       return;
@@ -94,9 +95,12 @@ const {user} = useUserStore();
       return;
     } else if (!phone_number) {
       notifyError('Please Enter Phone Number')
+      return;
     }else if(!userOtp){
       notifyError('Please Enter OTP')
+      return;
     }else{
+      setIsAdding(true);
       if(userOtp === otp){
        if(user){
         const { data, error } = await supabase
@@ -126,7 +130,7 @@ const {user} = useUserStore();
       }
     }
 
-
+setIsAdding(false);
   }
 
   function handleSendOTP() {
@@ -135,9 +139,28 @@ const {user} = useUserStore();
       return;
     }
     generateAndSendOtp(country_code, phone_number);
-
-
   }
+  async function handlePasswordRest(){
+    setIsPassword(true);
+    if(user?.email){
+      const { data, error } = await supabase.auth.resetPasswordForEmail(user?.email, {
+        redirectTo: 'http://localhost:3000/reset-password',
+      })
+
+      if (error) {  
+        notifyError(error.message);
+        setIsPassword(false);
+        return
+      }else{
+        notifySuccess('Password reset link sent to your email');
+      }
+    }else{
+      notifyError('Something Went worng. Please try again later');
+      setIsPassword(false);
+      return
+    }
+  }
+
 
   return (
     <div className="dashboard-body">
@@ -211,12 +234,15 @@ const {user} = useUserStore();
             </div>
 
             <div className="button-group d-inline-flex align-items-center mt-30">
-              <a href="#" className="dash-btn-two tran3s me-3 rounded-3 coursor-pointer" onClick={() => handlerAdd()} >
+              {isAdding?<button className="dash-btn-two tran3s me-3 rounded-3 coursor-pointer"disabled >
+                <span
+                  className="spinner-border spinner-border-sm"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+              </button>:<button  className="dash-btn-two tran3s me-3 rounded-3 coursor-pointer" onClick={handlerAdd}>
                 Save
-              </a>
-              <a href="#" className="dash-cancel-btn tran3s">
-                Cancel
-              </a>
+              </button>}
             </div>
           </form>
           
@@ -224,11 +250,16 @@ const {user} = useUserStore();
             
         </div>
 
-       {/* delete yout accout here */}
-       <div>
-        <p>Delete Yout account Here</p>
-        <a
-                href="#"
+        {/* reset password here */}
+         <div className="bg-white card-box border-20 mt-30">
+          <h2 className="dash-title-three">Reset Password</h2>
+          {isPassword?<button disabled className="dash-btn-two tran3s me-3 rounded-3 coursor-pointer "  >
+                <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            </button>:<button onClick={handlePasswordRest} className="dash-btn-two tran3s me-3 rounded-3 coursor-pointer "  >
+                Reset Password
+            </button>}
+              <p className="mt-30">Delete Yout account Here</p>
+          <a  href="#"
                 className="d-flex w-100 align-items-center text-danger fw-500"
                 data-bs-toggle="modal"
                 data-bs-target="#deleteModal"
@@ -236,6 +267,11 @@ const {user} = useUserStore();
                 <Image src={nav_8} alt="icon" className="lazy-img" />
                 <span>Delete Your Account</span>
               </a>
+         </div>
+      
+
+       {/* delete yout accout here */}
+       <div>
         <DeleteModal/>
        </div>
 
