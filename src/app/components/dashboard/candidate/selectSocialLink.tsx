@@ -16,7 +16,7 @@ const SocialLinkSelect = ({setSingleLink,singleLink}:any) => {
       ]}
       defaultCurrent={0}
       onChange={(item) => handleState(item)}
-      name="State"
+      name="Social Link"
     />
   );
 };

@@ -12,6 +12,7 @@ type IPropType = {
   defaultCurrent: number;
   placeholder?: string;
   cls?: string | undefined;
+  value?: string;
   onChange: (item: Option) => void;
   name: string;
 };
@@ -22,6 +23,7 @@ const NiceSelect = ({
   placeholder,
   cls,
   onChange,
+  value,
   name,
 }: IPropType) => {
   const [open, setOpen] = useState(false);
@@ -48,7 +50,7 @@ const NiceSelect = ({
       ref={ref}
     >
       
-      <span className="current">{current?.label || placeholder}</span>
+      <span className="current">{value? value: current ? current?.label : placeholder}</span>
       <ul
         className="list"
         role="menubar"

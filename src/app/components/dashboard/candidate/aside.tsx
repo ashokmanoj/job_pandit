@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image, { StaticImageData } from "next/image";
 import { usePathname } from "next/navigation";
@@ -23,11 +23,13 @@ import nav_6 from "@/assets/dashboard/images/icon/icon_6.svg";
 import nav_6_active from "@/assets/dashboard/images/icon/icon_6_active.svg";
 import nav_7 from "@/assets/dashboard/images/icon/icon_7.svg";
 import nav_7_active from "@/assets/dashboard/images/icon/icon_7_active.svg";
-import nav_8 from "@/assets/dashboard/images/icon/icon_8.svg";
+
 import LogoutModal from "../../common/popup/logout-modal";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 import DeleteModal from "../../common/popup/delete-modal";
+import { useUserStore } from "@/lib/store/user";
+import { fetchCandidate, fetchCandidates } from "@/hooks/client-request/candidate";
 
 // nav data
 const nav_data: {
@@ -58,13 +60,13 @@ const nav_data: {
     link: "/dashboard/candidate-dashboard/resume",
     title: "Resume",
   },
-  {
-    id: 4,
-    icon: nav_4,
-    icon_active: nav_4_active,
-    link: "/dashboard/candidate-dashboard/messages",
-    title: "Messages",
-  },
+  // {
+  //   id: 4,
+  //   icon: nav_4,
+  //   icon_active: nav_4_active,
+  //   link: "/dashboard/candidate-dashboard/messages",
+  //   title: "Messages",
+  // },
   {
     id: 5,
     icon: nav_5,
@@ -94,15 +96,18 @@ type IProps = {
 }
 
 const CandidateAside = ({isOpenSidebar,setIsOpenSidebar}:IProps) => {
+  const {user,setUser} = useUserStore();
+  const [candidate,setCandidate] = useState<any>({});
   const router = useRouter();
-  function logOut(){
   
-    const supbase = createClient();
-    supbase.auth.signOut();
-    router.push('/');
-    
-  }
-  
+
+  useEffect(() => {
+    if(user?.id){
+      fetchCandidate({candidateId:user?.id}).then((data) => setCandidate(data));
+      
+    } 
+  },[user])
+  console.log(candidate)
   const pathname = usePathname();
   return (
     <>
@@ -118,7 +123,7 @@ const CandidateAside = ({isOpenSidebar,setIsOpenSidebar}:IProps) => {
         </div>
         <div className="user-data">
           <div className="user-avatar online position-relative rounded-circle">
-            <Image src={avatar} alt="avatar" className="lazy-img" style={{height:'auto'}} />
+            <Image src={candidate?.profile?.avatar ?`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/avatars/${candidate.profile.avatar}`:"/assets/images/candidates/01.png"} alt="avatar" className="lazy-img border" style={{height:'auto'}} width={100} height={100} />
           </div>
           <div className="user-name-data">
             <button
@@ -129,13 +134,13 @@ const CandidateAside = ({isOpenSidebar,setIsOpenSidebar}:IProps) => {
               data-bs-auto-close="outside"
               aria-expanded="false"
             >
-              James Brower
+              {candidate?.profile?.name}
             </button>
             <ul className="dropdown-menu" aria-labelledby="profile-dropdown">
               <li>
                 <Link
                   className="dropdown-item d-flex align-items-center"
-                  href="/dashboard/candidate-dashboard/profile"
+                  href={`/candidate-details/${user?.id}`}
                 >
                   <Image src={profile_icon_1} alt="icon" className="lazy-img" />
                   <span className="ms-2 ps-1">Profile</span>
@@ -179,23 +184,14 @@ const CandidateAside = ({isOpenSidebar,setIsOpenSidebar}:IProps) => {
                 </li>
               );
             })}
-            <li>
-              <a
-                href="#"
-                className="d-flex w-100 align-items-center"
-                data-bs-toggle="modal"
-                data-bs-target="#deleteModal"
-              >
-                <Image src={nav_8} alt="icon" className="lazy-img" />
-                <span>Delete Account</span>
-              </a>
-            </li>
+           
           </ul>
         </nav>
         <div className="profile-complete-status">
           <div className="progress-value fw-500">87%</div>
           <div className="progress-line position-relative">
-            <div className="inner-line" style={{ width: "80%" }}></div>
+            <div className="inner-line" style={{ width: "90%" }}>
+            </div>
           </div>
           <p>Profile Complete</p>
         </div>
@@ -211,7 +207,6 @@ const CandidateAside = ({isOpenSidebar,setIsOpenSidebar}:IProps) => {
     </aside>
     {/* LogoutModal star */}
     <LogoutModal />
-    <DeleteModal/>
     {/* LogoutModal end */}
     </>
   );

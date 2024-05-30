@@ -1,38 +1,38 @@
 import React from "react";
 
-const CandidateBio = () => {
+const CandidateBio = ({profileData}: {profileData: any}) => {
   return (
     <ul className="style-none">
       <li>
         <span>Location: </span>
-        <div>Spain, Barcelona </div>
+        <div>{profileData.city},{profileData.state}</div>
       </li>
       <li>
         <span>Age: </span>
-        <div>28</div>
+        <div>{profileData?.dob}</div>
       </li>
       <li>
         <span>Email: </span>
         <div>
-          <a href="mailto:me@support.com">me@support.com</a>
+          <a href={`mailto:${profileData?.contact_email}`}>{profileData?.contact_email}</a>
         </div>
       </li>
       <li>
         <span>Qualification: </span>
-        <div>Master Degree</div>
+        <div>{profileData.qualification}</div>
       </li>
       <li>
         <span>Gender: </span>
-        <div>Male</div>
+        <div>{profileData.gender}</div>
       </li>
       <li>
-        <span>Expected Salary: </span>
-        <div>$3k-$4k/month</div>
+        <span>Experience: </span>
+        <div>{profileData.experience}</div>
       </li>
       <li>
         <span>Social:</span>
         <div>
-          <a href="#" className="me-3">
+          {/* <a href="#" className="me-3">
             <i className="bi bi-facebook"></i>
           </a>
           <a href="#" className="me-3">
@@ -43,7 +43,12 @@ const CandidateBio = () => {
           </a>
           <a href="#">
             <i className="bi bi-linkedin"></i>
+          </a> */}
+         {profileData?.social_links?.map((item:any,index:number)=>{
+           return <a href={item.value} key={index} className="me-3">
+            <i className={item.label==="Linkedin"? "bi bi-linkedin":item.label==="Twitter"? "bi bi-twitter":item.label==="Instagram"? "bi bi-instagram":item.label==="Facebook" ? "bi bi-facebook" : item.label==="Github" ? "bi bi-github":''}></i>
           </a>
+         })}
         </div>
       </li>
     </ul>

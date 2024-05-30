@@ -17,7 +17,7 @@ const Header =  ({}) => {
 
   return (
     <>
-    <header className={`theme-main-menu menu-overlay menu-style-one  sticky-menu ${sticky?'fixed':''}`}>
+    <header className={`theme-main-menu menu-overlay menu-style-one sticky-menu bg-black  ${sticky?'fixed':''}`}>
       <div className="inner-content position-relative">
         <div className="top-header">
           <div className="d-flex align-items-center">

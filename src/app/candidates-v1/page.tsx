@@ -1,6 +1,6 @@
 import React from 'react';
 import { Metadata } from 'next';
-import Header from '@/layouts/headers/header';
+import Header from '@/layouts/headers/header-7';
 import Wrapper from '@/layouts/wrapper';
 import JobBreadcrumb from '../components/jobs/breadcrumb/job-breadcrumb';
 import JobPortalIntro from '../components/job-portal-intro/job-portal-intro';
@@ -21,7 +21,8 @@ const CandidatePage = () => {
         {/* header end */}
 
         {/* search breadcrumb start */}
-        <JobBreadcrumb title='Candidates' subtitle='Find you desire talents & make your work done' />
+        {/* <JobBreadcrumb title='Candidates' subtitle='Find you desire talents & make your work done' /> */}
+        <div className="mt-30"></div>
         {/* search breadcrumb end */}
 
         {/* candidate area start */}

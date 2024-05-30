@@ -11,6 +11,7 @@ import { notifyError, notifySuccess } from "@/utils/toast";
 import { useUserStore } from "@/lib/store/user";
 
 
+
 // form data type
 type IFormData = {
   email: string;
@@ -45,6 +46,8 @@ const resolver: Resolver<IFormData> = async (values) => {
 
 const LoginForm = () => {
   const [showPass, setShowPass] = useState<boolean>(false);
+  const [isUploading, setIsUploading] = useState<boolean>(false);
+  const supabase = createClient();
   const router = useRouter();
   const { setUser } = useUserStore();
   // react hook form
@@ -53,11 +56,12 @@ const LoginForm = () => {
     handleSubmit,
     formState: { errors },
     reset,
+    watch,
   } = useForm<IFormData>({ resolver });
   // on submit
   const onSubmit = async (formData: IFormData) => {
     try {
-      const supabase = createClient();
+  
       const { data, error } = await supabase.auth.signInWithPassword({
         email: formData.email,
         password: formData.password,
@@ -80,6 +84,24 @@ const LoginForm = () => {
     }
     reset();
   };
+  async function handlePasswordRest(){
+    if(watch('email')){
+      const { data, error } = await supabase.auth.resetPasswordForEmail(watch('email'), {
+        redirectTo: 'http://localhost:3000/reset-password',
+      })
+
+      if (error) {  
+        notifyError(error.message);
+        return
+      }else{
+        notifySuccess('Password reset link sent to your email');
+      }
+    }else{
+      notifyError('Please Enter Email');
+      return
+    }
+  }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="mt-10">
       <div className="row">
@@ -126,16 +148,30 @@ const LoginForm = () => {
               <input type="checkbox" id="remember" />
               <label htmlFor="remember">Keep me logged in</label>
             </div>
-            <a href="#">Forget Password?</a>
+            <a className="cursor-pointer" onClick={handlePasswordRest}>Forgot Password?</a>
           </div>
         </div>
         <div className="col-12">
-          <button
-            type="submit"
-            className="btn-eleven fw-500 tran3s d-block mt-20"
-          >
-            Login
-          </button>
+          {isUploading ? (
+            <button
+              className="btn-eleven fw-500 tran3s d-block mt-20"
+              type="button"
+              disabled
+            >
+              <span
+                className="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
+            </button>
+          ) : (
+            <button
+              className="btn-eleven fw-500 tran3s d-block mt-20"
+              type="submit"
+            >
+              Login
+            </button>
+            )}
         </div>
       </div>
     </form>
