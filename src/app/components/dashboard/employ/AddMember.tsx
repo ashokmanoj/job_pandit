@@ -6,6 +6,7 @@ import MemberEdit from './MemberEdit';
 
 const AddMember = ({ member, setMember }: { member: any, setMember: any }) => {
   const [eduVal, setEduVal] = useState({ name: '', designation: '', email: '' })
+  const [uploading, setUploading] = useState<boolean>(false);
   const handleAdd = (e: any) => {
     e.preventDefault();
     if(eduVal.name===''){
@@ -56,7 +57,7 @@ const AddMember = ({ member, setMember }: { member: any, setMember: any }) => {
                 </div>
                 <div className="col-lg-10">
                   <div className="dash-input-wrapper mb-30">
-                    <input type="text" placeholder="Product Designer (Google)" value={eduVal.name} onChange={(e) => setEduVal({ ...eduVal, name: e.target.value })} />
+                    <input type="text" placeholder="Ex : Roe" value={eduVal.name} onChange={(e) => setEduVal({ ...eduVal, name: e.target.value })} />
                   </div>
                 </div>
               </div>
@@ -69,7 +70,7 @@ const AddMember = ({ member, setMember }: { member: any, setMember: any }) => {
                 </div>
                 <div className="col-lg-10">
                   <div className="dash-input-wrapper mb-30">
-                    <input type="text" placeholder="Google Arts Collage & University" value={eduVal.designation} onChange={(e) => setEduVal({ ...eduVal, designation: e.target.value })} />
+                    <input type="text" placeholder="Ex : web Developer" value={eduVal.designation} onChange={(e) => setEduVal({ ...eduVal, designation: e.target.value })} />
                   </div>
 
                 </div>
@@ -84,7 +85,7 @@ const AddMember = ({ member, setMember }: { member: any, setMember: any }) => {
                 </div>
                 <div className="col-lg-10">
                   <div className="dash-input-wrapper mb-30">
-                    <input type='email' className="" placeholder="ex:admi@gmail.com" value={eduVal.email} onChange={(e) => setEduVal({ ...eduVal, email: e.target.value })}></input>
+                    <input type='email' className="" placeholder="Ex : rankbook@gmail.com" value={eduVal.email} onChange={(e) => setEduVal({ ...eduVal, email: e.target.value })}></input>
                   </div>
                 </div>
               </div>
@@ -92,7 +93,13 @@ const AddMember = ({ member, setMember }: { member: any, setMember: any }) => {
           </div>
         </div>
       </div>
-      <a href="#" className="dash-btn-one coursor-pointer" onClick={handleAdd}><i className="bi bi-plus"></i> Add more</a>
+      {uploading ? 
+                  <div className="spinner-border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                : 
+                <>
+      <a href="#" className="dash-btn-one coursor-pointer" onClick={handleAdd}><i className="bi bi-plus"></i> Add more</a></>}
     </div>
     </div>
       </div>

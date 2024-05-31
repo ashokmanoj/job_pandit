@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { notifyError } from "@/utils/toast";
 
-const AddSkills = ({ skills, setSkills }: any) => {
+const AddSkills = ({ skills, setSkills}:{skills:string[],setSkills:any}) => {
   const [val, setVal] = useState<string>("");
 
   function handleDelete(i: any) {
@@ -30,7 +30,7 @@ const AddSkills = ({ skills, setSkills }: any) => {
 
         <div className="skills-wrapper">
           <ul className="style-none d-flex flex-wrap align-items-center">
-            {skills.map((item: any, i: any) => (
+            {skills?.map((item: any, i: any) => (
               <li key={i} className="is_tag">
                 <button>
                   {item} <i className="bi bi-x" onClick={handleDelete(i)}></i>

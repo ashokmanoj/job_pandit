@@ -2,9 +2,7 @@ import NiceSelect from "@/ui/nice-select";
 import React from "react";
 
 const Job_Type = ({ jobType, setJobType }: any) => {
-  const handleJobType = (item: { value: string; label: string }) => {
-    setJobType({ ...jobType, label: item.value });
-  };
+
 
   return (
     <div className="dash-input-wrapper mb-30">
@@ -17,7 +15,7 @@ const Job_Type = ({ jobType, setJobType }: any) => {
           { value: "Fixed-Price", label: "Fixed-Price" },
         ]}
         defaultCurrent={0}
-        onChange={(item) => handleJobType(item)}
+        onChange={(item) => setJobType(item.value)}
         name="Job Type"
       />
     </div>
