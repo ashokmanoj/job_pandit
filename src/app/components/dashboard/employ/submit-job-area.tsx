@@ -12,6 +12,7 @@ import { createClient } from "@/utils/supabase/client";
 import Education from "./Education";
 import NiceSelect from "@/ui/nice-select";
 import { useUserStore } from "@/lib/store/user";
+import Category from "./category";
 
 // props type
 type IProps = {
@@ -22,7 +23,7 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
   const [salaryType, setSalaryType] = useState<any>('');
   const [jobType, setJobType] = useState<any>('');
   const [experience, setExperience] = useState<any>('');
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState<any>("");
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState("");
   const [min, setMin] = useState<number>(0);
@@ -33,6 +34,7 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
   const [language, setLanguage] = useState<string[]>([]);
   const [fileName, setFileName] = useState<string>("");
   const [isData, setIsData] = useState<boolean>(false);
+  const [vacancy, setVacancy] = useState<number>(0);
 
   const [workmode, setWorkMode] = useState<any>({ label: "", value: "", });
   const [candidate, setCandidate] = useState<any>({ label: "", value: "", });
@@ -108,6 +110,8 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
       return notifyError("Please Enter Candidate");
     } else if (!workmode) {
       return notifyError("Please Enter Work Mode");
+    } else if (!vacancy){
+      return notifyError("Please Enter Vacancy");
     }
     else {
       setUploading(true);
@@ -121,6 +125,7 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
             salary_type: salaryType,
             workmode,
             candidate,
+            vacancy
           })
           .eq("id", jobPostId)
           .select('*').single();
@@ -141,6 +146,7 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
             salary_type: salaryType,
             workmode,
             candidate,
+            vacancy
           }
         ])
           .select("*")
@@ -181,6 +187,7 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
         setEducation(data.education);
         setWorkMode(data.workmode);
         setCandidate(data.Candidate);
+        setVacancy(data.vacancy);
         setIsData(true);
         setJobPostId(data.id);
       } else {
@@ -205,7 +212,7 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
         <div className="bg-white card-box border-20">
           <h4 className="dash-title-three">Job Details</h4>
           <div className="dash-input-wrapper mb-30">
-            <label htmlFor="">Job Title*</label>
+            <label htmlFor="">Job Title <span className="text-danger">*</span></label>
             <input
               type="text"
               placeholder="Ex: Product Designer"
@@ -214,7 +221,7 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
             />
           </div>
           <div className="dash-input-wrapper mb-30">
-            <label htmlFor="">Job Description*</label>
+            <label htmlFor="">Job Description <span className="text-danger">*</span></label>
             <textarea
               className="size-lg"
               placeholder="Write about the job in details..."
@@ -224,15 +231,7 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
           </div>
           <div className="row align-items-end">
             <div className="col-md-6">
-              <div className="dash-input-wrapper mb-30">
-                <label htmlFor="">Job Category</label>
-                <input
-                  type="text"
-                  placeholder="Ex: Product Designer"
-                  onChange={(e) => setCategory(e.target.value)}
-                  value={category}
-                />
-              </div>
+              <Category category={category} setCategory={setCategory} />
             </div>
             <div className="col-md-6">
               <Job_Type jobType={jobType} setJobType={setJobType} />
@@ -242,18 +241,20 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
             </div>
             <div className="col-md-3">
               <div className="dash-input-wrapper mb-30">
+              <label htmlFor="">Max-Salary*</label> 
                 <input
                   type="number"
-                  placeholder="Min_Salary"
+                  placeholder="Ex : 2,50,000"
                   onChange={(e) => setMin(Number(e.target.value))}
                 />
               </div>
             </div>
             <div className="col-md-3">
               <div className="dash-input-wrapper mb-30">
+              <label htmlFor="">Max-Salary*</label> 
                 <input
                   type="number"
-                  placeholder="Max-Salary"
+                  placeholder="Ex : 3,50,000"
                   onChange={(e) => setMax(Number(e.target.value))}
                 />
               </div>
@@ -274,15 +275,15 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
 
             <div className="col-md-6">
               <div className="dash-input-wrapper mb-30">
-                <label htmlFor="">Workmode*</label>
+                <label htmlFor="">Workmode <span className="text-danger">*</span></label>
                 <NiceSelect
                   options={[
                     { value: "Hybride", label: "Hybride" },
                     { value: "Remote", label: "Remote" },
-                    { value: "Work From Office", label: "Work From Office" },
+                    { value: "Office", label: "Office" },
                   ]}
                   defaultCurrent={0}
-                  onChange={(item) => setWorkMode(item)}
+                  onChange={(item) => setWorkMode(item.value)}
                   name="WorkMode"
                   cls="category"
                 />
@@ -293,27 +294,38 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
                 <label htmlFor="">Candidate*</label>
                 <NiceSelect
                   options={[
-                    { value: "Both", label: "Both" },
-                    { value: "Male Candidate", label: "Male Candidate" },
-                    { value: "Female Candidate", label: "Female Candidate" },
+                    { value: "Both the Candidates", label: "Both the Candidates" },
+                    { value: "Only Male Candidates", label: "Male Candidates" },
+                    { value: "Only Female Candidates", label: "Female Candidates" },
                   ]}
                   defaultCurrent={0}
-                  onChange={(item) => setCandidate(item)}
+                  onChange={(item) => setCandidate(item.value)}
                   name="Candidate"
                   cls="category"
                 />
               </div>
             </div>
             <div className="col-md-6">
+            <div className="dash-input-wrapper mb-30">
+              <label htmlFor="">Vacancy<span className="text-danger">*</span></label> 
+                <input
+                  type="number"
+                  placeholder="Ex : 100 Vacances"
+                  onChange={(e) => setVacancy(Number(e.target.value))}
+                />
+              </div>
+            </div>
+            <div className="col-md-6">
               <div className="dash-input-wrapper mb-30">
-                <label htmlFor="">Location*</label>
+                <label htmlFor="">Location <span className="text-danger">*</span></label>
                 <input
                   type="text"
-                  placeholder="Ex: Location"
+                  placeholder="Ex: Hassan"
                   onChange={(e) => setLocation(e.target.value)}
                 />
               </div>
             </div>
+            
           </div>
 
 

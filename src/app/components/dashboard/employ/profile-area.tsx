@@ -6,7 +6,9 @@ import SocialLinkSelect from "../candidate/selectSocialLink";
 import AddMember from "./AddMember";
 import { createClient } from "@/utils/supabase/client";
 import { notifyError, notifySuccess } from "@/utils/toast";
-import NiceSelect from "@/ui/nice-select";
+import Category from "./category";
+import Company_Type from "./Company_Type";
+
 
 // props type
 type IProps = {
@@ -22,6 +24,7 @@ type memberType = {
 const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
   const [avatar, setAvatar] = useState<string>("");
   const [companyname, setCompanyname] = useState<string>("");
+  const [companyType, setCompanyType] = useState<any>("");
   const [email, setEmail] = useState<string>("");
   const [website, setWebsite] = useState<string>("");
   const [date, setDate] = useState<string>("");
@@ -42,7 +45,7 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
   const [user, setUser] = useState<any>(null);
   const [isData, setIsData] = useState<boolean>(false);
   const [isUploading, setIsUploading] = useState<boolean>(false);
-  const [companyType, setCompanyType] = useState<any>({ label: "", value: "" });
+  
 
   useEffect(() => {
     // Generate the map source dynamically based on the address
@@ -202,7 +205,7 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
     if (data && user) {
       setAvatar(data.avatar);
       setCompanyname(data.company_name);
-      setCompanyType(data.CompanyType)
+      setCompanyType(data.company_Type)
       setEmail(data.email);
       setWebsite(data.website);
       setDate(data.date);
@@ -241,7 +244,7 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
           <div className="row">
             <div className="col-md-6">
               <div className="dash-input-wrapper mb-30">
-                <label htmlFor="">Company Name*</label>
+                <label htmlFor="">Company Name <span className="text-danger">*</span></label>
                 <input
                   type="text"
                   placeholder="Ex : Amazon"
@@ -251,26 +254,11 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
               </div>
             </div>
             <div className="col-md-6">
-              <div className="dash-input-wrapper mb-30">
-                <label htmlFor="">Company Type*</label>
-                <NiceSelect
-                  options={[
-                    { value: "Others", label: "Others" },
-                    { value: "Consultancy", label: "consultancye" },
-                    { value: "Private companies", label: "Private companies" },
-                    { value: "Government companies", label: "Government companies" },
-                    { value: "Cooperative company", label: "Cooperative company" },
-                  ]}
-                  defaultCurrent={0}
-                  onChange={(item) => setCompanyType(item)}
-                  name="CompanyType"
-                  cls="category"
-                />
-              </div>
+              <Company_Type companyType={companyType} setCompanyType={setCompanyType}/>
             </div>
             <div className="col-md-6">
               <div className="dash-input-wrapper mb-30">
-                <label htmlFor="">Email*</label>
+                <label htmlFor="">Email <span className="text-danger">*</span></label>
                 <input
                   type="email"
                   placeholder="Ex : company@gmail.com"
@@ -302,7 +290,7 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
             </div>
             <div className="col-md-6">
               <div className="dash-input-wrapper mb-30">
-                <label htmlFor="">Company Size*</label>
+                <label htmlFor="">Company Size <span className="text-danger">*</span></label>
                 <input
                   type="text"
                   placeholder="Ex : 300 Vacancy"
@@ -313,7 +301,7 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
             </div>
             <div className="col-md-6">
               <div className="dash-input-wrapper mb-30">
-                <label htmlFor="">Phone Number*</label>
+                <label htmlFor="">Phone Number <span className="text-danger">*</span></label>
                 <input
                   type="tel"
                   placeholder="Ex : +91 91723801729"
@@ -323,15 +311,7 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
               </div>
             </div>
             <div className="col-md-6">
-              <div className="dash-input-wrapper mb-30">
-                <label htmlFor="">Category*</label>
-                <input
-                  type="text"
-                  placeholder="Ex : Account, Finance, Marketing"
-                  onChange={(e) => setCategory(e.target.value)}
-                  value={category}
-                />
-              </div>
+            <Category category={category} setCategory={setCategory} />
             </div>
           </div>
           <div className="dash-input-wrapper">
@@ -397,7 +377,7 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
           <div className="row">
             <div className="col-12">
               <div className="dash-input-wrapper mb-25">
-                <label htmlFor="">Address*</label>
+                <label htmlFor="">Address <span className="text-danger">*</span></label>
                 <input
                   type="text"
                   placeholder="Ex : Cowrasta, Chandana, Gazipur Sadar"
