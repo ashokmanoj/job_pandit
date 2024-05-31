@@ -45,7 +45,7 @@ const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
                 contentType: 'video/*',
               });
             if (error) {
-              notifyError("please Upload Video in MP4 Format");
+              notifyError("Please Upload Video in MP4 Format");
             } else { 
               setVideo(data.path);
             }
@@ -90,7 +90,9 @@ async function handleDeleteVideo(imagePath: string) {
                 <input type="file" id="uploadVdo" name="uploadVdo" placeholder="" onChange={handleUpload}  /></>
                       }
               </div>
+              
             </div>}
+            <span>Upload your self-introduction video here</span>
           </div>
 </>
 

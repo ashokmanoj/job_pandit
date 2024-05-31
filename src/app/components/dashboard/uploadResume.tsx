@@ -54,7 +54,7 @@ const UploadResume = ({ resume, setResume }: { resume: string; setResume: any })
                         contentType: 'pdf',
                     });
                 if (error) {
-                    console.error("Error uploading iresume:", error.message);
+                    console.error("Error uploading resume:", error.message);
                 } else {
                     console.log("Resume uploaded successfully:");
                     setResume(data.path);
@@ -73,7 +73,7 @@ const UploadResume = ({ resume, setResume }: { resume: string; setResume: any })
             if (error) {
                 console.error("Error deleting resume:", error.message);
             } else {
-                console.log("resume deleted successfully:");
+                console.log("Resume deleted successfully:");
                 setResume(""); // Clear the avatar path in state upon successful deletion
             }
         } catch (error: any) {
@@ -114,7 +114,7 @@ const UploadResume = ({ resume, setResume }: { resume: string; setResume: any })
 
             <div className="d-flex align-items-center gap-3">
 
-                <div className="dash-btn-one d-inline-block position-relative me-3">
+                <div className="dash-btn-one d-inline-block position-relative me-3 mb-5">
 
                     {uploading ? `Uploading... ${uploadProgress}%` : resume ? <><i className="bi bi-pencil"></i> Change</> : <><i className="bi bi-plus"></i>Upload New CV</>}
                     <input type="file" id="uploadCV" name="uploadCV" placeholder="" onChange={handleUpload} />

@@ -6,13 +6,13 @@ const Education = ({ education, setEducation }: any) => {
   return (
     <div className="col-md-6">
       <div className="dash-input-wrapper mb-30">
-        <label htmlFor="">Education*</label>
+        <label htmlFor="">Education <span className="text-danger">*</span></label>
         <NiceSelect
           options={[
             { value: "Any", label: "Any" },
             { value: "SSLC", label: "SSCL" },
             { value: "PUC", label: "PUC" },
-            { value: " Any Graduate", label: "Any Graduate" },
+            { value: "Any Graduate", label: "Any Graduate" },
             { value: "Post-Graduate", label: "Post-Graduate" },
             { value: "PhD", label: "PhD" },
             { value: "MBA", label: "MBA" },
@@ -24,7 +24,7 @@ const Education = ({ education, setEducation }: any) => {
             { value: "BBA", label: "BBA" },
             { value: "B.Com", label: "B.Com" },
             { value: "M.Com", label: "M.Com" },
-            { value: "BA", label: "BA" },
+            { value: "B.A", label: "B.A" },
             { value: "M.A", label: "MA" },
             { value: "CA", label: "CA" },
             { value: "M.Pharma", label: "M.Pharma" },

@@ -106,7 +106,7 @@ const Skills_Experience = ({skills, setSkills, experience, setExperience}:any) =
                     </div>
                     <div className="col-lg-10">
                       <div className="dash-input-wrapper mb-30">
-                        <input type="text" placeholder="Lead Product Designer "  value={expValue.title} onChange={(e) => setExpValue({...expValue,title:e.target.value})}/>
+                        <input type="text" placeholder="Ex : Product Designer "  value={expValue.title} onChange={(e) => setExpValue({...expValue,title:e.target.value})}/>
                       </div>
                     </div>
                   </div>
@@ -118,7 +118,7 @@ const Skills_Experience = ({skills, setSkills, experience, setExperience}:any) =
                     </div>
                     <div className="col-lg-10">
                       <div className="dash-input-wrapper mb-30">
-                        <input type="text" placeholder="Amazon Inc" value={expValue.company} onChange={(e) => setExpValue({...expValue,company:e.target.value})} />
+                        <input type="text" placeholder="Ex : Infosys" value={expValue.company} onChange={(e) => setExpValue({...expValue,company:e.target.value})} />
                       </div>
                     </div>
                   </div>
@@ -155,7 +155,7 @@ const Skills_Experience = ({skills, setSkills, experience, setExperience}:any) =
                     </div>
                     <div className="col-lg-10">
                       <div className="dash-input-wrapper mb-30">
-                        <textarea className="size-lg" placeholder="Your description" value={expValue.description} onChange={(e) => setExpValue({...expValue,description:e.target.value})}></textarea>
+                        <textarea className="size-lg" placeholder="Write something about your previous experience...." value={expValue.description} onChange={(e) => setExpValue({...expValue,description:e.target.value})}></textarea>
                       </div>
                     </div>
                   </div>
