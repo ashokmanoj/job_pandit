@@ -3,7 +3,6 @@ import { Metadata } from "next";
 import Header from "@/layouts/headers/header";
 import Wrapper from "@/layouts/wrapper";
 import JobPortalIntro from "../../components/job-portal-intro/job-portal-intro";
-import CandidateProfileBreadcrumb from "../../components/candidate-details/profile-bredcrumb";
 import FooterOne from "@/layouts/footers/footer-one";
 import CandidateDetailsArea from "../../components/candidate-details/candidate-details-area";
 import CandidateProfileBreadcrumbTwo from "@/app/components/candidate-details/breadcrumb-2";
