@@ -6,6 +6,7 @@ import SocialLinkSelect from "../candidate/selectSocialLink";
 import AddMember from "./AddMember";
 import { createClient } from "@/utils/supabase/client";
 import { notifyError, notifySuccess } from "@/utils/toast";
+import NiceSelect from "@/ui/nice-select";
 
 // props type
 type IProps = {
@@ -37,9 +38,11 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
   const [pincode, setPinCode] = useState("");
   const [state, setState] = useState("");
   const [mapSrc, setMapSrc] = useState("");
+  const supabase = createClient();
   const [user, setUser] = useState<any>(null);
   const [isData, setIsData] = useState<boolean>(false);
-  const [uploading, setUploading] = useState<boolean>(false);
+  const [isUploading, setIsUploading] = useState<boolean>(false);
+  const [companyType, setCompanyType] = useState<any>({ label: "", value: "" });
 
   useEffect(() => {
     // Generate the map source dynamically based on the address
@@ -71,6 +74,7 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
   const handleCancle = () => {
     setAvatar("");
     setEmail("");
+    setCompanyType("");
     setWebsite("");
     setDate("");
     setCsize("");
@@ -87,8 +91,107 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
     setState("");
   };
 
+
+  const handleSave = async (event: any) => {
+    event.preventDefault();
+    if (!avatar) {
+      return notifyError("Please select an avatar");
+    } else if (!companyname) {
+      return notifyError("Please enter company name")
+    } else if (!email) {
+      return notifyError("Please enter email")
+    } else if (!website) {
+      return notifyError("Please enter website")
+    } else if (!date) {
+      return notifyError("Please enter date")
+    } else if (!csize) {
+      return notifyError("Please enter company size")
+    } else if (!phone) {
+      return notifyError("Please enter phone")
+    } else if (!category) {
+      return notifyError("Please enter category")
+    } else if (!about) {
+      return notifyError("Please enter about")
+    } else if (!address) {
+      return notifyError("Please enter address")
+    } else if (!country) {
+      return notifyError("Please enter country")
+    }
+
+    try {
+      if (isData) {
+        console.log(user?.id);
+        const { data, error } = await supabase
+          .from("employer_profile")
+          .update({
+            avatar,
+            company_name: companyname,
+            company_Type: companyType,
+            email,
+            website,
+            date: date,
+            company_size: csize,
+            phone_no: phone,
+            category,
+            about,
+            social_links: socialLinks,
+            address,
+            country,
+            city,
+            pincode,
+            state,
+            member,
+          })
+          .eq("id", user?.id);
+        console.log("upadate Data ");
+        if (error) {
+          console.log(error);
+        } else {
+          notifySuccess("Profile Updated Successfully");
+          
+        }
+      } else {
+        if (user) {
+          const { data, error } = await supabase
+            .from("employer_profile")
+            .insert([
+              {
+                id: user?.id,
+                avatar,
+                company_name: companyname,
+                company_Type: companyType,
+                email,
+                website,
+                date: date,
+                company_size: csize,
+                phone_no: phone,
+                category,
+                about,
+                social_links: socialLinks.slice(1, socialLinks.length),
+                address,
+                country,
+                city,
+                pincode,
+                state,
+                member,
+              },
+            ]);
+          console.log(" create Data ");
+          console.log(data, error);
+          if (!error) {
+            notifySuccess("Profile Created Successfully");
+          } else {
+            notifyError("something went worng. Please Retry");
+          }
+        }
+      }
+    } catch (error) {
+      console.log(error);
+      console.log("something went worng. Please Retry");
+    }
+  };
+
   const fetchUser = async () => {
-    const supabase = createClient();
     const user = await supabase.auth.getUser();
     setUser(user.data.user);
     const { data, error } = await supabase
@@ -99,6 +202,7 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
     if (data && user) {
       setAvatar(data.avatar);
       setCompanyname(data.company_name);
+      setCompanyType(data.CompanyType)
       setEmail(data.email);
       setWebsite(data.website);
       setDate(data.date);
@@ -123,104 +227,6 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
     fetchUser();
   }, []);
 
-  const handleSave = async (event: any) => {
-    event.preventDefault();
-    if (!avatar) {
-      return notifyError("Please select an avatar");
-    }else if(!companyname){
-      return notifyError("Please enter company name")
-    }else if(!email){
-      return notifyError("Please enter email")
-    }else if(!website){
-      return notifyError("Please enter website")
-    }else if(!date){
-      return notifyError("Please enter date")
-    }else if(!csize){
-      return notifyError("Please enter company size")
-    }else if(!phone){
-      return notifyError("Please enter phone")
-    }else if(!category){
-      return notifyError("Please enter category")
-    }else if(!about){
-      return notifyError("Please enter about")
-    }else if(!address){
-      return notifyError("Please enter address")
-    }else if(!country){
-      return notifyError("Please enter country")
-      }
-      
-    try {
-      if (isData) {
-        const supabase = createClient();
-        console.log(user?.id);
-        const { data, error } = await supabase
-          .from("employer_profile")
-          .update({
-            avatar,
-            company_name: companyname,
-            email,
-            website,
-            date: date,
-            company_size: csize,
-            phone_no: phone,
-            category,
-            about,
-            social_links: socialLinks,
-            address,
-            country,
-            city,
-            pincode,
-            state,
-            member,
-          })
-          .eq("id", user?.id);
-        console.log("upadate Data ");
-        if (error) {
-          console.log(error);
-        } else {
-          notifySuccess("Profile Updated Successfully");
-        }
-      } else {
-        if (user) {
-          const supabase = createClient();
-          const { data, error } = await supabase
-            .from("employer_profile")
-            .insert([
-              {
-                id: user?.id,
-                avatar,
-                company_name: companyname,
-                email,
-                website,
-                date: date,
-                company_size: csize,
-                phone_no: phone,
-                category,
-                about,
-                social_links: socialLinks.slice(1, socialLinks.length),
-                address,
-                country,
-                city,
-                pincode,
-                state,
-                member,
-              },
-            ]);
-          console.log("create Data ");
-          console.log(data, error);
-          if (!error) {
-            notifySuccess("Profile Created Successfully");
-          } else {
-            notifyError("something went worng. Please Retry");
-          }
-        }
-      }
-    } catch (error) {
-      console.log(error);
-      console.log("something went worng. Please Retry");
-    }
-  };
-
   return (
     <div className="dashboard-body">
       <div className="position-relative">
@@ -232,22 +238,42 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
 
         <div className="bg-white card-box border-20">
           <EmployUploadPhoto avatar={avatar} setAvatar={setAvatar} />
-          <div className="dash-input-wrapper mb-30">
-            <label htmlFor="">Company Name*</label>
-            <input
-              type="text"
-              placeholder="John Doe"
-              onChange={(e) => setCompanyname(e.target.value)}
-              value={companyname}
-            />
-          </div>
           <div className="row">
+            <div className="col-md-6">
+              <div className="dash-input-wrapper mb-30">
+                <label htmlFor="">Company Name*</label>
+                <input
+                  type="text"
+                  placeholder="Ex : Amazon"
+                  onChange={(e) => setCompanyname(e.target.value)}
+                  value={companyname}
+                />
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="dash-input-wrapper mb-30">
+                <label htmlFor="">Company Type*</label>
+                <NiceSelect
+                  options={[
+                    { value: "Others", label: "Others" },
+                    { value: "Consultancy", label: "consultancye" },
+                    { value: "Private companies", label: "Private companies" },
+                    { value: "Government companies", label: "Government companies" },
+                    { value: "Cooperative company", label: "Cooperative company" },
+                  ]}
+                  defaultCurrent={0}
+                  onChange={(item) => setCompanyType(item)}
+                  name="CompanyType"
+                  cls="category"
+                />
+              </div>
+            </div>
             <div className="col-md-6">
               <div className="dash-input-wrapper mb-30">
                 <label htmlFor="">Email*</label>
                 <input
                   type="email"
-                  placeholder="companyinc@gmail.com"
+                  placeholder="Ex : company@gmail.com"
                   onChange={(e) => setEmail(e.target.value)}
                   value={email}
                 />
@@ -258,7 +284,7 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
                 <label htmlFor="">Website*</label>
                 <input
                   type="text"
-                  placeholder="http://somename.come"
+                  placeholder="Ex : http://google.com"
                   onChange={(e) => setWebsite(e.target.value)}
                   value={website}
                 />
@@ -279,7 +305,7 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
                 <label htmlFor="">Company Size*</label>
                 <input
                   type="text"
-                  placeholder="700"
+                  placeholder="Ex : 300 Vacancy"
                   onChange={(e) => setCsize(e.target.value)}
                   value={csize}
                 />
@@ -290,7 +316,7 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
                 <label htmlFor="">Phone Number*</label>
                 <input
                   type="tel"
-                  placeholder="+880 01723801729"
+                  placeholder="Ex : +91 91723801729"
                   onChange={(e) => setPhone(e.target.value)}
                   value={phone}
                 />
@@ -301,7 +327,7 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
                 <label htmlFor="">Category*</label>
                 <input
                   type="text"
-                  placeholder="Account, Finance, Marketing"
+                  placeholder="Ex : Account, Finance, Marketing"
                   onChange={(e) => setCategory(e.target.value)}
                   value={category}
                 />
@@ -354,7 +380,7 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
             />
             <input
               type="text"
-              placeholder="#"
+              placeholder="Ex : https://instagram.com"
               onChange={(e) =>
                 setSingleLink({ ...singleLink, value: e.target.value })
               }
@@ -374,7 +400,7 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
                 <label htmlFor="">Address*</label>
                 <input
                   type="text"
-                  placeholder="Cowrasta, Chandana, Gazipur Sadar"
+                  placeholder="Ex : Cowrasta, Chandana, Gazipur Sadar"
                   onChange={(e) => setAddress(e.target.value)}
                   value={address}
                 />
@@ -385,7 +411,7 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
                 <label htmlFor="">Country*</label>
                 <input
                   type="text"
-                  placeholder="India"
+                  placeholder="Ex : India"
                   onChange={(e) => setCountry(e.target.value)}
                   value={country}
                 />
@@ -397,7 +423,7 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
                 <label htmlFor="">City*</label>
                 <input
                   type="text"
-                  placeholder="Bengaluru"
+                  placeholder="Ex : Mysore"
                   onChange={(e) => setCity(e.target.value)}
                   value={city}
                 />
@@ -409,7 +435,7 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
                 <label htmlFor="">Pin Code*</label>
                 <input
                   type="number"
-                  placeholder="57000"
+                  placeholder="573201"
                   onChange={(e) => setPinCode(e.target.value)}
                   value={pincode}
                 />
@@ -420,7 +446,7 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
                 <label htmlFor="">State*</label>
                 <input
                   type="text"
-                  placeholder="Karnataka"
+                  placeholder="Ex : Karnataka"
                   onChange={(e) => setState(e.target.value)}
                   value={state}
                 />
@@ -446,12 +472,28 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
         <AddMember member={member} setMember={setMember} />
 
         <div className="button-group d-inline-flex align-items-center mt-30">
-          <a className="dash-btn-two tran3s me-3" onClick={handleSave}>
-            Save
-          </a>
-          <a className="dash-cancel-btn tran3s" onClick={handleCancle}>
+        {isUploading ? (
+            <button
+              className="btn-eleven fw-500 tran3s d-block mt-20"
+              type="button"
+              disabled
+            >
+              <span
+                className="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              Loading...
+            </button>
+          ) : (
+            
+            <button className="dash-btn-two tran3s me-3" onClick={handleSave}>
+                Save
+              </button>
+          )}
+          <button className="dash-cancel-btn tran3s" onClick={handleCancle}>
             Cancel
-          </a>
+          </button>
         </div>
       </div>
     </div>
