@@ -6,13 +6,13 @@ const Job_Type = ({ jobType, setJobType }: any) => {
 
   return (
     <div className="dash-input-wrapper mb-30">
-      <label htmlFor="">Job Type</label>
+      <label htmlFor="">Job Type*</label>
       <NiceSelect
         options={[
           { value: "Full time", label: "Full time" },
           { value: "Part time", label: "Part time" },
           { value: "Hourly-Contract", label: "Hourly-Contract" },
-          { value: "Fixed-Price", label: "Fixed-Price" },
+          
         ]}
         defaultCurrent={0}
         onChange={(item) => setJobType(item.value)}

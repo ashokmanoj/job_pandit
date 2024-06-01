@@ -9,7 +9,7 @@ const EmployExperience = ({
  return (
      <div className="col-md-6">
         <div className="dash-input-wrapper mb-30">
-          <label htmlFor="">Experience*</label>
+          <label htmlFor="">Experience <span className="text-danger">*</span></label>
           <NiceSelect
             options={[
               { value: "Any", label: "Any" },
