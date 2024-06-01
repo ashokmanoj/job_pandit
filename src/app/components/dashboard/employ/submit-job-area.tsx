@@ -13,6 +13,7 @@ import Education from "./Education";
 import NiceSelect from "@/ui/nice-select";
 import { useUserStore } from "@/lib/store/user";
 import Category from "./category";
+import { redirect } from "next/navigation";
 
 // props type
 type IProps = {
@@ -63,18 +64,19 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
     setEducation({ label: "", value: "" });
     setWorkMode({ label: "", value: "" });
     setCandidate({ label: "", value: "" });
+    setVacancy(0);
     setIsData(true);
   };
 
-  async function handleSave() {
+  async function handlePost() {
     if (!title) {
       notifyError("Please Enter Title");
       return;
     } else if (!category) {
       notifyError("Please Enter Category");
       return;
-    } else if (!description) {
-      notifyError("Please Enter Description");
+    } else if (description.length < 500) {
+      notifyError("Description Must be 500 charecters");
       return;
     } else if (!min) {
       notifyError("Please Enter Min");
@@ -110,7 +112,7 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
       return notifyError("Please Enter Candidate");
     } else if (!workmode) {
       return notifyError("Please Enter Work Mode");
-    } else if (!vacancy){
+    } else if (!vacancy) {
       return notifyError("Please Enter Vacancy");
     }
     else {
@@ -134,8 +136,7 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
           notifyError("Error updating data");
           setIsData(false);
         } else {
-          notifySuccess("Profile Updated Successfully");  
-
+          notifySuccess("Profile Updated Successfully");
         }
       } else {
         const { data, error } = await supabase.from("job_posts").insert([
@@ -154,7 +155,10 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
         console.log("data created");
         console.log(data, error);
         if (!error) {
-          notifySuccess("Profile Created Successfully");
+          notifySuccess("Job Posted Successfully");
+          window.location.reload();
+
+          
         } else {
           notifyError("something went worng. Please Retry");
         }
@@ -228,6 +232,7 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
               onChange={(e) => setDescription(e.target.value)}
               value={description}
             ></textarea>
+            <div className={description.length < 500 ? `text-danger` : `text-success`}>{description.length}{" "}Charecters</div>
           </div>
           <div className="row align-items-end">
             <div className="col-md-6">
@@ -241,7 +246,7 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
             </div>
             <div className="col-md-3">
               <div className="dash-input-wrapper mb-30">
-              <label htmlFor="">Max-Salary*</label> 
+                <label htmlFor="">Max-Salary*</label>
                 <input
                   type="number"
                   placeholder="Ex : 2,50,000"
@@ -251,7 +256,7 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
             </div>
             <div className="col-md-3">
               <div className="dash-input-wrapper mb-30">
-              <label htmlFor="">Max-Salary*</label> 
+                <label htmlFor="">Max-Salary*</label>
                 <input
                   type="number"
                   placeholder="Ex : 3,50,000"
@@ -306,8 +311,8 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
               </div>
             </div>
             <div className="col-md-6">
-            <div className="dash-input-wrapper mb-30">
-              <label htmlFor="">Vacancy<span className="text-danger">*</span></label> 
+              <div className="dash-input-wrapper mb-30">
+                <label htmlFor="">Vacancy<span className="text-danger">*</span></label>
                 <input
                   type="number"
                   placeholder="Ex : 100 Vacances"
@@ -325,7 +330,7 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
                 />
               </div>
             </div>
-            
+
           </div>
 
 
@@ -346,7 +351,7 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
         </div>
 
         <div className="button-group d-inline-flex align-items-center mt-30">
-        {isUploading ? (
+          {isUploading ? (
             <button
               className="btn-eleven fw-500 tran3s d-block mt-20"
               type="button"
@@ -360,10 +365,10 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
               Loading...
             </button>
           ) : (
-            
-            <a href="#" className="dash-btn-two tran3s me-3" onClick={handleSave}>
-            Save
-          </a>
+
+            <a className="dash-btn-two tran3s me-3" onClick={handlePost}>
+              Post
+            </a>
           )}
           <a
             href="#"
