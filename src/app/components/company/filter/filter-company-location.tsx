@@ -4,8 +4,8 @@ import useCompanyFilterStore from '@/lib/store/company';
 import slugify from 'slugify';
 
 
-const FilterCompanyLocation = ({company_data}: {company_data: any[]}) => {
-  const uniqueLocations = [...new Set(company_data.map(c => c.city))];
+const FilterCompanyLocation = ({company_data}: {company_data?: any[]}) => {
+  const uniqueLocations = [...new Set(company_data?.map(c => c.city))];
   const {  setLocation } = useCompanyFilterStore((state) => state);
   const handleLocation = (item: { value: string; label: string }) => { 
     setLocation(item.value)
