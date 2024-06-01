@@ -33,7 +33,7 @@ const CategorySectionSix = ({style_2=true}:{style_2?:boolean}) => {
               className="card-style-seven bg-color text-center mt-15 wow fadeInUp"
               data-wow-delay={`0.${i + 1}s`}
             >
-              <Link href="/job-grid-v3"
+              <Link href="/job-list"
                 className="wrapper d-flex align-items-center"
                 style={{background:style_2?`${item.bg_clr}`:''}}
               >
@@ -46,7 +46,7 @@ const CategorySectionSix = ({style_2=true}:{style_2?:boolean}) => {
           ))}
         </div>
         <div className="text-center mt-40 d-lg-none">
-          <Link href="/job-grid-v2" className="btn-six">
+          <Link href="/job-list" className="btn-six">
             Explore all fields
           </Link>
         </div>

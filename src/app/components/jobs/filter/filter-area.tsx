@@ -14,8 +14,9 @@ type IProps = {
   priceValue: number[]
   setPriceValue: React.Dispatch<React.SetStateAction<number[]>>;
   maxPrice:number;
+  job_data:any[];
 }
-const FilterArea = ({priceValue,setPriceValue,maxPrice}:IProps) => {
+const FilterArea = ({priceValue,setPriceValue,maxPrice,job_data}:IProps) => {
   const {resetFilter} = useFilterStore((state) => state)
   // handleReset
   const handleReset = () => {
@@ -31,7 +32,7 @@ const FilterArea = ({priceValue,setPriceValue,maxPrice}:IProps) => {
           <a className="filter-title fw-500 text-dark" data-bs-toggle="collapse" href="#collapseLocation" role="button" aria-expanded="false">Location</a>
           <div className="collapse show" id="collapseLocation">
             <div className="main-body">
-              <JobLocations/>
+              <JobLocations job_data={job_data}/>
             </div>
           </div>
         </div>
@@ -39,14 +40,14 @@ const FilterArea = ({priceValue,setPriceValue,maxPrice}:IProps) => {
         <div className="filter-block bottom-line pb-25 mt-25">
           <a className="filter-title fw-500 text-dark" data-bs-toggle="collapse" href="#collapseJobType" role="button" aria-expanded="false">Job Type</a>
           <div className="collapse show" id="collapseJobType">
-            <JobType/>
+            <JobType job_data={job_data}/>
           </div> 
         </div>
         {/* <!-- /.filter-block --> */}
         <div className="filter-block bottom-line pb-25 mt-25">
           <a className="filter-title fw-500 text-dark" data-bs-toggle="collapse" href="#collapseExp" role="button" aria-expanded="false">Experience</a>
           <div className="collapse show" id="collapseExp">
-            <JobExperience/>
+            <JobExperience job_data={job_data}/>
           </div>
         </div>
         {/* <!-- /.filter-block --> */}
@@ -60,14 +61,14 @@ const FilterArea = ({priceValue,setPriceValue,maxPrice}:IProps) => {
         <div className="filter-block bottom-line pb-25 mt-25">
           <a className="filter-title fw-500 text-dark collapsed" data-bs-toggle="collapse" href="#collapseCategory" role="button" aria-expanded="false">Category</a>
           <div className="collapse" id="collapseCategory">
-            <JobCategory/>
+            <JobCategory job_data={job_data}/>
           </div>
         </div>
         {/* <!-- /.filter-block --> */}
         <div className="filter-block bottom-line pb-25 mt-25">
-          <a className="filter-title fw-500 text-dark collapsed" data-bs-toggle="collapse" href="#collapseTag" role="button" aria-expanded="false">Tags</a>
+          <a className="filter-title fw-500 text-dark collapsed" data-bs-toggle="collapse" href="#collapseTag" role="button" aria-expanded="false">Skill</a>
           <div className="collapse" id="collapseTag">
-            <JobTags/>
+            <JobTags  job_data={job_data}/>
           </div>
         </div>
         {/* <!-- /.filter-block --> */}

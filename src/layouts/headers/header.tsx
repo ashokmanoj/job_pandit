@@ -34,7 +34,7 @@ const Header =  ({}) => {
                   
                 </li>
                 <li className="d-none d-md-block ms-4">
-                  {user ?  <Link href={user.role === 'company' ? '/dashboard/employ-dashboard' : user.role === 'candidate' ? '/dashboard/candidate-dashboard':'/confim-role'} className="btn-one">
+                  {user ?  <Link href={user.role === 'company' ? '/dashboard/employ-dashboard' : user.role === 'candidate' ? '/dashboard/candidate-dashboard':'/confirm-role'} className="btn-one">
                     Dashboard
                   </Link> :<a
                     href=''

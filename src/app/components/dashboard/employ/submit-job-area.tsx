@@ -34,9 +34,8 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
   const [fileName, setFileName] = useState<string>("");
   const [isData, setIsData] = useState<boolean>(false);
 
-  const [workmode, setWorkMode] = useState<any>({ label: "", value: "", });
-  const [candidate, setCandidate] = useState<any>({ label: "", value: "", });
-  const [uploading, setUploading] = useState<boolean>(false);
+  const [workmode, setWorkMode] = useState<string>('');
+  const [candidate, setCandidate] = useState<string>('');
   const [jobPostId, setJobPostId] = useState<number>(0);
   const [isUploading, setIsUploading] = useState<boolean>(false);
 
@@ -59,8 +58,8 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
     setJobType({ label: "", value: "" });
     setSalaryType({ label: "", value: "" });
     setEducation({ label: "", value: "" });
-    setWorkMode({ label: "", value: "" });
-    setCandidate({ label: "", value: "" });
+    setWorkMode('');
+    setCandidate('');
     setIsData(true);
   };
 
@@ -110,7 +109,7 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
       return notifyError("Please Enter Work Mode");
     }
     else {
-      setUploading(true);
+      setIsUploading(true);
       if (isData) {
         const { data, error } = await supabase
           .from("job_posts")
@@ -154,7 +153,7 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
         }
       }
     }
-    setUploading(false);
+    setIsUploading(false);
   };
 
   useEffect(() => {
@@ -279,10 +278,10 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
                   options={[
                     { value: "Hybride", label: "Hybride" },
                     { value: "Remote", label: "Remote" },
-                    { value: "Work From Office", label: "Work From Office" },
+                    { value: "Office", label: "Office" },
                   ]}
                   defaultCurrent={0}
-                  onChange={(item) => setWorkMode(item)}
+                  onChange={(item) => setWorkMode(item.value)}
                   name="WorkMode"
                   cls="category"
                 />
@@ -294,11 +293,11 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
                 <NiceSelect
                   options={[
                     { value: "Both", label: "Both" },
-                    { value: "Male Candidate", label: "Male Candidate" },
-                    { value: "Female Candidate", label: "Female Candidate" },
+                    { value: "Male", label: "Male Candidates" },
+                    { value: "Female", label: "Female Candidates" },
                   ]}
                   defaultCurrent={0}
-                  onChange={(item) => setCandidate(item)}
+                  onChange={(item) => setCandidate(item.value)}
                   name="Candidate"
                   cls="category"
                 />

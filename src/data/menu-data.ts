@@ -8,11 +8,12 @@ const menu_data: IMenuData[] = [
   },
   {
     id: 2,
-    link: "/job-list-v1",
+    link: "/job-list",
     title: "Jobs",
     sub_menus: [
-      { link: "/job-list-v1", title: "All Jobs" },
+      { link: "/job-list", title: "All Jobs" },
       { link: "/company-v1", title: "Companies" },
+      { link: "/candidates-v1", title: "Candidates" },
     ],
   },
   {

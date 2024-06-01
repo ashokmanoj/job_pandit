@@ -1,12 +1,17 @@
 import React from 'react';
 import NiceSelect from '@/ui/nice-select';
-import company_data from '@/data/company-data';
+import useCompanyFilterStore from '@/lib/store/company';
+import slugify from 'slugify';
 
-const FilterCompanyLocation = () => {
-  const uniqueLocations = [...new Set(company_data.map(c => c.location))];
-  const handleLocation = (item: { value: string; label: string }) => {};
+
+const FilterCompanyLocation = ({company_data}: {company_data: any[]}) => {
+  const uniqueLocations = [...new Set(company_data.map(c => c.city))];
+  const {  setLocation } = useCompanyFilterStore((state) => state);
+  const handleLocation = (item: { value: string; label: string }) => { 
+    setLocation(item.value)
+  };
   const options = uniqueLocations.map((l) => {
-    return {value:l,label:l}
+    return {value:slugify(l.split(',').join('-').toLowerCase(),'-'),label:l}
   })
   return (
     <NiceSelect

@@ -12,7 +12,6 @@ const setUser = useUserStore((state) => state.setUser)
         if(session){
             const {data,error} = await supabase.from('user_role').select('*').eq('id',session.user.id).single();
             if(data){
-              console.log(data);
                 setUser(data);
             }
         }

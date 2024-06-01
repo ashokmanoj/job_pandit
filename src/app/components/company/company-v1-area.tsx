@@ -1,16 +1,63 @@
 "use client";
-import React, { useState } from "react";
-import Image from "next/image";
-import last_icon from "@/assets/images/icon/icon_50.svg";
+import React, { useEffect, useState } from "react";
 import CompanyV1Filter from "./filter/company-v1-filter";
 import ShortSelect from "../common/short-select";
-import company_data from "@/data/company-data";
 import CompanyGridItem from "./company-grid-item";
 import CompanyListItem from "./company-list-item";
 import CompanyPagination from "./company-pagination";
+import useCompanyFilterStore from "@/lib/store/company";
+import slugify from "slugify";
+import Pagination from "@/ui/pagination";
 
-const CompanyV1Area = ({ style_2 = false }: { style_2?: boolean }) => {
+
+const CompanyV1Area = ({ style_2 = false,company_data }: { style_2?: boolean ,company_data: any[]}) => {
   const [jobType, setJobType] = useState<string>(style_2 ? "list" : "grid");
+  console.log(company_data,"company_data");
+  const { category, location,company_type} = useCompanyFilterStore((state) => state);
+  const [currentItems, setCurrentItems] = useState<any[] | null>(null);
+  const [filterItems, setFilterItems] = useState<any[]>([]);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+
+  const [shortValue, setShortValue] = useState('');
+
+  useEffect(() => {
+    // Filter the job_data array based on the selected filters
+    let filteredData = company_data
+     
+      .filter((item) => (company_type ? item.company_Type === company_type : true))
+      .filter((l) => location ? slugify(l.city.split(',').join('-').toLowerCase(),'-') === location : true)
+      .filter((item)=>(category?item.category === category : true))
+      
+
+      // if (shortValue === 'price-low-to-high') {
+      //   filteredData = filteredData.slice()
+      //     .sort((a, b) => Number(a.max_salary) - Number(b.max_salary) || Number(a.max_salary) - Number(b.max_salary))
+      // }
+    
+      // if (shortValue === 'price-high-to-low') {
+      //   filteredData = filteredData.slice()
+      //     .sort((a, b) => Number(b.max_salary) - Number(a.max_salary));
+      // }
+    const endOffset = itemOffset + 8;
+    setFilterItems(filteredData)
+    setCurrentItems(filteredData.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(filteredData.length / 8));
+  }, [
+    itemOffset,
+    category,
+    company_type,
+    location,
+    shortValue
+  ]);
+
+  const handlePageClick = (event: { selected: number }) => {
+    const newOffset = (event.selected * 8) % company_data.length;
+    setItemOffset(newOffset);
+  };
+  const handleShort = (item: { value: string; label: string }) => {
+    setShortValue(item.value)
+  }
   return (
     <section className="company-profiles pt-110 lg-pt-80 pb-160 xl-pb-150 lg-pb-80">
       <div className="container">
@@ -37,7 +84,7 @@ const CompanyV1Area = ({ style_2 = false }: { style_2?: boolean }) => {
               ></button>
               <div className="main-title fw-500 text-dark">Filter By</div>
               {/* CompanyV1Filter */}
-              <CompanyV1Filter />
+              <CompanyV1Filter company_data={company_data} />
               {/* CompanyV1Filter */}
             </div>
           </div>
@@ -46,7 +93,7 @@ const CompanyV1Area = ({ style_2 = false }: { style_2?: boolean }) => {
             <div className="ms-xxl-5 ms-xl-3">
               <div className="upper-filter d-flex justify-content-between align-items-center mb-20">
                 <div className="total-job-found">
-                  All <span className="text-dark fw-500">320</span> company
+                  All <span className="text-dark fw-500">{company_data.length}</span> company
                   found
                 </div>
                 <div className="d-flex align-items-center">
@@ -94,13 +141,33 @@ const CompanyV1Area = ({ style_2 = false }: { style_2?: boolean }) => {
                 ))}
               </div>
 
-              <div className="pt-50 lg-pt-20 d-sm-flex align-items-center justify-content-between">
+              {/* <div className="pt-50 lg-pt-20 d-sm-flex align-items-center justify-content-between">
                 <p className="m0 order-sm-last text-center text-sm-start xs-pb-20">
                   Showing <span className="text-dark fw-500">1 to 20</span> of{" "}
                   <span className="text-dark fw-500">350</span>
                 </p>
                 <CompanyPagination/>
-              </div>
+              </div> */}
+              {currentItems && (
+                <div className="pt-30 lg-pt-20 d-sm-flex align-items-center justify-content-between">
+                  <p className="m0 order-sm-last text-center text-sm-start xs-pb-20">
+                    Showing{" "}
+                    <span className="text-dark fw-500">{itemOffset + 1}</span>{" "}
+                    to{" "}
+                    <span className="text-dark fw-500">
+                      {Math.min(itemOffset + 8, currentItems.length)}
+                    </span>{" "}
+                    of{" "}
+                    <span className="text-dark fw-500">{filterItems.length}</span>
+                  </p>
+                  {filterItems.length > 8 && (
+                    <Pagination
+                      pageCount={pageCount}
+                      handlePageClick={handlePageClick}
+                    />
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>

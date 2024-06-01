@@ -1,19 +1,21 @@
 import React from "react";
-import job_data from "@/data/job-data";
 import ListItem from "./list-item";
 import Link from "next/link";
+import { fetchJobs } from "@/hooks/server-request/job_post";
 
-export function JobListItems({style_2=false}:{style_2?:boolean}) {
+export function JobListItems({style_2=false ,jobs}:{style_2?:boolean,jobs:any}) {
   return (
     <>
-      {job_data.slice(0, 5).map((item) => (
+      {jobs.slice(0, 5).map((item:any) => (
         <ListItem key={item.id} item={item} style_2={style_2} />
       ))}
     </>
   )
 }
 
-const JobListOne = () => {
+const JobListOne = async () => {
+  const jobs = await fetchJobs();
+  
   return (
     <>
       <section className="job-listing-one mt-180 xl-mt-150 lg-mt-100">
@@ -37,11 +39,11 @@ const JobListOne = () => {
           </div>
 
           <div className="job-listing-wrapper border-wrapper mt-80 lg-mt-40 wow fadeInUp">
-            <JobListItems />
+            <JobListItems jobs={jobs} />
           </div>
 
           <div className="text-center mt-40 d-lg-none">
-            <Link href="/job-list-v1" className="btn-six">
+            <Link href="/job-list" className="btn-six">
               Explore all jobs
             </Link>
           </div>

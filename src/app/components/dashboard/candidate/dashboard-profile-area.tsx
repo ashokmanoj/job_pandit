@@ -353,7 +353,7 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
         <div className="bg-white card-box border-20 mt-40">
           <h4 className="dash-title-three">Social Media</h4>
           {socialLinks?.map((link: any, index: number) => {
-            if (index >= 0) {
+            if (index >= 0 && link.value!=="") {
               return (
                 <div
                   className="dash-input-wrapper mb-20 d-flex gap-2"
