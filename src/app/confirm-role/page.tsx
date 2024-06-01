@@ -13,13 +13,18 @@ export const metadata: Metadata = {
 
 const ConfirmRolePage = async () => {
   const role = await getRole();
-  if (!role) {
+  if(!role){
     redirect('/register');
-  }else if( role ==='user'){
-    redirect('/confirm-role');
-  }{
-    redirect('/');
   }
+  if(role==='candidate'){
+    redirect('/dashboard/candidate-dashboard/');
+  }
+  if(role==='company'){
+    redirect('/dashboard/employ-dashboard/');
+  }
+ if(role !=='user'){
+   redirect('/');
+ }
 
   return (
     <Wrapper>

@@ -1,18 +1,19 @@
 import React from 'react';
-import { IJobType } from '@/types/job-data-type';
 import Image from 'next/image';
+import formatAmount from '@/hooks/funcs/formateAmount';
 
-const JobDetailsV1Area = ({job}:{job:IJobType}) => {
+const JobDetailsV1Area = ({job}:{job:any}) => {
+	
   return (
     <section className="job-details pt-100 lg-pt-80 pb-130 lg-pb-80">
 			<div className="container">
 				<div className="row">
 					<div className="col-xxl-9 col-xl-8">
 						<div className="details-post-data me-xxl-5 pe-xxl-4">
-							<div className="post-date">{job.date} by <a href="#" className="fw-500 text-dark">{job.company}</a></div>
-							<h3 className="post-title">{job.title}</h3>
+							<div className="post-date">{new Date(job?.created_at).toDateString()} by <a href="#" className="fw-500 text-dark">{job?.company.company_name}</a></div>
+							<h3 className="post-title">{job?.title}</h3>
 							<ul className="share-buttons d-flex flex-wrap style-none">
-								<li><a href="#" className="d-flex align-items-center justify-content-center">
+								{/* <li><a href="#" className="d-flex align-items-center justify-content-center">
 									<i className="bi bi-facebook"></i>
 									<span>Facebook</span>
 								</a></li>
@@ -23,7 +24,16 @@ const JobDetailsV1Area = ({job}:{job:IJobType}) => {
 								<li><a href="#" className="d-flex align-items-center justify-content-center">
 									<i className="bi bi-link-45deg"></i>
 									<span>Copy</span>
-								</a></li>
+								</a></li> */}
+								{job?.company?.social_links?.map((link:any, index:number) => (
+									<li key={index}>
+										<a href={link.value} className="d-flex align-items-center justify-content-center">
+											<i className={link.label==="LinkedIn"?`bi bi-linkedin`:link.label==="Facebook"?`bi bi-twitter`:link.label==="Twitter"?`bi bi-twitter`:link.label==="Instagram"?`bi bi-instagram`:link.label==="YouTube"?`bi bi-youtube`:"bi bi-link-45deg"}></i>
+											<span>{link.label}</span>
+										</a>
+									</li>
+								))}
+								
 							</ul>
 
 							<div className="post-block border-style mt-50 lg-mt-30">
@@ -31,15 +41,14 @@ const JobDetailsV1Area = ({job}:{job:IJobType}) => {
 									<div className="block-numb text-center fw-500 text-white rounded-circle me-2">1</div>
 									<h4 className="block-title">Overview</h4>
 								</div>
-								<p>{job.overview}</p>
+								<p>{job?.company.about}</p>
 							</div>
 							<div className="post-block border-style mt-30">
 								<div className="d-flex align-items-center">
 									<div className="block-numb text-center fw-500 text-white rounded-circle me-2">2</div>
 									<h4 className="block-title">Job Description</h4>
 								</div>
-								<p>As a <a href="#">Product Designer</a> at WillowTree, you’ll give form to ideas by being the voice and owner of product decisions. You’ll drive the design direction, and then make it happen!</p>
-								<p>We understand our responsibility to create a diverse, equitable, and inclusive place within the tech industry, while pushing to make our industry more representative. </p>
+								<p>{job?.description}</p>
 							</div>
 							<div className="post-block border-style mt-40 lg-mt-30">
 								<div className="d-flex align-items-center">
@@ -89,18 +98,22 @@ const JobDetailsV1Area = ({job}:{job:IJobType}) => {
 
 					<div className="col-xxl-3 col-xl-4">
 						<div className="job-company-info ms-xl-5 ms-xxl-0 lg-mt-50">
-							<Image src={job.logo} alt="logo" className="lazy-img m-auto logo" width={60} height={60}/>
-							<div className="text-md text-dark text-center mt-15 mb-20 text-capitalize">{job.company}</div>
-							<a href="#" className="website-btn tran3s">Visit website</a>
+						<Image src={job?.company?.avatar ?`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/employer_avatars/${job.company?.avatar}`:"/assets/images/candidates/01.png"} alt="company-logo" className="lazy-img rounded-circle m-auto" style={{objectFit:"cover", width:"auto", height:"auto"}} width={60} height={60} />
+							<div className="text-md text-dark text-center mt-15 mb-20 text-capitalize">{job.company.company_name}</div>
+							<a href={job.company.website} className="website-btn tran3s">Visit website</a>
 
 							<div className="border-top mt-40 pt-40">
 								<ul className="job-meta-data row style-none">
 									<li className="col-xl-7 col-md-4 col-sm-6">
 										<span>Salary</span>
-										<div>{job.salary}/{job.salary_duration}</div>
+										<div>₹ {formatAmount(job.min_salary)}-{formatAmount(job.max_salary)}/{job.salary_type}</div>
+									</li>
+									<li className="col-xl-7 col-md-4 col-sm-6">
+										<span>Qualification</span>
+										<div>{job.education}</div>
 									</li>
 									<li className="col-xl-5 col-md-4 col-sm-6">
-										<span>Expertise</span>
+										<span>Experience</span>
 										<div>{job.experience}</div>
 									</li>
 									<li className="col-xl-7 col-md-4 col-sm-6">
@@ -109,19 +122,19 @@ const JobDetailsV1Area = ({job}:{job:IJobType}) => {
 									</li>
 									<li className="col-xl-5 col-md-4 col-sm-6">
 										<span>Job Type</span>
-										<div>{job.duration}</div>
+										<div>{job.job_type}</div>
 									</li>
 									<li className="col-xl-7 col-md-4 col-sm-6">
 										<span>Date</span>
-										<div>{job.date}  </div>
+										<div>{new Date(job?.created_at).toDateString()}  </div>
 									</li>
 									<li className="col-xl-5 col-md-4 col-sm-6">
-										<span>Experience</span>
-										<div>{job.experience}</div>
+										<span>Work Mode</span>
+										<div>{job.workmode}</div>
 									</li>
 								</ul>
 								<div className="job-tags d-flex flex-wrap pt-15">
-									{job.tags && job.tags.map((t,i) => (
+									{job.skills && job.skills.map((t:string,i:number) => (
 									<a key={i} href="#">{t}</a>
 									))}
 								</div>

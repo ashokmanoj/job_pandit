@@ -15,7 +15,6 @@ const CandidateDashboardPage = async () => {
    redirect('/');
  }
 
- 
   return (
     <Wrapper>
       <CandidateDashboardMain />

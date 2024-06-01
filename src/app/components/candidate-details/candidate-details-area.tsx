@@ -73,7 +73,7 @@ const CandidateDetailsArea = ({ candidate }: { candidate: any }) => {
                 <div className="cadidate-bio bg-wrapper bg-color mb-60 md-mb-40">
                   <div className="pt-25">
                     <div className="cadidate-avatar m-auto">
-                      <Image src={candidate?.profile?.avatar ? `https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/avatars/${candidate?.profile?.avatar}` : "/assets/images/candidates/01.png"} alt="avatar" className="lazy-img rounded-circle border w-100" width={50} height={85} />
+                      <Image src={candidate?.profile?.avatar ? `https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/avatars/${candidate?.profile?.avatar}` : "/assets/images/candidates/01.png"} alt="avatar" className="lazy-img rounded-circle border w-100" width={70} height={70} style={{height:'100%', width:'100%', objectFit:'cover'}} />
                     </div>
                   </div>
                   <h3 className="cadidate-name text-center">{candidate?.profile?.name}</h3>

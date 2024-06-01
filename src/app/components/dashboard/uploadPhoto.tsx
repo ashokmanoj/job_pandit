@@ -67,7 +67,7 @@ const UploadPhoto = ({ avatar, setAvatar }: { avatar: string; setAvatar: any }) 
 
   return (
     <div className="user-avatar-setting d-flex align-items-center mb-30">
-      <Image src={avatar ?`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/avatars/${avatar}`:"/assets/images/candidates/01.png"} alt="avatar" className="lazy-img user-img" width={100} height={100}/>
+      <Image src={avatar ?`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/avatars/${avatar}`:"/assets/images/candidates/01.png"} alt="avatar" className="lazy-img user-img" width={100} height={100} style={{ objectFit: "cover"}}/>
       <div className="upload-btn position-relative tran3s ms-4 me-3">
         {uploading ? `Uploading... ${uploadProgress}%` : "Upload new photo"}
         <input type="file" id="uploadImg" name="uploadImg" placeholder="" onChange={handleUpload} />
