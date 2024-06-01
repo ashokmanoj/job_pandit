@@ -111,7 +111,7 @@ const DashboardPortfolio = ({projects,setProjects}:{projects:any ,setProjects:an
                 </div>
                 <div className="col-lg-10">
                   <div className="dash-input-wrapper mb-30">
-                    <input type="text" placeholder="Product Designer (Google)"   onChange={(e)=>setVal({...val,title:e.target.value})} value={val.title} />
+                    <input type="text" placeholder="Ex : AI Chatbot (Group Project)"   onChange={(e)=>setVal({...val,title:e.target.value})} value={val.title} />
                   </div>
                 </div>
               </div>
@@ -125,7 +125,7 @@ const DashboardPortfolio = ({projects,setProjects}:{projects:any ,setProjects:an
                 <div className="col-lg-10">
                 <div className="dash-input-wrapper mb-30 md-mb-10">
                     
-                      <input type="file" id="uploadImg" name="uploadImg" placeholder="" className="pt-2" onChange={(e)=>{e.target.files && e.target.files[0] && setFile(e.target.files[0])}} />
+                      <input type="file" id="uploadImg" name="uploadImg" placeholder="Upload your project photo" className="pt-2" onChange={(e)=>{e.target.files && e.target.files[0] && setFile(e.target.files[0])}} />
                 
                     </div>
                 </div>
@@ -138,7 +138,7 @@ const DashboardPortfolio = ({projects,setProjects}:{projects:any ,setProjects:an
                 </div>
                 <div className="col-lg-10">
                   <div className="dash-input-wrapper mb-30">
-                    <input type="text" placeholder="https://www.google.com" onChange={(e)=>{setVal({...val,url:e.target.value})}} value={val.url} />
+                    <input type="text" placeholder="Ex : https://www.github.com ( put your project link here..)" onChange={(e)=>{setVal({...val,url:e.target.value})}} value={val.url} />
                   </div>
 
                 </div>
@@ -152,7 +152,7 @@ const DashboardPortfolio = ({projects,setProjects}:{projects:any ,setProjects:an
                 </div>
                 <div className="col-lg-10">
                   <div className="dash-input-wrapper mb-30">
-                    <textarea className="size-lg" placeholder="Morbi ornare ipsum sed sem condimentum, et pulvinar tortor luctus. Suspendisse condimentum lorem ut elementum aliquam et pulvinar tortor luctus." onChange={(e)=>{setVal({...val,description:e.target.value})}} value={val.description}></textarea>
+                    <textarea className="size-lg" placeholder="Write something about your projrct...." onChange={(e)=>{setVal({...val,description:e.target.value})}} value={val.description}></textarea>
                   </div>
                 </div>
               </div>

@@ -62,7 +62,7 @@ const AddEducation = ({ education, setEducation }: { education: any, setEducatio
                 </div>
                 <div className="col-lg-10">
                   <div className="dash-input-wrapper mb-30">
-                    <input type="text" placeholder="Product Designer (Google)" value={eduVal.title} onChange={(e) => setEduVal({ ...eduVal, title: e.target.value })} />
+                    <input type="text" placeholder="Ex : Degree" value={eduVal.title} onChange={(e) => setEduVal({ ...eduVal, title: e.target.value })} />
                   </div>
                 </div>
               </div>
@@ -75,7 +75,7 @@ const AddEducation = ({ education, setEducation }: { education: any, setEducatio
                 </div>
                 <div className="col-lg-10">
                   <div className="dash-input-wrapper mb-30">
-                    <input type="text" placeholder="Google Arts Collage & University" value={eduVal.college} onChange={(e) => setEduVal({ ...eduVal, college: e.target.value })} />
+                    <input type="text" placeholder="Ex : Google Arts Collage & University" value={eduVal.college} onChange={(e) => setEduVal({ ...eduVal, college: e.target.value })} />
                   </div>
 
                 </div>
@@ -111,7 +111,7 @@ const AddEducation = ({ education, setEducation }: { education: any, setEducatio
                 </div>
                 <div className="col-lg-10">
                   <div className="dash-input-wrapper mb-30">
-                    <textarea className="size-lg" placeholder="Morbi ornare ipsum sed sem condimentum, et pulvinar tortor luctus. Suspendisse condimentum lorem ut elementum aliquam et pulvinar tortor luctus." value={eduVal.description} onChange={(e) => setEduVal({ ...eduVal, description: e.target.value })}></textarea>
+                    <textarea className="size-lg" placeholder="Write something about your education........." value={eduVal.description} onChange={(e) => setEduVal({ ...eduVal, description: e.target.value })}></textarea>
                   </div>
                 </div>
               </div>

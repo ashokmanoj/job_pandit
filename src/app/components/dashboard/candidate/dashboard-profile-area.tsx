@@ -238,7 +238,7 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
             <label htmlFor="">Full Name<span className="text-danger">*</span></label>
             <input
               type="text"
-              placeholder="Ex: Madhu Kiran"
+              placeholder="Ex : Madhu Kiran"
               onChange={(e) => setName(e.target.value)}
               value={name}
             />
@@ -247,7 +247,7 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
             <label htmlFor="">Contact Email <span className="text-danger">*</span></label>
             <input
               type="email"
-              placeholder="Ex: madhu@email.com"
+              placeholder="Ex : madhu@email.com"
               onChange={(e) => setcontactEmail(e.target.value)}
               value={contactEmail}
             />
@@ -384,7 +384,7 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
             </div>
             <input
               type="text"
-              placeholder="#"
+              placeholder="Ex : https://twitter.com"
               onChange={(e) =>
                 setSingleLink({ ...singleLink, value: e.target.value })
               }
@@ -409,7 +409,7 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
                 <label htmlFor="">Address*</label>
                 <input
                   type="text"
-                  placeholder="Cowrasta, Chandana, Gazipur Sadar"
+                  placeholder="Ex : Saraswathipuram, Mysore, Karnataka"
                   onChange={(e) => setAddress(e.target.value)}
                   value={address}
                 />
@@ -420,7 +420,7 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
                 <label htmlFor="">Country*</label>
                 <input
                   type="text"
-                  placeholder="India"
+                  placeholder="Ex : India"
                   onChange={(e) => setCountry(e.target.value)}
                   value={country}
                 />
@@ -432,7 +432,7 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
                 <label htmlFor="">City*</label>
                 <input
                   type="text"
-                  placeholder="Bengaluru"
+                  placeholder="Ex : Mysore"
                   onChange={(e) => setCity(e.target.value)}
                   value={city}
                 />
@@ -444,7 +444,7 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
                 <label htmlFor="">Pin Code*</label>
                 <input
                   type="number"
-                  placeholder="57000"
+                  placeholder="Ex : 573201"
                   onChange={(e) => setPinCode(e.target.value)}
                   value={pincode}
                 />
@@ -455,7 +455,7 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
                 <label htmlFor="">State*</label>
                 <input
                   type="text"
-                  placeholder="Karnataka"
+                  placeholder="Ex : Karnataka"
                   onChange={(e) => setState(e.target.value)}
                   value={state}
                 />
