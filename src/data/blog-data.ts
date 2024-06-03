@@ -1,7 +1,7 @@
 import { IBlogDataType } from '@/types/blog-type';
-import blog_1 from '@/assets/images/blog/blog_img_01.jpg';
-import blog_2 from '@/assets/images/blog/blog_img_02.jpg';
-import blog_3 from '@/assets/images/blog/blog_img_03.jpg';
+import blog_1 from '@/assets/images/blog/blog_1.jpg';
+import blog_2 from '@/assets/images/blog/blog_2.jpg';
+import blog_3 from '@/assets/images/blog/blog_3.jpeg';
 import blog_4 from '@/assets/images/blog/blog_img_04.jpg';
 import blog_5 from '@/assets/images/blog/blog_img_05.jpg';
 import blog_6 from '@/assets/images/blog/blog_img_06.jpg';
