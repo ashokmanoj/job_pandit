@@ -42,7 +42,8 @@ const Education = ({ education, setEducation }: any) => {
           onChange={(item) => setEducation(item.value)}
           name="Education"
           cls='category'
-          defaultCurrent={0} />
+          defaultCurrent={0} 
+          value={education}/>
       </div>
     </div>
   )

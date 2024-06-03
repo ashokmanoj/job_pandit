@@ -13,7 +13,7 @@ const CompanyDetailsArea = ({ company }: { company: any }) => {
           <div className="row">
             <div className="col-xxl-3 col-xl-4 order-xl-last">
               <div className="job-company-info ms-xl-5 ms-xxl-0 lg-mb-50">
-                <Image src={company?.avatar ? `https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/employer_avatars/${company?.avatar}` : "/assets/images/candidates/01.png"} alt="company-logo" className="lazy-img rounded-circle m-auto" style={{ objectFit: "cover", width: "auto", height: "auto" }} width={60} height={60} />
+                <Image src={company?.avatar ? `https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/employer_avatars/${company?.avatar}` : "/assets/images/candidates/01.png"} alt="company-logo" className="lazy-img rounded-circle m-auto" style={{ objectFit: "cover", width: "60px", height: "60px", aspectRatio: "1/1" }} width={60} height={60} />
 
                 <div className="text-md text-dark text-center mt-15 mb-20 lg-mb-10">{company?.company_name.charAt(0).toUpperCase().concat(company?.company_name.slice(1))}</div>
                 <div className="text-center"><a href={company?.website} className="website-btn-two tran3s" target="_blank">Visit our website</a></div>
@@ -64,13 +64,13 @@ const CompanyDetailsArea = ({ company }: { company: any }) => {
               <div className="details-post-data me-xxl-5 pe-xxl-4">
                 <h3>Overview</h3>
                 <p>{company?.about}</p>
-                <h3>Intro</h3>
+                {/* <h3>Intro</h3>
                 <div className="video-post d-flex align-items-center justify-content-center mb-50">
                   <a className="fancybox rounded-circle video-icon tran3s text-center"
                     onClick={() => setIsVideoOpen(true)} style={{ cursor: 'pointer' }}>
                     <i className="bi bi-play-fill"></i>
                   </a>
-                </div>
+                </div> */}
                 <div className="position-relative">
                   <h3>Company Reviews</h3>
 

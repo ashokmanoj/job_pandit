@@ -28,8 +28,10 @@ const NiceSelect = ({
 }: IPropType) => {
   const [open, setOpen] = useState(false);
   const [current, setCurrent] = useState(options[defaultCurrent]);
+  const [search, setSearch] = useState("");
   const onClose = useCallback(() => {
     setOpen(false);
+    setSearch(""); // Clear search when closing
   }, []);
   const ref = useRef(null);
 
@@ -41,39 +43,52 @@ const NiceSelect = ({
     onClose();
   };
 
+  const filteredOptions = options.filter(option => 
+    option.label.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <div
-      className={`nice-select  ${cls?cls:''} ${open && "open"}`}
+      className={`nice-select ${cls ? cls : ''} ${open ? "open" : ""}`}
       role="button"
       tabIndex={0}
-      onClick={() => setOpen((prev) => !prev)}
+      onClick={() => setOpen(true)}
       ref={ref}
     >
-      
-      <span className="current">{value? value: current ? current?.label : placeholder}</span>
-      <ul
-        className="list"
-        role="menubar"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {options?.map((item,i) => (
-          <li
-            key={i}
-            data-value={item.value}
-            className={`option ${item.value === current?.value && "selected focus"
-              }`}
-            role="menuitem"
-            onClick={() => currentHandler(item)}
+      {open&&<input 
+            type="text" 
+            value={search} 
+            onChange={(e) => setSearch(e.target.value)} 
+            placeholder='Search...'
+            style={{border: 'none', outline: 'none',height: '90%',zIndex:100}}
+          />}
+      {!open&&<span className="current">{value ? value : current ? current.label : placeholder}</span>}
+     
+      {open && (
+        <>
+           
+          <ul
+            className="list"
+            role="menubar"
+            onClick={(e) => e.stopPropagation()}
           >
-            {item.label}
-          </li>
-        ))}
-      </ul>
-      
+            
+            {filteredOptions.map((item, i) => (
+              <li
+                key={i}
+                data-value={item.value}
+                className={`option ${item.value === current?.value ? "selected focus" : ""}`}
+                role="menuitem"
+                onClick={() => currentHandler(item)}
+              >
+                {item.label}
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
     </div>
   );
 };
 
 export default NiceSelect;
-
-

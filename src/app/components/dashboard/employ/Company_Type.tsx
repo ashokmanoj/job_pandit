@@ -11,7 +11,7 @@ const Company_Type = ({companyType, setCompanyType}:any) => {
                     { value: "Consultancy", label: "consultancye" },
                     { value: "Private companies", label: "Private companies" },
                     { value: "Government companies", label: "Government companies" },
-                    { value: "Cooperative company", label: "Cooperative company" },
+                    { value: "Corporate company", label: "Corporate company" },
                   ]}
                   defaultCurrent={0}
                   name="CompanyType"

@@ -2,8 +2,6 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { ICompany } from "@/types/company-type";
-
 const CompanyListItem = ({ item }: { item: any }) => {
   return (
     <div
@@ -12,7 +10,7 @@ const CompanyListItem = ({ item }: { item: any }) => {
       <div className="row justify-content-between align-items-center">
         <div className="col-xl-5">
           <div className="d-flex align-items-xl-center">
-            <Link href="/company-details"
+            <Link href={`/company/${item?.id}`}
               className="company-logo rounded-circle"
             >
             <Image src={item?.avatar?`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/employer_avatars/${item?.avatar}`:"/assets/images/candidates/01.png"} alt="company-logo" className="lazy-img rounded-circle" style={{objectFit:"cover", width:"60px", height:"60px", objectPosition:"center", aspectRatio:"1/1"}} width={60} height={60} />
@@ -20,7 +18,7 @@ const CompanyListItem = ({ item }: { item: any }) => {
             </Link>
             <div className="company-data">
               <h5 className="m0">
-                <Link href="/company-details" className="company-name tran3s">
+                <Link href={`/company/${item?.id}`} className="company-name tran3s">
                   {item.company_name.charAt(0).toUpperCase().concat(item?.company_name?.slice(1))}
                 </Link>
               </h5>
@@ -40,12 +38,12 @@ const CompanyListItem = ({ item }: { item: any }) => {
         </div>
         <div className="col-xl-3 col-md-4">
           <div className="btn-group d-flex align-items-center justify-content-md-end lg-mt-20">
-            <Link href="/company-details"
+            <Link href={`/company/${item?.id}`}
               className="open-job-btn text-center fw-500 tran3s me-2"
             >
               {item.vacancy} open job
             </Link>
-            <Link href="/company-details"
+            <Link href={`/company/${item?.id}`}
               className="save-btn text-center rounded-circle tran3s"
               title="Save Job"
             >

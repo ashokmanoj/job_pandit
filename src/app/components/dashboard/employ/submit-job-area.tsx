@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import DashboardHeader from "../candidate/dashboard-header";
 import EmployExperience from "./employ-experience";
 import Employer_JD_File_Upload from "../upload_JD_File";
-import AddLanguage from "./AddLanguage";
 import AddSkills from "./Add_Skills";
 import Job_Type from "./job_Type";
 import Salary from "./salary";
@@ -13,7 +12,7 @@ import Education from "./Education";
 import NiceSelect from "@/ui/nice-select";
 import { useUserStore } from "@/lib/store/user";
 import Category from "./category";
-import { redirect } from "next/navigation";
+
 
 // props type
 type IProps = {
@@ -21,49 +20,45 @@ type IProps = {
   params: any;
 };
 
-const SubmitJobArea = ({ setIsOpenSidebar ,params}: IProps) => {
+const SubmitJobArea = ({ setIsOpenSidebar, params }: IProps) => {
   const [salaryType, setSalaryType] = useState<any>('');
   const [jobType, setJobType] = useState<any>('');
   const [experience, setExperience] = useState<any>('');
   const [category, setCategory] = useState<any>("");
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState("");
-  const [min, setMin] = useState<number>(0);
-  const [max, setMax] = useState<number>();
+  const [min, setMin] = useState<string>('');
+  const [max, setMax] = useState<string>("");
   const [location, setLocation] = useState<string>("");
   const [education, setEducation] = useState<any>('');
   const [skills, setSkills] = useState<string[]>([]);
-  const [language, setLanguage] = useState<string[]>([]);
   const [fileName, setFileName] = useState<string>("");
   const [isData, setIsData] = useState<boolean>(false);
-  const [vacancy, setVacancy] = useState<number>(0);
+  const [vacancy, setVacancy] = useState<string>("");
   const [workmode, setWorkMode] = useState<string>('');
   const [candidate, setCandidate] = useState<string>('');
   const [jobPostId, setJobPostId] = useState<number>(Number(params?.jobpostId));
   const [isUploading, setIsUploading] = useState<boolean>(false);
-  const pathName = usePathname();
-  console.log(pathName, "pathName");
   const supabase = createClient();
   const { user } = useUserStore();
 
- 
+
   const handleCancle = () => {
     setTitle("");
     setCategory("");
     setDescription("");
-    setMin(0);
-    setMax(0);
+    setMin('');
+    setMax('');
     setLocation("");
     setSkills([]);
-    setLanguage([]);
     setFileName("");
-    setExperience({ });
-    setJobType({ });
-    setSalaryType({ });
-    setEducation({ });
-    setWorkMode({ });
-    setCandidate({ });
-    setVacancy(0);
+    setExperience({});
+    setJobType({});
+    setSalaryType({});
+    setEducation({});
+    setWorkMode('');
+    setCandidate('');
+    setVacancy('');
     setIsData(true);
   };
 
@@ -78,10 +73,10 @@ const SubmitJobArea = ({ setIsOpenSidebar ,params}: IProps) => {
       notifyError("Description Must be 500 charecters");
       return;
     } else if (!min) {
-      notifyError("Please Enter Min");
+      notifyError("Please Enter Min-salary");
       return;
     } else if (!max) {
-      notifyError("Please Enter Max");
+      notifyError("Please Enter Max-salary");
       return;
     } else if (!location) {
       notifyError("Please Enter Location");
@@ -92,11 +87,7 @@ const SubmitJobArea = ({ setIsOpenSidebar ,params}: IProps) => {
     } else if (!skills) {
       notifyError("Please Enter Skills");
       return;
-    } else if (!language) {
-      notifyError("Please Enter Language");
-      return;
-    
-    } else if (!experience) {
+    }else if (!experience) {
       notifyError("Please Enter Experience");
       return;
     } else if (!jobType) {
@@ -114,20 +105,20 @@ const SubmitJobArea = ({ setIsOpenSidebar ,params}: IProps) => {
     }
     else {
       setIsUploading(true);
-      if (isData) {
+      if (isData && jobPostId) {
         const { data, error } = await supabase
           .from("job_posts")
           .update({
-            title, category, description, min_salary: min, max_salary: max, location, education: education, skills, language, file_name: fileName,
+            title, category, description, min_salary: Number(min), max_salary: Number(max), location, education: education, skills, file_name: fileName,
             experience,
             job_type: jobType,
             salary_type: salaryType,
             workmode,
             candidate,
-            vacancy
+            vacancy: Number(vacancy)
           })
           .eq("id", jobPostId)
-          .select('*').single();
+          
         if (error) {
           console.error("Error updating data:", error.message);
           notifyError("Error updating data");
@@ -138,13 +129,13 @@ const SubmitJobArea = ({ setIsOpenSidebar ,params}: IProps) => {
       } else {
         const { data, error } = await supabase.from("job_posts").insert([
           {
-            user_id: user?.id, title, category, description, min_salary: min, max_salary: max, location, education: education, skills, language, file_name: fileName,
+            user_id: user?.id, title, category, description, min_salary: Number(min), max_salary: Number(max), location, education: education, skills, file_name: fileName,
             experience,
             job_type: jobType,
             salary_type: salaryType,
             workmode,
             candidate,
-            vacancy
+            vacancy: Number(vacancy)
           }
         ])
           .select("*")
@@ -155,7 +146,7 @@ const SubmitJobArea = ({ setIsOpenSidebar ,params}: IProps) => {
           notifySuccess("Job Posted Successfully");
           window.location.reload();
 
-          
+
         } else {
           notifyError("something went worng. Please Retry");
         }
@@ -180,11 +171,10 @@ const SubmitJobArea = ({ setIsOpenSidebar ,params}: IProps) => {
         setMax(data.max_salary);
         setLocation(data.location);
         setSkills(data.skills);
-        setLanguage(data.language);
         setFileName(data.file_name);
         setExperience(data.experience);
         setJobType(data.job_type);
-        setSalaryType(data.salary);
+        setSalaryType(data.salary_type);
         setEducation(data.education);
         setWorkMode(data.workmode);
         setCandidate(data.candidate);
@@ -238,7 +228,7 @@ const SubmitJobArea = ({ setIsOpenSidebar ,params}: IProps) => {
             <div className="col-md-6">
               <Job_Type jobType={jobType} setJobType={setJobType} />
             </div>
-            <div className="col-md-6">+
+            <div className="col-md-6">
               <Salary salary={salaryType} setSalary={setSalaryType} />
             </div>
             <div className="col-md-3">
@@ -247,7 +237,7 @@ const SubmitJobArea = ({ setIsOpenSidebar ,params}: IProps) => {
                 <input
                   type="number"
                   placeholder="Ex : 2,50,000"
-                  onChange={(e) => setMin(Number(e.target.value))}
+                  onChange={(e) => setMin(e.target.value)}
                   value={min}
                 />
               </div>
@@ -258,7 +248,7 @@ const SubmitJobArea = ({ setIsOpenSidebar ,params}: IProps) => {
                 <input
                   type="number"
                   placeholder="Ex : 3,50,000"
-                  onChange={(e) => setMax(Number(e.target.value))}
+                  onChange={(e) => setMax(e.target.value)}
                   value={max}
                 />
               </div>
@@ -290,6 +280,7 @@ const SubmitJobArea = ({ setIsOpenSidebar ,params}: IProps) => {
                   onChange={(item) => setWorkMode(item.value)}
                   name="WorkMode"
                   cls="category"
+                  value={workmode}
                 />
               </div>
             </div>
@@ -306,6 +297,7 @@ const SubmitJobArea = ({ setIsOpenSidebar ,params}: IProps) => {
                   onChange={(item) => setCandidate(item.value)}
                   name="Candidate"
                   cls="category"
+                  value={candidate}
                 />
               </div>
             </div>
@@ -315,7 +307,8 @@ const SubmitJobArea = ({ setIsOpenSidebar ,params}: IProps) => {
                 <input
                   type="number"
                   placeholder="Ex : 100 Vacances"
-                  onChange={(e) => setVacancy(Number(e.target.value))}
+                  onChange={(e) => setVacancy(e.target.value)}
+                  value={vacancy}
                 />
               </div>
             </div>
@@ -326,22 +319,23 @@ const SubmitJobArea = ({ setIsOpenSidebar ,params}: IProps) => {
                   type="text"
                   placeholder="Ex: Hassan"
                   onChange={(e) => setLocation(e.target.value)}
+                  value={location}
                 />
               </div>
             </div>
-
           </div>
 
 
           {/* employ experience end */}
-          <div className="row">
+          {/* <div className="row">
             <div className="col-lg-20">
               <div className="dash-input-wrapper mb-30">
                 <label htmlFor="">Languages*</label>
                 <AddLanguage language={language} setLanguage={setLanguage} />
               </div>
+
             </div>
-          </div>
+          </div> */}
           <Employer_JD_File_Upload
             filename={fileName}
             setFileName={setFileName}
@@ -352,7 +346,7 @@ const SubmitJobArea = ({ setIsOpenSidebar ,params}: IProps) => {
         <div className="button-group d-inline-flex align-items-center mt-30">
           {isUploading ? (
             <button
-              className="btn-eleven fw-500 tran3s d-block mt-20"
+              className="dash-btn-two tran3s me-3"
               type="button"
               disabled
             >
@@ -365,9 +359,9 @@ const SubmitJobArea = ({ setIsOpenSidebar ,params}: IProps) => {
             </button>
           ) : (
 
-            <a className="dash-btn-two tran3s me-3" onClick={handlePost}>
+            <button className="dash-btn-two tran3s me-3" onClick={handlePost}>
               Post
-            </a>
+            </button>
           )}
           <a
             href="#"

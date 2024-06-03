@@ -28,11 +28,11 @@ const Header =  ({}) => {
             </div>
             <div className="right-widget ms-auto order-lg-3">
               <ul className="d-flex align-items-center style-none">
-                <li><Link href="/dashboard/candidate-dashboard" className="login-btn-one">
-                   Post Job
+                {/* <li><Link href="/dashboard/candidate-dashboard" className="login-btn-one">
+                  Create Profile
                   </Link>
                   
-                </li>
+                </li> */}
                 <li className="d-none d-md-block ms-4">
                   {user ?  <Link href={user.role === 'company' ? '/dashboard/employ-dashboard' : user.role === 'candidate' ? '/dashboard/candidate-dashboard':'/confirm-role'} className="btn-one">
                     Dashboard
