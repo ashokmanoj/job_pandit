@@ -18,5 +18,13 @@ export const fetchCompanies = async () => {
   } 
 
   
-
+export const fetchCompanyDashboard = async () => {
+  const supabase = createClient();
+const userId= (await supabase.auth.getUser()).data?.user?.id;
+if(userId){
+  const {data, error} = await supabase.from('employer_profile').select('*').eq('id',userId).single();
   
+  return data;
+}
+
+}

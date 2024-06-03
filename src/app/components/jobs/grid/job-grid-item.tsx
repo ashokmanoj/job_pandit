@@ -18,7 +18,7 @@ const JobGridItem = ({ item,style_2=true }: { item: any;style_2?:boolean }) => {
   return (
     <div className={`job-list-two ${style_2?'style-two':''} position-relative`}>
       <Link href={`/job-details/${item.id}`} className="logo">
-      <Image src={item?.company?.avatar ?`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/employer_avatars/${item.company?.avatar}`:"/assets/images/candidates/01.png"} alt="company-logo" className="lazy-img rounded-circle" style={{objectFit:"cover", width:"auto", height:"auto"}} width={60} height={60} />
+      <Image src={item?.company?.avatar ?`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/employer_avatars/${item.company?.avatar}`:"/assets/images/candidates/01.png"} alt="company-logo" className="lazy-img rounded-circle" style={{objectFit:"cover", width:"45px", height:"auto",aspectRatio:"1/1"}} width={60} height={60} />
       </Link>
       <a onClick={() => handleAddWishlist(item)}
         className={`save-btn text-center rounded-circle tran3s cursor-pointer ${isActive?'active':''}`}

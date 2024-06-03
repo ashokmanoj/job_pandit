@@ -6,8 +6,8 @@ import FilterCandidateExperience from "./filter-experince";
 import JobPrices from "../../jobs/filter/job-prices";
 import FilterEnglishFluency from "./filter-english-fluency";
 
-const CandidateV1FilterArea = () => {
-  const [priceValue, setPriceValue] = useState<number[]>([0, 50000]);
+const CandidateV1FilterArea = ({candidates_data}:{candidates_data:any}) => {
+  
   return (
     <div
       className="filter-area-tab offcanvas offcanvas-start"
@@ -54,7 +54,7 @@ const CandidateV1FilterArea = () => {
           </a>
           <div className="collapse show" id="collapseCategory">
             <div className="main-body">
-              <FilterSkills />
+              <FilterSkills candidate_data={candidates_data}/>
             </div>
           </div>
         </div>
@@ -71,7 +71,7 @@ const CandidateV1FilterArea = () => {
           </a>
           <div className="collapse show" id="collapseLocation">
             <div className="main-body">
-              <FilterCandidateLocation />
+              <FilterCandidateLocation candidate_data={candidates_data} />
             </div>
           </div>
         </div>
@@ -84,11 +84,11 @@ const CandidateV1FilterArea = () => {
             role="button"
             aria-expanded="false"
           >
-            Expert Level
+            Experience Level
           </a>
           <div className="collapse" id="collapseExp">
             <div className="main-body">
-              <FilterCandidateExperience />
+              <FilterCandidateExperience  candidate_data={candidates_data}/>
             </div>
           </div>
         </div>
@@ -149,24 +149,7 @@ const CandidateV1FilterArea = () => {
           </div>
         </div>
 
-        <div className="filter-block bottom-line pb-25 mt-25">
-          <a
-            className="filter-title fw-500 text-dark collapsed"
-            data-bs-toggle="collapse"
-            href="#collapseSalary"
-            role="button"
-            aria-expanded="false"
-          >
-            Salary Range
-          </a>
-          <div className="collapse" id="collapseSalary">
-            <JobPrices
-              priceValue={priceValue}
-              setPriceValue={setPriceValue}
-              maxPrice={50000}
-            />
-          </div>
-        </div>
+        
 
         <div className="filter-block bottom-line pb-25 mt-25">
           <a

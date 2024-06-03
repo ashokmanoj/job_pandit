@@ -4,7 +4,7 @@ import Wrapper from "@/layouts/wrapper";
 import EmployAside from "@/app/components/dashboard/employ/aside";
 import SubmitJobArea from "@/app/components/dashboard/employ/submit-job-area";
 
-const EmployDashboardSubmitJobPage = () => {
+const EmployDashboardSubmitJobPage = ({ params }: { params: any }) => {
   const [isOpenSidebar,setIsOpenSidebar] = useState<boolean>(false);
   return (
     <Wrapper>
@@ -14,7 +14,7 @@ const EmployDashboardSubmitJobPage = () => {
         {/* aside end  */}
 
         {/* submit job area start */}
-        <SubmitJobArea setIsOpenSidebar={setIsOpenSidebar} />
+        <SubmitJobArea setIsOpenSidebar={setIsOpenSidebar} params = {params}/>
         {/* submit job area end */}
       </div>
     </Wrapper>

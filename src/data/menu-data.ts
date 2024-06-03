@@ -11,9 +11,9 @@ const menu_data: IMenuData[] = [
     link: "/job-list",
     title: "Jobs",
     sub_menus: [
-      { link: "/job-list", title: "All Jobs" },
-      { link: "/company-v1", title: "Companies" },
-      { link: "/candidates-v1", title: "Candidates" },
+      { link: "/job", title: "All Jobs" },
+      { link: "/company", title: "Companies" },
+      { link: "/candidate", title: "Candidates" },
     ],
   },
   {

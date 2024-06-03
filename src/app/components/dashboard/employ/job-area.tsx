@@ -1,13 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import DashboardHeader from "../candidate/dashboard-header";
 import EmployJobItem from "./job-item";
 import EmployShortSelect from "./short-select";
+import { fetchJobPosts } from "@/hooks/client-request/company";
+import { useUserStore } from "@/lib/store/user";
 
 // props type 
 type IProps = {
   setIsOpenSidebar: React.Dispatch<React.SetStateAction<boolean>>
 }
 const EmployJobArea = ({setIsOpenSidebar}:IProps) => {
+  const [jobPosts, setJobPosts] = React.useState<any[]>([]);  
+  const {user} = useUserStore((state) => state);
+
+  useEffect(() => {
+    if(user?.id){
+      fetchJobPosts({id: user?.id}).then((res) => {
+        if (res.data) {
+          setJobPosts(res.data);
+        }
+      });
+    }
+  }, [user]);
+console.log(jobPosts,"jobposts")
   return (
     <div className="dashboard-body">
       <div className="position-relative">
@@ -66,37 +81,22 @@ const EmployJobArea = ({setIsOpenSidebar}:IProps) => {
                     </tr>
                   </thead>
                   <tbody className="border-0">
-                    <EmployJobItem
-                      title="Brand & Producr Designer"
-                      info="Fulltime . Spain"
-                      application="130"
-                      date="05 Jun, 2023"
-                      status="active"
-                    />
-
-                    <EmployJobItem
-                      title="Marketing Specialist"
-                      info="Part-time . Uk"
-                      application="20"
-                      date="13 Aug, 2023"
-                      status="pending"
-                    />
-
-                    <EmployJobItem
-                      title="Accounting Manager"
-                      info="Fulltime . USA"
-                      application="278"
-                      date="27 Sep, 2023"
-                      status="expired"
-                    />
-
-                    <EmployJobItem
-                      title="Developer for IT company"
-                      info="Fulltime . Germany"
-                      application="70"
-                      date="14 Feb, 2023"
-                      status="active"
-                    />
+                    {jobPosts.length>0? jobPosts.map((item) => (
+                      <EmployJobItem
+                        key={item.id}
+                        title={item.title}
+                        info={item.location}
+                        application={item.applications}
+                        date={item.created_at}
+                        status={item.status}
+                        jobPost={item}
+                      />
+                    )):<>
+                    <div>
+                      <h4 className="text-center title">No Jobs Found</h4>
+                    </div>
+                    
+                    </>}
                   </tbody>
                 </table>
               </div>
@@ -114,37 +114,7 @@ const EmployJobArea = ({setIsOpenSidebar}:IProps) => {
                     </tr>
                   </thead>
                   <tbody className="border-0">
-                    <EmployJobItem
-                      title="Marketing Specialist"
-                      info="Part-time . Uk"
-                      application="20"
-                      date="13 Aug, 2023"
-                      status="pending"
-                    />
-
-                    <EmployJobItem
-                      title="Brand & Producr Designer"
-                      info="Fulltime . Spain"
-                      application="130"
-                      date="05 Jun, 2023"
-                      status="active"
-                    />
-
-                    <EmployJobItem
-                      title="Developer for IT company"
-                      info="Fulltime . Germany"
-                      application="70"
-                      date="14 Feb, 2023"
-                      status="active"
-                    />
-
-                    <EmployJobItem
-                      title="Accounting Manager"
-                      info="Fulltime . USA"
-                      application="278"
-                      date="27 Sep, 2023"
-                      status="expired"
-                    />
+                    
                   </tbody>
                 </table>
               </div>
@@ -152,7 +122,7 @@ const EmployJobArea = ({setIsOpenSidebar}:IProps) => {
           </div>
         </div>
 
-        <div className="dash-pagination d-flex justify-content-end mt-30">
+        {/* <div className="dash-pagination d-flex justify-content-end mt-30">
           <ul className="style-none d-flex align-items-center">
             <li>
               <a href="#" className="active">
@@ -175,10 +145,12 @@ const EmployJobArea = ({setIsOpenSidebar}:IProps) => {
               </a>
             </li>
           </ul>
-        </div>
+        </div> */}
       </div>
     </div>
   );
 };
 
 export default EmployJobArea;
+
+

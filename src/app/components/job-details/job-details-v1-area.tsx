@@ -98,7 +98,7 @@ const JobDetailsV1Area = ({job}:{job:any}) => {
 
 					<div className="col-xxl-3 col-xl-4">
 						<div className="job-company-info ms-xl-5 ms-xxl-0 lg-mt-50">
-						<Image src={job?.company?.avatar ?`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/employer_avatars/${job.company?.avatar}`:"/assets/images/candidates/01.png"} alt="company-logo" className="lazy-img rounded-circle m-auto" style={{objectFit:"cover", width:"auto", height:"auto"}} width={60} height={60} />
+						<Image src={job?.company?.avatar ?`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/employer_avatars/${job.company?.avatar}`:"/assets/images/candidates/01.png"} alt="company-logo" className="lazy-img rounded-circle m-auto" style={{objectFit:"cover", width:"80px", height:"auto",aspectRatio:"1/1"}} width={80} height={80} />
 							<div className="text-md text-dark text-center mt-15 mb-20 text-capitalize">{job.company.company_name}</div>
 							<a href={job.company.website} className="website-btn tran3s">Visit website</a>
 

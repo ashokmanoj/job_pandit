@@ -1,8 +1,12 @@
+import useCandidateFilterStore from "@/lib/store/candidate";
 import NiceSelect from "@/ui/nice-select";
 import React from "react";
 
 const FilterEnglishFluency = () => {
-  const handleEnglishFluency = (item: { value: string; label: string }) => {};
+  const {setEnglishFluency} = useCandidateFilterStore();
+  const handleEnglishFluency = (item: { value: string; label: string }) => {
+    setEnglishFluency(item.value);
+  };
   return (
     <NiceSelect
       options={[

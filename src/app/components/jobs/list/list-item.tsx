@@ -20,7 +20,7 @@ const ListItem = ({ item,style_2,cls='' }: { item: any;style_2?:boolean;cls?:str
         <div className="col-xxl-3 col-lg-4">
           <div className="job-title d-flex align-items-center">
             <Link href={`/job-details/${item.id}`} className="logo">
-            <Image src={item?.company?.avatar ?`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/employer_avatars/${item.company?.avatar}`:"/assets/images/candidates/01.png"} alt="company-logo" className="lazy-img rounded-circle" style={{objectFit:"cover", width:"auto", height:"auto"}} width={60} height={60} />
+            <Image src={item?.company?.avatar ?`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/employer_avatars/${item.company?.avatar}`:"/assets/images/candidates/01.png"} alt="company-logo" className="lazy-img rounded-circle" style={{objectFit:"cover", width:"auto", height:"auto", aspectRatio:"1/1"}} width={60} height={60} />
             </Link>
             <Link href={`/job-details/${item.id}`} className="title fw-500 tran3s">
               {item.title}
