@@ -1,13 +1,14 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import man_1 from "@/assets/images/assets/img_02.jpg";
 import girl from "@/assets/images/assets/img_03.jpg";
 import man_2 from "@/assets/images/assets/img_04.jpg";
 import screen_1 from "@/assets/images/assets/screen_01.png";
 import screen_2 from "@/assets/images/assets/screen_02.png";
 import screen_3 from "@/assets/images/assets/screen_03.png";
 import shape from "@/assets/images/shape/shape_06.svg";
+import home_image_1 from "@/assets/images/home_images/home_image_1.png"
+import home_image_2 from "@/assets/images/home_images/home_image_2.png"
 
 // FeatureImgData
 export function FeatureImgData() {
@@ -15,7 +16,7 @@ export function FeatureImgData() {
     <div className="img-data position-relative pe-xl-5 me-xl-5 md-mt-50">
       <div className="row">
         <div className="col-md-6 col-sm-8 col-10">
-          <Image src={man_1} alt="man img" className="lazy-img img01" />
+          <Image src={home_image_2} alt="man img" className="lazy-img img01" />
         </div>
       </div>
       <div className="row">
@@ -35,7 +36,7 @@ export function FeatureImgData() {
         </div>
       </div>
       <Image
-        src={screen_1}
+        src={home_image_1}
         alt="screen_1-img"
         className="lazy-img shapes screen01 wow fadeInRight"
       />
@@ -66,19 +67,18 @@ const FeatureOne = () => {
           <div className="col-lg-5 order-lg-last">
             <div className="ps-xxl-4 wow fadeInRight">
               <div className="title-one">
-                <h2>Get over 30.000+ talented experts in jobpandith.</h2>
+                <h2>Select us for ? <br /> Access a treasure trove of talent at your finger tips!!!</h2>
               </div>
               <p className="mt-40 md-mt-20 mb-40 md-mb-20">
-                A full hybrid workforce management tools are yours to use, as
-                well as access to our top 1% of talent.{" "}
+              Find top-tier job opportunities with our advanced job search tools{" "}
               </p>
               <ul className="list-style-one style-none">
-                <li>Seamless searching</li>
-                <li>Get top 3% experts for your project</li>
-                <li>Protected payments system</li>
+                <li>Effortless Talent Search</li>
+                <li>Recruit the cream of crops </li>
+                <li>Secure and Protected Payments</li>
               </ul>
-              <Link href='/register' className="btn-one lg mt-50 md-mt-30">
-                Post a Job
+              <Link href='/job-list-v1' className="btn-one lg mt-50 md-mt-30">
+                Learn more
               </Link>
             </div>
           </div>

@@ -58,12 +58,12 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
     setSkills([]);
     setLanguage([]);
     setFileName("");
-    setExperience({ label: "", value: "" });
-    setJobType({ label: "", value: "" });
-    setSalaryType({ label: "", value: "" });
-    setEducation({ label: "", value: "" });
-    setWorkMode({ label: "", value: "" });
-    setCandidate({ label: "", value: "" });
+    setExperience({ });
+    setJobType({ });
+    setSalaryType({ });
+    setEducation({ });
+    setWorkMode({ });
+    setCandidate({  });
     setVacancy(0);
     setIsData(true);
   };
