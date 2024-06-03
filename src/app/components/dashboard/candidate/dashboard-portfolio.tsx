@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { createClient } from "@/utils/supabase/client";
 import { notifyError } from "@/utils/toast";
+import Link from "next/link";
 
 // portfolio item
 
@@ -74,15 +75,19 @@ const DashboardPortfolio = ({projects,setProjects}:{projects:any ,setProjects:an
   }
   return (
     <div className="bg-white card-box border-20 mt-40">
-      <h4 className="dash-title-three">Portfolio</h4>
-      <div className="col-lg-3 col-6" >
+      <h4 className="dash-title-three">Projects</h4>
+      <div className="row" >
       {projects?.map((item:any,index:number)=>
         (
-        <div className="candidate-portfolio-block position-relative mb-25" key={index}>
+        <div className="candidate-portfolio-block position-relative mb-25 col-lg-6 col-6" key={index}>
           <a href={item.url} className="d-block">
-            <Image src={`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/project_images/${item.image}`} alt="image" className="lazy-img w-100 aspect-ratio-square rounded" style={{ width: '100%', height: 'auto' }} width={100} height={100} />
+            <Image src={`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/project_images/${item.image}`} alt="image" className="lazy-img w-100 aspect-ratio-square rounded" style={{ width: '100%', height: 'auto' }} width={500} height={500} />
           </a>
-          <h4 className="position-absolute bottom-0 end-0 text-white background-primary bg-black bg-gradient w-100 ">{item.title}</h4>
+          <div className="col-6" ><Link href={item.url}><i className="bi bi-github" ></i></Link> </div>
+
+          <h4 style={{fontWeight:'bold',color:'black',fontSize:'20px'}}>{item.title}</h4>
+          
+          <p style={{color:'black',fontSize:'12px'}}>{item.description}</p>
           <button 
             onClick={()=>{handleDelete(index)}}
             className="remove-portfolio-item rounded-circle d-flex align-items-center justify-content-center tran3s course-pointer bg-white"

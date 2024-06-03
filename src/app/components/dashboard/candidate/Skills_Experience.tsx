@@ -7,7 +7,54 @@ const Skills_Experience = ({skills, setSkills, experience, setExperience}:any) =
  const [val ,setVal] = useState<string>('');
  const [expValue, setExpValue] = useState<{title:string,company:string,from:string,to:string,description:string}>({title:'',company:'',from:'',to:'',description:''});
 
-
+ const jobMarketSkills = [
+  "Communication Skills",
+  "Teamwork",
+  "Problem-Solving",
+  "Time Management",
+  "Adaptability",
+  "Critical Thinking",
+  "Leadership",
+  "Technical Proficiency",
+  "Customer Service",
+  "Project Management",
+  "Data Analysis",
+  "Emotional Intelligence",
+  "Sales Skills",
+  "Marketing",
+  "Creativity",
+  "Networking",
+  "Negotiation",
+  "Conflict Resolution",
+  "Financial Literacy",
+  "Attention to Detail",
+  "Organizational Skills",
+  "Research Skills",
+  "Coding/Programming",
+  "Public Speaking",
+  "Bilingual/Multilingual",
+  "Risk Management",
+  "Strategic Planning",
+  "Innovation",
+  "Customer Relationship Management (CRM)",
+  "Remote Work Proficiency",
+  "Cloud Computing",
+  "Cybersecurity",
+  "Artificial Intelligence/Machine Learning",
+  "Data Science",
+  "Blockchain",
+  "Web Development",
+  "Mobile App Development",
+  "Database Management",
+  "Software Development",
+  "Network Engineering",
+  "DevOps",
+  "UI/UX Design",
+  "Big Data",
+  "Virtualization",
+  "IT Support",
+  "Robotics"
+];
   function handleDelete(i: any) {
     return () => {
       const newSkills = [...skills];
@@ -67,13 +114,18 @@ const Skills_Experience = ({skills, setSkills, experience, setExperience}:any) =
             <label htmlFor="">Add Skills*</label>
 
             <div className="skills-wrapper">
-              <ul className="style-none d-flex flex-wrap align-items-center">
+              <ul className="custom-list style-none d-flex flex-wrap align-items-center">
               {skills?.map((item:any, i:any) => (
                 <li key={i} className="is_tag"><button>{item} <i className="bi bi-x" onClick={handleDelete(i)} ></i></button></li>
               ))}
                 <li className="is_tag"><button><input type="text" value={val} onChange={(e) =>{ setVal(e.target.value)}} className='w-100 border-0 p-0 bg-transparent text-dark'/></button></li>
-                <li className="more_tag"><button onClick={handleAdd}>+</button></li>
+                <li className="more_tag"><button style={{ cursor: "pointer",color:"black" }} onClick={handleAdd}>+</button></li>
               </ul>
+              <ul className="custom-list">
+            {jobMarketSkills?.filter((item) => !skills.includes(item))?.map((item: any, i: any) => (
+              <li key={i}  onClick={() => { setSkills([...skills, item]) }}><button >{item}</button></li>
+            ))}
+          </ul>
             </div>
           </div>
           <div className="candidates-profile-details me-xxl-5 pe-xxl-4">

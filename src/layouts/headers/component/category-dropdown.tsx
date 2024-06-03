@@ -9,7 +9,7 @@ const CategoryDropdown = () => {
       <li className="row gx-0">
         {category_dropdown.map((item) => (
         <div key={item.id} className="col-lg-6">
-          {item.category_items.map(c => (
+          {item.category_items.map((c: any) => (
           <Link key={c.id} href="/job-list-v1" className="item d-flex align-items-center">
             <div className="icon d-flex align-items-center justify-content-center rounded-circle tran3s">
               <Image
