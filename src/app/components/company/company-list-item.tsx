@@ -15,7 +15,7 @@ const CompanyListItem = ({ item }: { item: any }) => {
             <Link href="/company-details"
               className="company-logo rounded-circle"
             >
-                      <Image src={item?.avatar?`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/employer_avatars/${item?.avatar}`:"/assets/images/candidates/01.png"} alt="company-logo" className="lazy-img rounded-circle" style={{objectFit:"cover", width:"auto", height:"auto"}} width={60} height={60} />
+            <Image src={item?.avatar?`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/employer_avatars/${item?.avatar}`:"/assets/images/candidates/01.png"} alt="company-logo" className="lazy-img rounded-circle" style={{objectFit:"cover", width:"60px", height:"60px", objectPosition:"center", aspectRatio:"1/1"}} width={60} height={60} />
 
             </Link>
             <div className="company-data">

@@ -11,9 +11,8 @@ import FooterOne from "@/layouts/footers/footer-one";
 import Wrapper from "@/layouts/wrapper";
 import CategorySectionSix from "./components/category/category-section-6";
 import JobListOne, { JobListItems } from "./components/jobs/list/job-list-one";
-import Link from "next/link";
 import HeroBannerSix from "./components/hero-banners/hero-banner-six";
-import { fetchJobs } from "@/hooks/server-request/job_post";
+
 
 
 

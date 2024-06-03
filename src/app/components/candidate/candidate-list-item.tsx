@@ -1,9 +1,8 @@
 import React from "react";
-import { ICandidate } from "@/data/candidate-data";
 import Image from "next/image";
 import Link from "next/link";
 
-const CandidateListItem = ({ item,style_2=false }: { item: ICandidate;style_2?:boolean }) => {
+const CandidateListItem = ({ item,style_2=false }: { item:any;style_2?:boolean }) => {
   return (
     <div
       className={`candidate-profile-card ${item.favorite ? "favourite" : ""} ${style_2?'border-0':''} list-layout mb-25`}
@@ -11,11 +10,7 @@ const CandidateListItem = ({ item,style_2=false }: { item: ICandidate;style_2?:b
       <div className="d-flex">
         <div className="cadidate-avatar online position-relative d-block me-auto ms-auto">
           <Link href="/candidate-profile-v2" className="rounded-circle">
-            <Image
-              src={item.img}
-              alt="image"
-              className="lazy-img rounded-circle"
-            />
+          <Image src={item?.avatar ?`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/avatars/${item?.avatar}`:"/assets/images/candidates/01.png"} alt="company-logo" className="lazy-img rounded-circle" style={{objectFit:"cover", width:"45px", height:"auto",aspectRatio:"1/1"}} width={60} height={60} />
           </Link>
         </div>
         <div className="right-side">
@@ -29,12 +24,12 @@ const CandidateListItem = ({ item,style_2=false }: { item: ICandidate;style_2?:b
                 </h4>
                 <div className="candidate-post">{item.post}</div>
                 <ul className="cadidate-skills style-none d-flex align-items-center">
-                  {item.skills.slice(0, 3).map((s, i) => (
+                  {item.resume.skills.slice(0, 3).map((s:string, i:number) => (
                     <li key={i}>{s}</li>
                   ))}
-                  {item.skills.length > 3 && (
+                  {item.resume.skills.length > 3 && (
                     <li className="more">
-                      {item.skills.length - item.skills.slice(0, 3).length}+
+                      {item.resume.skills.length - item.skills.slice(0, 3).length}+
                     </li>
                   )}
                 </ul>
@@ -42,16 +37,16 @@ const CandidateListItem = ({ item,style_2=false }: { item: ICandidate;style_2?:b
             </div>
             <div className="col-xl-3 col-md-4 col-sm-6">
               <div className="candidate-info">
-                <span>Salary</span>
+                <span>Qualification</span>
                 <div>
-                  {item.salary}/{item.salary_duration}
+                  {item.qualification}
                 </div>
               </div>
             </div>
             <div className="col-xl-3 col-md-4 col-sm-6">
               <div className="candidate-info">
-                <span>Location</span>
-                <div>{item.location}</div>
+                <span>Experience</span>
+                <div>{item.experience}</div>
               </div>
             </div>
             <div className="col-xl-3 col-md-4">
@@ -61,7 +56,7 @@ const CandidateListItem = ({ item,style_2=false }: { item: ICandidate;style_2?:b
                 >
                   <i className="bi bi-heart"></i>
                 </Link>
-                <Link href="/candidate-profile-v2"
+                <Link href={`/candidate/${item.id}`}
                   className="profile-btn tran3s ms-md-2 mt-10 sm-mt-20"
                 >
                   View Profile

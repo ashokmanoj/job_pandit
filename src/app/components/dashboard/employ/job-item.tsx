@@ -1,5 +1,6 @@
 import React from "react";
-import ActionDropdown from "../candidate/action-dropdown";
+import ActionDropdown from "./ActionDropdown";
+
 
 const EmployJobItem = ({
   title,
@@ -7,12 +8,14 @@ const EmployJobItem = ({
   date,
   application,
   status,
+  jobPost
 }: {
   title: string;
   info: string;
   date: string;
   application: string;
   status: string;
+  jobPost: any
 }) => {
   return (
     <tr className={status}>
@@ -20,7 +23,7 @@ const EmployJobItem = ({
         <div className="job-name fw-500">{title}</div>
         <div className="info1">{info}</div>
       </td>
-      <td>{date}</td>
+      <td>{new Date(date).toDateString()}</td>
       <td>{application} Applications</td>
       <td>
         <div className="job-status text-capitalize">{status}</div>
@@ -36,7 +39,7 @@ const EmployJobItem = ({
             <span></span>
           </button>
           {/* action dropdown start */}
-          <ActionDropdown />
+          <ActionDropdown jobpost={jobPost} />
           {/* action dropdown end */}
         </div>
       </td>

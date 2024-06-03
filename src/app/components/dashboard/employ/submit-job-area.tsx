@@ -13,13 +13,15 @@ import Education from "./Education";
 import NiceSelect from "@/ui/nice-select";
 import { useUserStore } from "@/lib/store/user";
 import Category from "./category";
+import { usePathname } from "next/navigation";
 
 // props type
 type IProps = {
   setIsOpenSidebar: React.Dispatch<React.SetStateAction<boolean>>;
+  params: any;
 };
 
-const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
+const SubmitJobArea = ({ setIsOpenSidebar ,params}: IProps) => {
   const [salaryType, setSalaryType] = useState<any>('');
   const [jobType, setJobType] = useState<any>('');
   const [experience, setExperience] = useState<any>('');
@@ -35,17 +37,16 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
   const [fileName, setFileName] = useState<string>("");
   const [isData, setIsData] = useState<boolean>(false);
   const [vacancy, setVacancy] = useState<number>(0);
-
   const [workmode, setWorkMode] = useState<string>('');
   const [candidate, setCandidate] = useState<string>('');
-  const [jobPostId, setJobPostId] = useState<number>(0);
+  const [jobPostId, setJobPostId] = useState<number>(Number(params?.jobpostId));
   const [isUploading, setIsUploading] = useState<boolean>(false);
-
-
+  const pathName = usePathname();
+  console.log(pathName, "pathName");
   const supabase = createClient();
   const { user } = useUserStore();
 
-
+ 
   const handleCancle = () => {
     setTitle("");
     setCategory("");
@@ -93,9 +94,7 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
     } else if (!language) {
       notifyError("Please Enter Language");
       return;
-    } else if (!fileName) {
-      notifyError("Please Upload JD File");
-      return;
+    
     } else if (!experience) {
       notifyError("Please Enter Experience");
       return;
@@ -103,7 +102,7 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
       notifyError("Please Enter Job Type");
       return;
     } else if (!salaryType) {
-      notifyError("Please Enter Salary");
+      notifyError("Please Enter SalaryType");
       return;
     } else if (!candidate) {
       return notifyError("Please Enter Candidate");
@@ -167,25 +166,25 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
       const { data, error } = await supabase
         .from("job_posts")
         .select("*")
-        .eq("id", jobPostId)
+        .eq("id", jobPostId).eq("user_id", user?.id)
         .single();
       console.log(data, error, "fetching submit ")
       if (data) {
         setTitle(data.title);
         setCategory(data.category);
         setDescription(data.description);
-        setMin(data.min);
-        setMax(data.max);
+        setMin(data.min_salary);
+        setMax(data.max_salary);
         setLocation(data.location);
         setSkills(data.skills);
         setLanguage(data.language);
-        setFileName(data.fileName);
+        setFileName(data.file_name);
         setExperience(data.experience);
-        setJobType(data.jobType);
+        setJobType(data.job_type);
         setSalaryType(data.salary);
         setEducation(data.education);
         setWorkMode(data.workmode);
-        setCandidate(data.Candidate);
+        setCandidate(data.candidate);
         setVacancy(data.vacancy);
         setIsData(true);
         setJobPostId(data.id);
@@ -245,6 +244,7 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
                   type="number"
                   placeholder="Ex : 2,50,000"
                   onChange={(e) => setMin(Number(e.target.value))}
+                  value={min}
                 />
               </div>
             </div>
@@ -255,6 +255,7 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
                   type="number"
                   placeholder="Ex : 3,50,000"
                   onChange={(e) => setMax(Number(e.target.value))}
+                  value={max}
                 />
               </div>
             </div>

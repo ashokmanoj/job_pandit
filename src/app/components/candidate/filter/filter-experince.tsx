@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import candidate_data from "@/data/candidate-data";
 
-const FilterCandidateExperience = () => {
+
+const FilterCandidateExperience = ({candidate_data}:{candidate_data:any[]}) => {
   const uniqueExperiences = [
-    ...new Set(candidate_data.map((c) => c.experience)),
+    ...new Set(candidate_data.map((c:any) => c.experience)),
   ];
   const [experience, setExperience] = useState<string[]>([]);
   // handle Experience
