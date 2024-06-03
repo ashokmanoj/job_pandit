@@ -37,9 +37,8 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
   const [isData, setIsData] = useState<boolean>(false);
   const [vacancy, setVacancy] = useState<number>(0);
 
-  const [workmode, setWorkMode] = useState<any>({ label: "", value: "", });
-  const [candidate, setCandidate] = useState<any>({ label: "", value: "", });
-  const [uploading, setUploading] = useState<boolean>(false);
+  const [workmode, setWorkMode] = useState<string>('');
+  const [candidate, setCandidate] = useState<string>('');
   const [jobPostId, setJobPostId] = useState<number>(0);
   const [isUploading, setIsUploading] = useState<boolean>(false);
 
@@ -58,12 +57,12 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
     setSkills([]);
     setLanguage([]);
     setFileName("");
-    setExperience({ label: "", value: "" });
-    setJobType({ label: "", value: "" });
-    setSalaryType({ label: "", value: "" });
-    setEducation({ label: "", value: "" });
-    setWorkMode({ label: "", value: "" });
-    setCandidate({ label: "", value: "" });
+    setExperience({ });
+    setJobType({ });
+    setSalaryType({ });
+    setEducation({ });
+    setWorkMode({ });
+    setCandidate({ });
     setVacancy(0);
     setIsData(true);
   };
@@ -116,7 +115,7 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
       return notifyError("Please Enter Vacancy");
     }
     else {
-      setUploading(true);
+      setIsUploading(true);
       if (isData) {
         const { data, error } = await supabase
           .from("job_posts")
@@ -164,7 +163,7 @@ const SubmitJobArea = ({ setIsOpenSidebar }: IProps) => {
         }
       }
     }
-    setUploading(false);
+    setIsUploading(false);
   };
 
   useEffect(() => {

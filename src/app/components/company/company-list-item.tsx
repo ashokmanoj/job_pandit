@@ -1,12 +1,10 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import team_img_1 from "@/assets/images/assets/img_42.png";
-import team_img_2 from "@/assets/images/assets/img_43.png";
-import team_img_3 from "@/assets/images/assets/img_44.png";
+
 import { ICompany } from "@/types/company-type";
 
-const CompanyListItem = ({ item }: { item: ICompany }) => {
+const CompanyListItem = ({ item }: { item: any }) => {
   return (
     <div
       className={`company-list-layout ${item.isFav ? "favourite" : ""} mb-20`}
@@ -17,43 +15,25 @@ const CompanyListItem = ({ item }: { item: ICompany }) => {
             <Link href="/company-details"
               className="company-logo rounded-circle"
             >
-              <Image
-                src={item.img}
-                alt="image"
-                className="lazy-img rounded-circle"
-              />
+                      <Image src={item?.avatar?`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/employer_avatars/${item?.avatar}`:"/assets/images/candidates/01.png"} alt="company-logo" className="lazy-img rounded-circle" style={{objectFit:"cover", width:"auto", height:"auto"}} width={60} height={60} />
+
             </Link>
             <div className="company-data">
               <h5 className="m0">
                 <Link href="/company-details" className="company-name tran3s">
-                  {item.name}
+                  {item.company_name.charAt(0).toUpperCase().concat(item?.company_name?.slice(1))}
                 </Link>
               </h5>
-              <p>{item.location}</p>
+              <p>{item?.city?.charAt(0).toUpperCase().concat(item?.city?.slice(1))}</p>
             </div>
           </div>
         </div>
         <div className="col-xl-4 col-md-8">
           <div className="d-flex align-items-center ps-xxl-5 lg-mt-20">
             <div className="d-flex align-items-center">
-              <Image
-                src={team_img_1}
-                alt="team_img"
-                className="lazy-img rounded-circle team-img"
-              />
-              <Image
-                src={team_img_2}
-                alt="team_img"
-                className="lazy-img rounded-circle team-img"
-              />
-              <Image
-                src={team_img_3}
-                alt="team_img"
-                className="lazy-img rounded-circle team-img"
-              />
               <div className="team-text">
-                <span className="text-md fw-500 text-dark d-block">14+ </span>{" "}
-                Team Size
+                <span className="text-md fw-500 text-dark d-block">{item.job_posts?.map((item: any)=>item.vacancy).reduce((a: any, b: any) => a + b, 0)}</span>{" "}
+                Vacancies
               </div>
             </div>
           </div>

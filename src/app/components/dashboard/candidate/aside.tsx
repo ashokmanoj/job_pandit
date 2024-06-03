@@ -3,8 +3,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image, { StaticImageData } from "next/image";
 import { usePathname } from "next/navigation";
-import logo from "@/assets/dashboard/images/logo_01.png";
-import avatar from "@/assets/dashboard/images/avatar_01.jpg";
+import logo from "@/assets/images/logo/logo_j.png";
 import profile_icon_1 from "@/assets/dashboard/images/icon/icon_23.svg";
 import profile_icon_2 from "@/assets/dashboard/images/icon/icon_24.svg";
 import profile_icon_3 from "@/assets/dashboard/images/icon/icon_25.svg";
@@ -15,8 +14,6 @@ import nav_2 from "@/assets/dashboard/images/icon/icon_2.svg";
 import nav_2_active from "@/assets/dashboard/images/icon/icon_2_active.svg";
 import nav_3 from "@/assets/dashboard/images/icon/icon_3.svg";
 import nav_3_active from "@/assets/dashboard/images/icon/icon_3_active.svg";
-import nav_4 from "@/assets/dashboard/images/icon/icon_4.svg";
-import nav_4_active from "@/assets/dashboard/images/icon/icon_4_active.svg";
 import nav_5 from "@/assets/dashboard/images/icon/icon_5.svg";
 import nav_5_active from "@/assets/dashboard/images/icon/icon_5_active.svg";
 import nav_6 from "@/assets/dashboard/images/icon/icon_6.svg";
@@ -25,11 +22,10 @@ import nav_7 from "@/assets/dashboard/images/icon/icon_7.svg";
 import nav_7_active from "@/assets/dashboard/images/icon/icon_7_active.svg";
 
 import LogoutModal from "../../common/popup/logout-modal";
-import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
-import DeleteModal from "../../common/popup/delete-modal";
 import { useUserStore } from "@/lib/store/user";
 import { fetchCandidate, fetchCandidates } from "@/hooks/client-request/candidate";
+import calculateProfileCompletion from "@/hooks/funcs/calculateProfileComplition";
 
 // nav data
 const nav_data: {
@@ -67,13 +63,13 @@ const nav_data: {
   //   link: "/dashboard/candidate-dashboard/messages",
   //   title: "Messages",
   // },
-  {
-    id: 5,
-    icon: nav_5,
-    icon_active: nav_5_active,
-    link: "/dashboard/candidate-dashboard/job-alert",
-    title: "Job Alert",
-  },
+  // {
+  //   id: 5,
+  //   icon: nav_5,
+  //   icon_active: nav_5_active,
+  //   link: "/dashboard/candidate-dashboard/job-alert",
+  //   title: "Job Alert",
+  // },
   {
     id: 6,
     icon: nav_6,
@@ -107,23 +103,24 @@ const CandidateAside = ({isOpenSidebar,setIsOpenSidebar}:IProps) => {
       
     } 
   },[user])
-  console.log(candidate)
+  const completionPercentage = Number(calculateProfileCompletion(candidate?.profile, candidate?.resume)).toFixed(0);
+ 
   const pathname = usePathname();
   return (
     <>
     <aside className={`dash-aside-navbar ${isOpenSidebar?'show':''}`}>
       <div className="position-relative">
         <div className="logo text-md-center d-md-block d-flex align-items-center justify-content-between">
-          <Link href="/dashboard/candidate-dashboard">
-            <Image src={logo} alt="logo" priority />
-          </Link>
+          {/* <Link href="/">
+            <Image src={logo} alt="logo" priority className="lazy-img" width={100} height={40} style={{objectFit:'contain'}}  />
+          </Link> */}
           <button onClick={() => setIsOpenSidebar(false)} className="close-btn d-block d-md-none">
             <i className="bi bi-x-lg"></i>
           </button>
         </div>
         <div className="user-data">
           <div className="user-avatar online position-relative rounded-circle">
-            <Image src={candidate?.profile?.avatar ?`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/avatars/${candidate.profile.avatar}`:"/assets/images/candidates/01.png"} alt="avatar" className="lazy-img border" style={{height:'auto'}} width={100} height={100} />
+            <Image src={candidate?.profile?.avatar ?`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/avatars/${candidate.profile.avatar}`:"/assets/images/candidates/01.png"} alt="avatar" className="lazy-img border" style={{height:'100%', width:'100%', objectFit:'cover'}} width={100} height={100} />
           </div>
           <div className="user-name-data">
             <button
@@ -188,12 +185,12 @@ const CandidateAside = ({isOpenSidebar,setIsOpenSidebar}:IProps) => {
           </ul>
         </nav>
         <div className="profile-complete-status">
-          <div className="progress-value fw-500">87%</div>
+          <div className="progress-value fw-500">{completionPercentage}%</div>
           <div className="progress-line position-relative">
-            <div className="inner-line" style={{ width: "90%" }}>
+            <div className="inner-line" style={{ width: completionPercentage + "%"}}>
             </div>
           </div>
-          <p>Profile Complete</p>
+          {completionPercentage !== '100' ?<p>Profile Need to Complete</p> :<p>Profile Complete</p>}
         </div>
 
         <a href="#"

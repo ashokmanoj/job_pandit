@@ -2,31 +2,36 @@ import React from "react";
 import Image from "next/image";
 import view from "@/assets/dashboard/images/icon/icon_18.svg";
 import share from "@/assets/dashboard/images/icon/icon_19.svg";
-import edit from "@/assets/dashboard/images/icon/icon_20.svg";
 import delete_icon from "@/assets/dashboard/images/icon/icon_21.svg";
+import { notifySuccess } from "@/utils/toast";
 
-const ActionDropdown = () => {
+const ActionDropdown = ({ j, remove_wishlist_product }: { j: any , remove_wishlist_product:any}) => {
+ function handleCopy() {
+   try{
+     navigator.clipboard.writeText(window.location.origin + "/job-details/" + j.id).then(() => {
+       notifySuccess("Link copied to clipboard");
+     });
+   }catch(err){
+     console.log(err);
+   }
+ }
+
   return (
     <ul className="dropdown-menu dropdown-menu-end">
       <li>
-        <a className="dropdown-item" href="#">
+        <a className="dropdown-item" href={`/job-details/${j.id}`}>
           <Image src={view} alt="icon" className="lazy-img" /> View
         </a>
       </li>
       <li>
-        <a className="dropdown-item" href="#">
+        <button className="dropdown-item" onClick={handleCopy}>
           <Image src={share} alt="icon" className="lazy-img" /> Share
-        </a>
+        </button>
       </li>
       <li>
-        <a className="dropdown-item" href="#">
-          <Image src={edit} alt="icon" className="lazy-img" /> Edit
-        </a>
-      </li>
-      <li>
-        <a className="dropdown-item" href="#">
+        <button className="dropdown-item "  onClick={()=>{remove_wishlist_product(j)}}>
           <Image src={delete_icon} alt="icon" className="lazy-img" /> Delete
-        </a>
+        </button>
       </li>
     </ul>
   );

@@ -7,9 +7,11 @@ import JobDetailsBreadcrumb from "@/app/components/jobs/breadcrumb/job-details-b
 import RelatedJobs from "@/app/components/jobs/related-jobs";
 import FooterOne from "@/layouts/footers/footer-one";
 import job_data from "@/data/job-data";
+import { fetchJob } from "@/hooks/server-request/job_post";
+import ErrorPageArea from "@/app/components/error/error-page-area";
 
-const JobDetailsDynamicPage = ({ params }: { params: { id: string } }) => {
-  const job = job_data.find((j) => Number(j.id) === Number(params.id));
+const JobDetailsDynamicPage = async ({ params }: { params: { id: string } }) => {
+  const job = await fetchJob(Number(params.id));
   return (
     <Wrapper>
       <div className="main-page-wrapper">
@@ -22,11 +24,11 @@ const JobDetailsDynamicPage = ({ params }: { params: { id: string } }) => {
         {/* job details breadcrumb end */}
 
         {/* job details area start */}
-        {job && <JobDetailsV1Area job={job} />}
+        {job? <JobDetailsV1Area job={job} />:<><ErrorPageArea title="Job Not Found"/></>}
         {/* job details area end */}
 
         {/* related job start */}
-        {job && <RelatedJobs category={job.category} />}
+        {/* {job && <RelatedJobs category={job.category} />} */}
         {/* related job end */}
 
         {/* job portal intro start */}

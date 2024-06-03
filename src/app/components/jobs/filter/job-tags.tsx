@@ -1,10 +1,9 @@
 import React from "react";
-import job_data from "@/data/job-data";
 import useFilterStore from "@/lib/store/filter";
 
 
-const JobTags = () => {
-  const uniqueTags = [...new Set(job_data.flatMap((job) => job.tags))];
+const JobTags = ({job_data}: {job_data:any[]}) => {
+  const uniqueTags = [...new Set(job_data.flatMap((job) => job.skills))];
   const { tags,setTags } = useFilterStore((state) => state);
   return (
     <div className="main-body">

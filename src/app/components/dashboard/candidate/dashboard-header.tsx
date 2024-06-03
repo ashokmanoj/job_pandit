@@ -7,6 +7,7 @@ import notify_icon_1 from "@/assets/dashboard/images/icon/icon_36.svg";
 import notify_icon_2 from "@/assets/dashboard/images/icon/icon_37.svg";
 import notify_icon_3 from "@/assets/dashboard/images/icon/icon_38.svg";
 import search from "@/assets/dashboard/images/icon/icon_10.svg";
+import logo from "@/assets/images/logo/logo_j.png";
 // notification item
 function NotificationItem({
   icon,
@@ -91,11 +92,8 @@ const DashboardHeader = ({setIsOpenSidebar}:IProps) => {
           </ul>
         </div>
         <div>
-          <Link
-            href="/dashboard/employ-dashboard/submit-job"
-            className="job-post-btn tran3s"
-          >
-            Post a Job
+        <Link href="/">
+            <Image src={logo} alt="logo" priority className="lazy-img" width={100} height={40} style={{objectFit:'contain'}}  />
           </Link>
         </div>
       </div>
