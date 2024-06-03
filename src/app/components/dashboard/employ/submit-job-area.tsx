@@ -62,7 +62,11 @@ const SubmitJobArea = ({ setIsOpenSidebar ,params}: IProps) => {
     setSalaryType({ });
     setEducation({ });
     setWorkMode({ });
+<<<<<<< HEAD
+    setCandidate({  });
+=======
     setCandidate({ });
+>>>>>>> 72d675007a6493ab37412773aaba87e1c2f5a47f
     setVacancy(0);
     setIsData(true);
   };
