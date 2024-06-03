@@ -14,7 +14,7 @@ const CandidateProfileJobAlertPage = () => {
         {/* aside end  */}
 
         {/* job alert area start */}
-        <JobAlertArea setIsOpenSidebar={setIsOpenSidebar} />
+        <JobAlertArea  setIsOpenSidebar={setIsOpenSidebar} />
         {/* job alert area end */}
       </div>
     </Wrapper>

@@ -11,3 +11,16 @@ export const fetchCandidate = async ({ candidateId} :{  candidateId: string}) =>
 
     return { resume:data, profile: prof.data };
   }
+  export const fetchCandidates = async () => {
+    const supabase = createClient();
+    const { data, error } = await supabase
+      .from('candidate_profile')
+      .select('*')
+  
+ 
+    const resume = await supabase.from('candidate_resume_details').select('*');
+
+    const result = data?.map((d: any) => ({ ...d, resume: resume?.data?.find((p: any) => p.user_id === d.id) }));
+
+    return  result;
+  }

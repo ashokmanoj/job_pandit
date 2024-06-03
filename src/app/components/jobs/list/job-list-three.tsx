@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import slugify from "slugify";
 import FilterArea from "../filter/filter-area";
-import job_data from "@/data/job-data";
 import ListItemTwo from "./list-item-2";
 import { IJobType } from "@/types/job-data-type";
 import Pagination from "@/ui/pagination";
@@ -12,10 +11,10 @@ import useFilterStore from "@/lib/store/filter";
 
 
 
-const JobListThree = ({ itemsPerPage,grid_style=false }: { itemsPerPage: number;grid_style?:boolean }) => {
+const JobListThree = ({ itemsPerPage,grid_style=false ,job_data}: { itemsPerPage: number;grid_style?:boolean ,job_data:any[]}) => {
   let all_jobs = job_data;
   const maxPrice = job_data.reduce((max, job) => {
-    return job.salary > max ? job.salary : max;
+    return job.max_salary > max ? job.max_salary : max;
   }, 0);
   const { category, experience, job_type, location, tags } = useFilterStore((state) => state);
   const [currentItems, setCurrentItems] = useState<IJobType[] | null>(null);
@@ -34,19 +33,19 @@ const JobListThree = ({ itemsPerPage,grid_style=false }: { itemsPerPage: number;
         experience.length !== 0
           ? experience.some((e) => item.experience.trim().toLowerCase() === e.trim().toLowerCase()) : true
       )
-      .filter((item) => (job_type ? item.duration === job_type : true))
+      .filter((item) => (job_type ? item.job_type === job_type : true))
       .filter((l) => location ? slugify(l.location.split(',').join('-').toLowerCase(),'-') === location : true)
       .filter((item) => tags.length !== 0 ? tags.some((t) => item?.tags?.includes(t)) : true)
-      .filter((j) => j.salary >= priceValue[0] && j.salary <= priceValue[1]);
+      .filter((j) => j.max_salary >= priceValue[0] && j.max_salary <= priceValue[1]);
 
       if (shortValue === 'price-low-to-high') {
         filteredData = filteredData.slice()
-          .sort((a, b) => Number(a.salary) - Number(b.salary))
+          .sort((a, b) => Number(a.max_salary) - Number(b.max_salary) || Number(a.max_salary) - Number(b.max_salary))
       }
     
       if (shortValue === 'price-high-to-low') {
         filteredData = filteredData.slice()
-          .sort((a, b) => Number(b.salary) - Number(a.salary));
+          .sort((a, b) => Number(b.max_salary) - Number(a.max_salary));
       }
     const endOffset = itemOffset + itemsPerPage;
     setFilterItems(filteredData)
@@ -89,7 +88,7 @@ const handleShort = (item: { value: string; label: string }) => {
               Filter
             </button>
             {/* filter area start */}
-            <FilterArea priceValue={priceValue} setPriceValue={setPriceValue} maxPrice={maxPrice} />
+            <FilterArea job_data={job_data} priceValue={priceValue} setPriceValue={setPriceValue} maxPrice={maxPrice} />
             {/* filter area end */}
           </div>
 

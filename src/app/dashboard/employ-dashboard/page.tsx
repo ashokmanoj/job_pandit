@@ -3,6 +3,8 @@ import Wrapper from '@/layouts/wrapper';
 import EmployDashboardMain from '@/app/components/dashboard/employ';
 import { getRole } from '@/hooks/user/getRole';
 import { redirect } from 'next/navigation';
+import { fetchCompany, fetchCompanyDashboard } from '@/hooks/server-request/company';
+import { createClient } from '@/utils/supabase/server';
 
 const EmployDashboardPage = async () => {
   const role = await getRole();
@@ -14,9 +16,17 @@ const EmployDashboardPage = async () => {
  }else if( role !=='company'){
    redirect('/');
  }
+ 
+const company = await fetchCompanyDashboard();
+console.log(company);
+
+if (!company) {
+  redirect('/dashboard/employ-dashboard/profile');
+}
+
   return (
     <Wrapper>
-      <EmployDashboardMain/>
+      <EmployDashboardMain />
     </Wrapper>
   );
 };

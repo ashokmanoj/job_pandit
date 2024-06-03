@@ -4,9 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { IJobType } from "@/types/job-data-type";
 import useWishlistStore from "@/lib/store/wishlist";
+import formatAmount from "@/hooks/funcs/formateAmount";
 
 
-const ListItemTwo = ({ item }: { item: IJobType }) => {
+const ListItemTwo = ({ item }: { item: any }) => {
   const {wishlist,add_to_wishlist} = useWishlistStore((state) => state);
   const isActive = wishlist.some(p => p.id === item.id);
 
@@ -18,19 +19,19 @@ const ListItemTwo = ({ item }: { item: IJobType }) => {
     <div className="job-list-one style-two position-relative border-style mb-20">
       <div className="row justify-content-between align-items-center">
         <div className="col-md-5">
-          <div className="job-title d-flex align-items-center">
-            <Link href={`/job-details-v1/${item.id}`} className="logo">
-              <Image src={item.logo} alt="logo" className="lazy-img m-auto" />
+          <div className="job-title d-flex align-items-center ">
+            <Link href={`/job-details/${item.id}`} className="logo">
+            <Image src={item?.company?.avatar ?`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/employer_avatars/${item.company?.avatar}`:"/assets/images/candidates/01.png"} alt="company-logo" className="lazy-img rounded-circle" style={{objectFit:"cover", width:"auto", height:"auto",aspectRatio:"1/1"}} width={60} height={60} />
             </Link>
             <div className="split-box1">
               <Link
-                href={`/job-details-v1/${item.id}`}
+                href={`/job-details/${item.id}`}
                 className="job-duration fw-500"
               >
-                {item.duration}
+                {item.job_type}
               </Link>
               <Link
-                href={`/job-details-v1/${item.id}`}
+                href={`/job-details/${item.id}`}
                 className="title fw-500 tran3s"
               >
                 {item.title.slice(0, 22)} {item.title.length > 20 ? ".." : ""}
@@ -43,8 +44,7 @@ const ListItemTwo = ({ item }: { item: IJobType }) => {
             <Link href={`/job-details-v1/${item.id}`}>{item.location}</Link>
           </div>
           <div className="job-salary">
-            <span className="fw-500 text-dark">${item.salary}</span> /{" "}
-            {item.salary_duration} . {item.experience}
+            <span className="fw-500 text-dark">₹ {formatAmount(item.min_salary)}-{formatAmount(item.max_salary)}/{item.salary_type} <br /><span className="text-success">{item.experience==="Fresher"?"Fresher":"Experienced"}</span></span>
           </div>
         </div>
         <div className="col-md-3 col-sm-6">
@@ -57,7 +57,7 @@ const ListItemTwo = ({ item }: { item: IJobType }) => {
               <i className="bi bi-bookmark-dash"></i>
             </a>
             <Link
-              href={`/job-details-v1/${item.id}`}
+              href={`/job-details/${item.id}`}
               className="apply-btn text-center tran3s"
             >
               APPLY

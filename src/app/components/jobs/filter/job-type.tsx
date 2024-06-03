@@ -1,12 +1,11 @@
 import React from "react";
-import job_data from "@/data/job-data";
 import useFilterStore from "@/lib/store/filter";
 
 
 // job type items
 
-export function JobTypeItems({ showLength = true }: { showLength?: boolean }) {
-  const jobDuration = [...new Set(job_data.map((job) => job.duration))];
+export function JobTypeItems({ showLength = true, job_data }: { showLength?: boolean, job_data:any[] }) {
+  const jobDuration = [...new Set(job_data.map((job) => job.job_type))];
   const { job_type ,setJobType} = useFilterStore((state) => state);
   return (
     <>
@@ -33,11 +32,11 @@ export function JobTypeItems({ showLength = true }: { showLength?: boolean }) {
   );
 }
 
-const JobType = () => {
+const JobType = ({job_data}: {job_data:any[]}) => {
   return (
     <div className="main-body">
       <ul className="style-none filter-input">
-        <JobTypeItems />
+        <JobTypeItems job_data={job_data} />
       </ul>
     </div>
   );

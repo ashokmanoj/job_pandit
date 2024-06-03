@@ -1,9 +1,8 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import logo from "@/assets/dashboard/images/logo_01.png";
 import avatar from "@/assets/dashboard/images/avatar_03.jpg";
 import profile_icon_1 from "@/assets/dashboard/images/icon/icon_23.svg";
 import profile_icon_2 from "@/assets/dashboard/images/icon/icon_24.svg";
@@ -28,6 +27,8 @@ import nav_9_active from "@/assets/dashboard/images/icon/icon_40_active.svg";
 import nav_8 from "@/assets/dashboard/images/icon/icon_8.svg";
 import LogoutModal from "../../common/popup/logout-modal";
 import DeleteModal from "../../common/popup/delete-modal";
+import { useUserStore } from "@/lib/store/user";
+import { fetchCompany } from "@/hooks/client-request/company";
 
 // nav data
 const nav_data: {
@@ -37,179 +38,194 @@ const nav_data: {
   link: string;
   title: string;
 }[] = [
-  {
-    id: 1,
-    icon: nav_1,
-    icon_active: nav_1_active,
-    link: "/dashboard/employ-dashboard",
-    title: "Dashboard",
-  },
-  {
-    id: 2,
-    icon: nav_2,
-    icon_active: nav_2_active,
-    link: "/dashboard/employ-dashboard/profile",
-    title: "My Profile",
-  },
-  {
-    id: 3,
-    icon: nav_3,
-    icon_active: nav_3_active,
-    link: "/dashboard/employ-dashboard/jobs",
-    title: "My Jobs",
-  },
-  {
-    id: 4,
-    icon: nav_4,
-    icon_active: nav_4_active,
-    link: "/dashboard/employ-dashboard/messages",
-    title: "Messages",
-  },
-  {
-    id: 5,
-    icon: nav_5,
-    icon_active: nav_5_active,
-    link: "/dashboard/employ-dashboard/submit-job",
-    title: "Submit Job",
-  },
-  {
-    id: 6,
-    icon: nav_6,
-    icon_active: nav_6_active,
-    link: "/dashboard/employ-dashboard/saved-candidate",
-    title: "Saved Candidate",
-  },
-  {
-    id: 7,
-    icon: nav_9,
-    icon_active: nav_9_active,
-    link: "/dashboard/employ-dashboard/membership",
-    title: "Membership",
-  },
-  {
-    id: 8,
-    icon: nav_7,
-    icon_active: nav_7_active,
-    link: "/dashboard/employ-dashboard/setting",
-    title: "Account Settings",
-  },
-];
+    {
+      id: 1,
+      icon: nav_1,
+      icon_active: nav_1_active,
+      link: "/dashboard/employ-dashboard",
+      title: "Dashboard",
+    },
+    {
+      id: 2,
+      icon: nav_2,
+      icon_active: nav_2_active,
+      link: "/dashboard/employ-dashboard/profile",
+      title: "My Profile",
+    },
+    {
+      id: 3,
+      icon: nav_3,
+      icon_active: nav_3_active,
+      link: "/dashboard/employ-dashboard/jobs",
+      title: "My Jobs",
+    },
+    {
+      id: 4,
+      icon: nav_4,
+      icon_active: nav_4_active,
+      link: "/dashboard/employ-dashboard/messages",
+      title: "Messages",
+    },
+    {
+      id: 5,
+      icon: nav_5,
+      icon_active: nav_5_active,
+      link: "/dashboard/employ-dashboard/submit-job",
+      title: "Submit Job",
+    },
+    {
+      id: 6,
+      icon: nav_6,
+      icon_active: nav_6_active,
+      link: "/dashboard/employ-dashboard/saved-candidate",
+      title: "Saved Candidate",
+    },
+    {
+      id: 7,
+      icon: nav_9,
+      icon_active: nav_9_active,
+      link: "/dashboard/employ-dashboard/membership",
+      title: "Membership",
+    },
+    {
+      id: 8,
+      icon: nav_7,
+      icon_active: nav_7_active,
+      link: "/dashboard/employ-dashboard/setting",
+      title: "Account Settings",
+    },
+  ];
 // props type 
 type IProps = {
   isOpenSidebar: boolean,
   setIsOpenSidebar: React.Dispatch<React.SetStateAction<boolean>>
+
 }
-const EmployAside = ({isOpenSidebar,setIsOpenSidebar}:IProps) => {
+const EmployAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
+  const {user,setUser} = useUserStore();
+  const [company,setCompany] = useState<any>({});
+
+  
+
+  useEffect(() => {
+    if(user?.id){
+      fetchCompany({id:user?.id}).then(({data,error})=>{
+        console.log(data,error,"company");
+        setCompany(data);
+      })
+    } 
+  },[user])
   const pathname = usePathname();
   return (
     <>
-    <aside className={`dash-aside-navbar ${isOpenSidebar?'show':''}`}>
-      <div className="position-relative">
-        <div className="logo text-md-center d-md-block d-flex align-items-center justify-content-between">
-          <Link href="/dashboard/employ-dashboard">
-            <Image src={logo} alt="logo" priority />
-          </Link>
-          <button className="close-btn d-block d-md-none" onClick={() => setIsOpenSidebar(false)}>
-            <i className="bi bi-x-lg"></i>
-          </button>
-        </div>
-        <div className="user-data">
-          <div className="user-avatar online position-relative rounded-circle">
-            <Image src={avatar} alt="avatar" className="lazy-img" style={{height:'auto'}} />
-          </div>
-          <div className="user-name-data">
-            <button
-              className="user-name dropdown-toggle"
-              type="button"
-              id="profile-dropdown"
-              data-bs-toggle="dropdown"
-              data-bs-auto-close="outside"
-              aria-expanded="false"
-            >
-              John Doe
+      <aside className={`dash-aside-navbar ${isOpenSidebar ? 'show' : ''}`}>
+        <div className="position-relative">
+          <div className="logo text-md-center d-md-block d-flex align-items-center justify-content-between">
+          {!company &&<div className="alert alert-danger fs-14" role="alert">
+                Profile is required. <a href="/dashboard/employ-dashboard/profile" className="alert-link">Create Here</a>.
+              </div>}
+            <button className="close-btn d-block d-md-none" onClick={() => setIsOpenSidebar(false)}>
+              <i className="bi bi-x-lg"></i>
             </button>
-            <ul className="dropdown-menu" aria-labelledby="profile-dropdown">
+          </div>
+          <div className="user-data">
+            <div className="user-avatar online position-relative rounded-circle">
+            <Image src={company?.avatar?`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/employer_avatars/${company?.avatar}`:"/assets/images/candidates/01.png"} alt="company-logo" className="lazy-img rounded-circle" style={{objectFit:"cover", width:"100%", height:"100%"}} width={60} height={60} />
+            </div>
+            <div className="user-name-data">
+              <button
+                className="user-name dropdown-toggle"
+                type="button"
+                id="profile-dropdown"
+                data-bs-toggle="dropdown"
+                data-bs-auto-close="outside"
+                aria-expanded="false"
+              >
+                {company?.company_name}
+              </button>
+              
+              <ul className="dropdown-menu" aria-labelledby="profile-dropdown">
+                <li>
+                  <Link
+                    className="dropdown-item d-flex align-items-center"
+                    href="/dashboard/employ-dashboard/profile"
+                  >
+                    <Image src={profile_icon_1} alt="icon" className="lazy-img" />
+                    <span className="ms-2 ps-1">Profile</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="dropdown-item d-flex align-items-center"
+                    href="/dashboard/employ-dashboard/profile"
+                  >
+                    <Image src={profile_icon_2} alt="icon" className="lazy-img" />
+                    <span className="ms-2 ps-1">Account Settings</span>
+                  </Link>
+                </li>
+                <li>
+                  <a className="dropdown-item d-flex align-items-center" href="#">
+                    <Image src={profile_icon_3} alt="icon" className="lazy-img" />
+                    <span className="ms-2 ps-1">Notification</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <nav className="dasboard-main-nav">
+            <ul className="style-none">
+              {nav_data.map((m) => {
+                const isActive = pathname === m.link;
+                return (
+                  <li key={m.id} onClick={() => setIsOpenSidebar(false)}>
+                    <Link
+                      href={m.link}
+                      className={`d-flex w-100 align-items-center ${isActive ? "active" : ""}`}
+                    >
+                      <Image
+                        src={isActive ? m.icon_active : m.icon}
+                        alt=""
+                        className="lazy-img"
+                      />
+                      <span>{m.title}</span>
+                    </Link>
+                  </li>
+                );
+              })}
               <li>
-                <Link
-                  className="dropdown-item d-flex align-items-center"
-                  href="/dashboard/employ-dashboard/profile"
+                <a
+                  href="#"
+                  className="d-flex w-100 align-items-center"
+                  data-bs-toggle="modal"
+                  data-bs-target="#deleteModal"
                 >
-                  <Image src={profile_icon_1} alt="icon" className="lazy-img" />
-                  <span className="ms-2 ps-1">Profile</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="dropdown-item d-flex align-items-center"
-                  href="/dashboard/employ-dashboard/profile"
-                >
-                  <Image src={profile_icon_2} alt="icon" className="lazy-img" />
-                  <span className="ms-2 ps-1">Account Settings</span>
-                </Link>
-              </li>
-              <li>
-                <a className="dropdown-item d-flex align-items-center" href="#">
-                  <Image src={profile_icon_3} alt="icon" className="lazy-img" />
-                  <span className="ms-2 ps-1">Notification</span>
+                  <Image src={nav_8} alt="icon" className="lazy-img" />
+                  <span>Delete Account</span>
                 </a>
               </li>
             </ul>
+          </nav>
+          <div className="profile-complete-status">
+            <div className="progress-value fw-500">87%</div>
+            <div className="progress-line position-relative">
+              <div className="inner-line" style={{ width: "80%" }}></div>
+            </div>
+            <p>Profile Complete</p>
           </div>
-        </div>
-        <nav className="dasboard-main-nav">
-          <ul className="style-none">
-            {nav_data.map((m) => {
-              const isActive = pathname === m.link;
-              return (
-                <li key={m.id} onClick={() => setIsOpenSidebar(false)}>
-                  <Link
-                    href={m.link}
-                    className={`d-flex w-100 align-items-center ${isActive ? "active" : ""}`}
-                  >
-                    <Image
-                      src={isActive ? m.icon_active : m.icon}
-                      alt=""
-                      className="lazy-img"
-                    />
-                    <span>{m.title}</span>
-                  </Link>
-                </li>
-              );
-            })}
-            <li>
-              <a
-                href="#"
-                className="d-flex w-100 align-items-center"
-                data-bs-toggle="modal"
-                data-bs-target="#deleteModal"
-              >
-                <Image src={nav_8} alt="icon" className="lazy-img" />
-                <span>Delete Account</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-        <div className="profile-complete-status">
-          <div className="progress-value fw-500">87%</div>
-          <div className="progress-line position-relative">
-            <div className="inner-line" style={{ width: "80%" }}></div>
-          </div>
-          <p>Profile Complete</p>
-        </div>
 
-        <a href="#"
-         className="d-flex w-100 align-items-center logout-btn" 
-         data-bs-toggle="modal"
-         data-bs-target="#logoutModal">
-          <Image src={logout} alt="icon" className="lazy-img" />
-          <span>Logout</span>
-        </a>
-      </div>
-    </aside>
-    {/* LogoutModal star */}
-    <LogoutModal/>
-    <DeleteModal/>
-    {/* LogoutModal end */}
+          <a href="#"
+            className="d-flex w-100 align-items-center logout-btn"
+            data-bs-toggle="modal"
+            data-bs-target="#logoutModal">
+            <Image src={logout} alt="icon" className="lazy-img" />
+            <span>Logout</span>
+          </a>
+        </div>
+      </aside>
+      {/* LogoutModal star */}
+      <LogoutModal />
+      <DeleteModal />
+      {/* LogoutModal end */}
     </>
   );
 };

@@ -1,9 +1,8 @@
 import React from "react";
-import job_data from "@/data/job-data";
 import useFilterStore from "@/lib/store/filter";
 
 
-export function JobExperienceItems({showLength = true}: {showLength?: boolean}) {
+export function JobExperienceItems({showLength = true, job_data}: {showLength?: boolean, job_data:any[]}) {
   const uniqueExperiences = [...new Set(job_data.map((job) => job.experience))];
   const { experience,setExperience } = useFilterStore((state) => state);
   return (
@@ -31,12 +30,12 @@ export function JobExperienceItems({showLength = true}: {showLength?: boolean}) 
   );
 }
 
-const JobExperience = () => {
+const JobExperience = ({job_data}: {job_data:any[]}) => {
   return (
     <>
       <div className="main-body">
         <ul className="style-none filter-input">
-          <JobExperienceItems />
+          <JobExperienceItems job_data={job_data} />
         </ul>
       </div>
     </>

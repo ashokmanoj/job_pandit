@@ -1,8 +1,7 @@
 import React from "react";
-import job_data from "@/data/job-data";
 import ListItemTwo from "../jobs/list/list-item-2";
 
-const OpenPosition = () => {
+const OpenPosition = ({ job_data }: { job_data: any }) => {
   const job_items = job_data.slice(0, 4);
   return (
     <section className="company-open-position pt-80 lg-pt-60 pb-100 lg-pb-60">
@@ -22,7 +21,7 @@ const OpenPosition = () => {
           </div>
         </div>
         <div className="mt-50">
-          {job_items.map((item) => (
+          {job_items.map((item:any) => (
             <ListItemTwo key={item.id} item={item} />
           ))}
         </div>

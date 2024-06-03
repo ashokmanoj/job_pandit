@@ -1,13 +1,61 @@
 "use client"
-import React, { useState } from "react";
-import candidate_data from "@/data/candidate-data";
+import React, { useEffect, useState } from "react";
 import CandidateGridItem from "./candidate-grid-item";
 import CandidateListItem from "./candidate-list-item";
 import CandidateV1FilterArea from "./filter/candidate-v1-filter-area";
 import ShortSelect from "../common/short-select";
+import useCandidateFilterStore from "@/lib/store/candidate";
+import slugify from "slugify";
 
-const CandidateV1Area = ({style_2=false}:{style_2?:boolean}) => {
+const CandidateV1Area = ({style_2=false,candidates_data}:{style_2?:boolean,candidates_data:any}) => {
   const [jobType, setJobType] = useState<string>(style_2 ? "list" : "grid");
+
+  let all_candidate_data = candidates_data;
+  console.log(candidates_data,"candidates_data");
+
+
+  const {location,education,experience,english_fluency,skills,gender} = useCandidateFilterStore();
+  const [currentItems, setCurrentItems] = useState<any[] | null>(null);
+  const [filterItems, setFilterItems] = useState<any[]>([]);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+  const [shortValue, setShortValue] = useState('');
+
+  useEffect(() => {
+    // Filter the job_data array based on the selected filters
+    let filteredData = all_candidate_data
+      .filter((item: { skills: string | string[]; }) => skills.length !== 0 ? skills.some((c) => item.skills.includes(c)) : true)
+      .filter((item: {gender: string; }) => (gender? item.gender === gender : true))
+      .filter((item: { education: string; }) => (education ? item.education === education : true))
+      .filter((item: { experience: string; }) => (experience ? item.experience === experience : true))
+      .filter((item: { english_fluency: string; }) => (english_fluency ? item.english_fluency === english_fluency : true))
+      .filter((l: {city: string; }) => location ? slugify(l.city.split(',').join('-').toLowerCase(),'-') === location : true)
+      
+
+    const endOffset = itemOffset + 8;
+    setFilterItems(filteredData)
+    setCurrentItems(filteredData.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(filteredData.length / 8));
+  }, [
+    itemOffset,
+    8,
+    experience,
+    location,
+    education,
+    english_fluency,
+    gender,
+    shortValue
+  ]);
+
+
+  const handlePageClick = (event: { selected: number }) => {
+    const newOffset = (event.selected * 8) % all_candidate_data.length;
+    setItemOffset(newOffset);
+  };
+// handleShort
+const handleShort = (item: { value: string; label: string }) => {
+  setShortValue(item.value)
+}
   return (
     <>
       <section className="candidates-profile pt-110 lg-pt-80 pb-160 xl-pb-150 lg-pb-80">
@@ -24,7 +72,7 @@ const CandidateV1Area = ({style_2=false}:{style_2?:boolean}) => {
                 Filter
               </button>
               {/* filter area start */}
-              <CandidateV1FilterArea />
+              <CandidateV1FilterArea candidates_data={candidates_data}  />
               {/* filter area end */}
             </div>
 
@@ -61,7 +109,7 @@ const CandidateV1Area = ({style_2=false}:{style_2?:boolean}) => {
                   className={`accordion-box grid-style ${jobType === "grid" ? "show" : ""}`}
                 >
                   <div className="row">
-                    {candidate_data.map((item) => (
+                    {currentItems&&currentItems.map((item) => (
                       <div key={item.id} className="col-xxl-4 col-sm-6 d-flex">
                         <CandidateGridItem item={item} />
                       </div>
@@ -72,7 +120,7 @@ const CandidateV1Area = ({style_2=false}:{style_2?:boolean}) => {
                 <div
                   className={`accordion-box list-style ${jobType === "list" ? "show" : ""}`}
                 >
-                  {candidate_data.map((item) => (
+                  {filterItems.map((item) => (
                     <CandidateListItem key={item.id} item={item} />
                   ))}
                 </div>

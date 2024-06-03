@@ -1,10 +1,13 @@
-import React from "react";
+'use client'
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import DashboardHeader from "./dashboard-header";
 import ShortSelect from "../../common/short-select";
-import job_data from "@/data/job-data";
 import ActionDropdown from "./action-dropdown";
+import useWishlistStore from "@/lib/store/wishlist";
+import formatAmount from "@/hooks/funcs/formateAmount";
+import Pagination from "@/ui/pagination";
 
 // props type 
 type IProps = {
@@ -12,7 +15,18 @@ type IProps = {
 }
 
 const SavedJobArea = ({setIsOpenSidebar}:IProps) => {
-  const job_items = job_data.slice(0, 4);
+  const { wishlist, add_to_wishlist,remove_wishlist_product} = useWishlistStore();
+  const job_items = wishlist;
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+
+  const handlePageClick = (event: { selected: number }) => {
+    const newOffset = (event.selected * 6) % job_items.length;
+    setItemOffset(newOffset);
+  };
+  
+ 
+ 
   return (
     <div className="dashboard-body">
       <div className="position-relative">
@@ -38,11 +52,7 @@ const SavedJobArea = ({setIsOpenSidebar}:IProps) => {
                 <div className="col-xxl-3 col-lg-4">
                   <div className="job-title d-flex align-items-center">
                     <a href="#" className="logo">
-                      <Image
-                        src={j.logo}
-                        alt="img"
-                        className="lazy-img m-auto"
-                      />
+                    <Image src={j?.company?.avatar ?`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/employer_avatars/${j.company?.avatar}`:"/assets/images/candidates/01.png"} alt="company-logo" className="lazy-img rounded-circle m-auto" style={{objectFit:"cover", width:"auto", height:"auto"}} width={60} height={60} />
                     </a>
                     <a href="#" className="title fw-500 tran3s">
                       {j.title}
@@ -50,16 +60,15 @@ const SavedJobArea = ({setIsOpenSidebar}:IProps) => {
                   </div>
                 </div>
                 <div className="col-lg-3 col-md-4 col-sm-6 ms-auto">
-                  <Link href={`/job-details-v1/${j.id}`}
+                  <Link href={`/job-details/${j.id}`}
                     className={`job-duration fw-500 ${
-                      j.duration === "Part time" ? "part-time" : ""
+                      j.job_type === "Part time" ? "part-time" : ""
                     }`}
                   >
-                    {j.duration}
+                    {j.job_type}
                   </Link>
                   <div className="job-salary">
-                    <span className="fw-500 text-dark">${j.salary}</span> /{" "}
-                    {j.salary_duration} . {j.experience}
+                  <span className="fw-500 text-dark">₹ {formatAmount(j.min_salary)}-{formatAmount(j.max_salary)}/{j.salary_type} <br /><span className="text-success">{j.experience==="Fresher"?"Fresher":"Experienced"}</span></span>
                   </div>
                 </div>
                 <div className="col-xxl-2 col-lg-3 col-md-4 col-sm-6 ms-auto xs-mt-10">
@@ -67,12 +76,11 @@ const SavedJobArea = ({setIsOpenSidebar}:IProps) => {
                     <a href="#">{j.location}</a>
                   </div>
                   <div className="job-category">
-                    {j.category.map((c, i) => (
-                      <a key={i} href="#">
-                        {c}
-                        {i < j.category.length - 1 && ", "}
+                   
+                      <a href="#">
+                        
+                        <span>{j.category}</span>
                       </a>
-                    ))}
                   </div>
                 </div>
                 <div className="col-lg-2 col-md-4">
@@ -86,7 +94,7 @@ const SavedJobArea = ({setIsOpenSidebar}:IProps) => {
                       <span></span>
                     </button>
                     {/* action dropdown start */}
-                    <ActionDropdown/>
+                    <ActionDropdown j={j}  remove_wishlist_product={remove_wishlist_product}/>
                     {/* action dropdown end */}
                   </div>
                 </div>
@@ -94,7 +102,26 @@ const SavedJobArea = ({setIsOpenSidebar}:IProps) => {
             </div>
           ))}
         </div>
-
+        {job_items && (
+                <div className=" dash-pagination d-flex justify-content-end mt-30 pt-30 lg-pt-20 d-sm-flex align-items-center justify-content-between">
+                  <p className="m0 order-sm-last text-center text-sm-start xs-pb-20">
+                    Showing{" "}
+                    <span className="text-dark fw-500">{itemOffset + 1}</span>{" "}
+                    to{" "}
+                    <span className="text-dark fw-500">
+                      {Math.min(itemOffset + 6, job_items.length)}
+                    </span>{" "}
+                    of{" "}
+                    <span className="text-dark fw-500">{job_items.length}</span>
+                  </p>
+                  {job_items.length > 6 && (
+                    <Pagination
+                      pageCount={pageCount}
+                      handlePageClick={handlePageClick}
+                    />
+                  )}
+                </div>
+              )}
         <div className="dash-pagination d-flex justify-content-end mt-30">
           <ul className="style-none d-flex align-items-center">
             <li>

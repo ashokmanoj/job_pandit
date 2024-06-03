@@ -13,7 +13,7 @@ const CandidateProfileBreadcrumbTwo = ({ candidate }: { candidate: any }) => {
           <div className="d-flex align-items-start align-items-xl-center">
             <div className="cadidate-avatar position-relative d-block me-auto ms-auto">
               <a href="#" className="rounded-circle">
-                <Image src={candidate?.profile?.avatar ?`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/avatars/${candidate.profile?.avatar}`:"/assets/images/candidates/01.png"}alt="" className="lazy-img rounded-circle" width={100} height={100} />
+                <Image src={candidate?.profile?.avatar ?`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/avatars/${candidate.profile?.avatar}`:"/assets/images/candidates/01.png"}alt="" className="lazy-img rounded-circle" style={{height:'70px', width:'70px', objectFit:'cover'}} width={70} height={70} />
               </a>
             </div>
             <div className="right-side">
