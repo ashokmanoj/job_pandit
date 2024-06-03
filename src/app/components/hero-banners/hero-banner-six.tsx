@@ -19,8 +19,8 @@ const HeroBannerSix = () => {
         <div className="position-relative">
           <div className="row">
             <div className="col-xxl-8 col-xl-9 col-lg-8 m-auto text-center">
-              <h1 className="wow fadeInUp" data-wow-delay="0.3s">Find & Hire Experts for any Job.</h1>
-              <p className="text-md text-white mt-25 mb-55 lg-mb-40 wow fadeInUp" data-wow-delay="0.4s">Unlock your potential with quality job & earn from world leading brands.</p>
+              <h1 className="wow fadeInUp w-100" data-wow-delay="0.3s ;">Access Elite Talent for Any Job</h1>
+              <p className="text-md text-white mt-25 mb-55 lg-mb-40 wow fadeInUp" data-wow-delay="0.4s">Maximize Your Potential with High-Quality Job Opportunities and Earn from Renowned Brands.  </p>
             </div>
           </div>
           <div className="position-relative">
