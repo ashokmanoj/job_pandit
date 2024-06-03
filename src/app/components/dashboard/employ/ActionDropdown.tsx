@@ -4,7 +4,7 @@ import view from "@/assets/dashboard/images/icon/icon_18.svg";
 import share from "@/assets/dashboard/images/icon/icon_19.svg";
 import edit from "@/assets/dashboard/images/icon/icon_20.svg";
 import delete_icon from "@/assets/dashboard/images/icon/icon_21.svg";
-import { notifySuccess } from "@/utils/toast";
+import { notifyError, notifySuccess } from "@/utils/toast";
 import DeleteJobModal from "../../common/popup/delete-job";
 import { deleteJob } from "@/hooks/client-request/job";
 
@@ -22,10 +22,10 @@ const ActionDropdown = ({ jobpost }: { jobpost: any }) => {
   function handleDelete(id: any) {
 
     deleteJob(id).then(({ data }) => {
-      if (data) {
-        notifySuccess(`${data.title} is deleted successfully`);
+      if (!data.error) {
+        notifySuccess(`Job deleted successfully`);
       } else {
-        notifySuccess(`Something went wrong`);
+        notifyError(`Something went wrong`);
       }
 
 
