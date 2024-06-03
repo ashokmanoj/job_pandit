@@ -1,12 +1,12 @@
 import React from "react";
 import Image, { StaticImageData } from "next/image";
 // internal
-import logo from "@/assets/images/logo/logo_02.png";
-import media_1 from "@/assets/images/logo/media_09.png";
-import media_2 from "@/assets/images/logo/media_10.png";
-import media_3 from "@/assets/images/logo/media_11.png";
-import media_4 from "@/assets/images/logo/media_12.png";
-import media_5 from "@/assets/images/logo/media_13.png";
+import logo from "@/assets/images/home_images/logo_j.png";
+import media_1 from "@/assets/images/home_images/aicte_logo.png";
+import media_2 from "@/assets/images/home_images/wipro.png";
+import media_3 from "@/assets/images/home_images/toyota.png";
+import media_4 from "@/assets/images/home_images/skill-india.png";
+import media_5 from "@/assets/images/home_images/indo.png";
 import shape from "@/assets/images/shape/shape_10.svg";
 import Link from "next/link";
 
@@ -46,7 +46,7 @@ const FeatureTwo = () => {
           </div>
           <div className="col-lg-7 order-lg-first">
             <div className="big-circle rounded-circle position-relative d-flex align-items-center justify-content-center ms-lg-5 wow fadeInLeft">
-              <div className="inner-circle rounded-circle d-flex align-items-center justify-content-center">
+              <div className="inner-circle rounded-circle d-flex align-items-center justify-content-center w-50px">
                 <Image src={logo} alt="logo" className="lazy-img" />
               </div>
               {/*  /.inner-circle  */}

@@ -18,7 +18,7 @@ import HeroBannerSix from "./components/hero-banners/hero-banner-six";
 
 
 export default function Home() {
- 
+
 
   return (
     <Wrapper>
@@ -32,9 +32,10 @@ export default function Home() {
       {/* category section start */}
       <CategorySectionSix />
       {/* category section end */}
-      <JobListOne/>
+      <JobListOne />
       {/* job list items end */}
       {/* feature one start */}
+
       <FeatureOne />
       {/* feature one end */}
 
