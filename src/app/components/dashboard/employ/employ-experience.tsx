@@ -30,6 +30,7 @@ const EmployExperience = ({
             name="Experience"
             cls="category"
             placeholder="Ex : 1+ years of Experience"
+            value={experience}
           />
         </div>
       </div>

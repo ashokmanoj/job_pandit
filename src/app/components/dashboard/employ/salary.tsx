@@ -17,6 +17,7 @@ const Salary = ({ salary, setSalary }: any) => {
         defaultCurrent={0}
         onChange={(item) => setSalary(item.value)}
         name="Salary"
+        value={salary}
       />
     </div>
   );

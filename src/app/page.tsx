@@ -10,7 +10,7 @@ import JobPortalIntro from "./components/job-portal-intro/job-portal-intro";
 import FooterOne from "@/layouts/footers/footer-one";
 import Wrapper from "@/layouts/wrapper";
 import CategorySectionSix from "./components/category/category-section-6";
-import JobListOne, { JobListItems } from "./components/jobs/list/job-list-one";
+import JobListOne  from "./components/jobs/list/job-list-one";
 import HeroBannerSix from "./components/hero-banners/hero-banner-six";
 
 

@@ -17,6 +17,7 @@ const Job_Type = ({ jobType, setJobType }: any) => {
         defaultCurrent={0}
         onChange={(item) => setJobType(item.value)}
         name="Job Type"
+        value={jobType}
       />
     </div>
   );
