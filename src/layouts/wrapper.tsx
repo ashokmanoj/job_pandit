@@ -11,7 +11,7 @@ if (typeof window !== "undefined") {
 
 const Wrapper = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
-  const {resetFilter} = useFilterStore((state) => state);
+  const { resetFilter } = useFilterStore((state) => state);
 
   //  handle reset first time render this page
   const handleReset = () => {
@@ -26,7 +26,7 @@ const Wrapper = ({ children }: { children: React.ReactNode }) => {
   }, [pathname]);
   return (
     <>
-      {children} 
+      {children}
       <ToastContainer />
     </>
   );

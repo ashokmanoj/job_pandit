@@ -3,12 +3,15 @@ import Link from "next/link";
 import Image from "next/image";
 import girl from "@/assets/images/assets/img_03.jpg";
 import man_2 from "@/assets/images/assets/img_04.jpg";
-import screen_1 from "@/assets/images/assets/screen_01.png";
 import screen_2 from "@/assets/images/assets/screen_02.png";
 import screen_3 from "@/assets/images/assets/screen_03.png";
 import shape from "@/assets/images/shape/shape_06.svg";
 import home_image_1 from "@/assets/images/home_images/home_image_1.png"
 import home_image_2 from "@/assets/images/home_images/home_image_2.png"
+import home_image_3 from "@/assets/images/home_images/home_image_3.jpg"
+import home_image_4 from "@/assets/images/home_images/home_image_4.png"
+import home_image_5 from "@/assets/images/home_images/home_image_5.png"
+import home_image_6 from "@/assets/images/home_images/home_image_6.jpg"
 
 // FeatureImgData
 export function FeatureImgData() {
@@ -22,14 +25,14 @@ export function FeatureImgData() {
       <div className="row">
         <div className="col-md-4 col-5">
           <Image
-            src={girl}
+            src={home_image_6}
             alt="girl img"
             className="lazy-img img02 mt-35"
           />
         </div>
         <div className="col-md-6 col-7">
           <Image
-            src={man_2}
+            src={home_image_3}
             alt="man-img-2"
             className="lazy-img img01 mt-35"
           />
@@ -40,13 +43,13 @@ export function FeatureImgData() {
         alt="screen_1-img"
         className="lazy-img shapes screen01 wow fadeInRight"
       />
-      <Image
+      {/* <Image
         src={screen_2}
         alt="screen_2-img"
         className="lazy-img shapes screen02 wow fadeInUp"
-      />
+      /> */}
       <Image
-        src={screen_3}
+        src={home_image_4}
         alt="screen_3-img"
         className="lazy-img shapes screen03 wow fadeInUp"
       />
@@ -74,10 +77,11 @@ const FeatureOne = () => {
               </p>
               <ul className="list-style-one style-none">
                 <li>Effortless Talent Search</li>
-                <li>Recruit the cream of crops </li>
-                <li>Secure and Protected Payments</li>
+                <li>Advanced Applicant Tracking </li>
+                <li>Real-Time Job Alerts</li>
+                <li>Navigate our platform confidently</li>
               </ul>
-              <Link href='/job-list-v1' className="btn-one lg mt-50 md-mt-30">
+              <Link href='/job' className="btn-one lg mt-50 md-mt-30">
                 Learn more
               </Link>
             </div>

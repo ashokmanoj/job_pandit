@@ -4,11 +4,11 @@ import Image from "next/image";
 import Slider from "react-slick";
 import { StaticImageData } from "next/image";
 import shape from "@/assets/images/shape/shape_04.svg";
-import user_1 from "@/assets/images/assets/img_05.jpg";
-import user_2 from "@/assets/images/assets/img_06.jpg";
-import user_3 from "@/assets/images/assets/img_07.jpg";
-import user_4 from "@/assets/images/assets/img_08.jpg";
-import user_5 from "@/assets/images/assets/team_06.jpg";
+import user_1 from "@/assets/images/home_images/student_1.jpg";
+import user_2 from "@/assets/images/home_images/student_2.jpg";
+import user_3 from "@/assets/images/home_images/student_3.jpeg";
+import user_4 from "@/assets/images/home_images/student_4.jpeg";
+import user_5 from "@/assets/images/home_images/student_5.jpeg";
 
 // expert_data
 const expert_data: {
@@ -20,31 +20,31 @@ const expert_data: {
   {
     id: 1,
     user: user_1,
-    name: "Julie Ake",
+    name: "Nisarga N M",
     title: "Product Designer",
   },
   {
     id: 2,
     user: user_2,
-    name: "Juan Marko",
+    name: "Prajwal",
     title: "Java Developer",
   },
   {
     id: 3,
     user: user_3,
-    name: "Elizabeth Foster",
-    title: "UI/UX Designer",
+    name: "Harshitha R",
+    title: "Marketing Expert",
   },
   {
     id: 4,
     user: user_4,
-    name: "John Doe",
-    title: "Marketing Expert",
+    name: "Vinay H A",
+    title: "Content Writter",
   },
   {
     id: 5,
     user: user_5,
-    name: "Elizabeth Foster",
+    name: "Chandana",
     title: "UI/UX Designer",
   },
 ];
@@ -58,7 +58,7 @@ const slider_setting = {
   slidesToShow: 4,
   slidesToScroll: 1,
   autoplay: false,
-  autoplaySpeed: 3000,
+  autoplaySpeed: 3000000,
   responsive: [
     {
       breakpoint: 1200,
@@ -101,7 +101,7 @@ const ExpertsOne = () => {
                     className="lazy-img shapes shapes"
                   />
                 </span>{" "}
-                expert in jobi.
+                expert in jobPandit.
               </h2>
             </div>
           </div>
