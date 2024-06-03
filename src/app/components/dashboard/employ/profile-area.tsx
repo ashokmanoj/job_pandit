@@ -293,7 +293,7 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
                 <label htmlFor="">Company Size <span className="text-danger">*</span></label>
                 <input
                   type="text"
-                  placeholder="Ex : 300 Vacancy"
+                  placeholder="Ex : 50 Members"
                   onChange={(e) => setCsize(e.target.value)}
                   value={csize}
                 />

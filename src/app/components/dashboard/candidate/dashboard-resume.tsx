@@ -8,6 +8,7 @@ import AddEducation from "./AddEducation";
 import Skills_Experience from "./Skills_Experience";
 import { notifyError, notifySuccess } from "@/utils/toast";
 import { createClient } from "@/utils/supabase/client";
+import Achievements from "./Achievements";
 
 // props type
 type IProps = {
@@ -35,6 +36,12 @@ type projectType = {
   url: string;
 };
 
+type achievType = {
+  title: string;
+  description: string;
+  image: string;
+};
+
 const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
   const [isData, setIsData] = useState<boolean>(false);
   const [user, setUser] = useState<any>(null);
@@ -45,6 +52,7 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
   const [experiences, setExperience] = useState<experienceType[]>([]);
   const [skills, setSkills] = useState<any>([]);
   const [projects, setProjects] = useState<projectType[]>([]);
+  const [achievement, setAchievement] = useState<achievType[]>([]);
   const supabase = createClient();
   const [uploading, setUploading] = useState<boolean>(false);
 
@@ -72,6 +80,7 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
             experiences,
             skills,
             projects,
+           achievement,
           })
           .eq("user_id", user.id)
           .select("*")
@@ -90,6 +99,7 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
           setExperience(data.experiences);
           setSkills(data.skills);
           setProjects(data.projects);
+          setAchievement(data.achievement);
           setIsData(true);
         }
       } else {
@@ -105,6 +115,7 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
               experiences,
               skills,
               projects,
+              achievement,
             },
           ])
           .select("*")
@@ -123,6 +134,7 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
           setExperience(data.experiences);
           setSkills(data.skills);
           setProjects(data.projects);
+          setAchievement(data.achievement);
           setIsData(true);
         }
       }
@@ -151,6 +163,7 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
         setExperience(data.experiences);
         setSkills(data.skills);
         setProjects(data.projects);
+        setAchievement(data.achievement);
         setIsData(true);
       }
     };
@@ -195,6 +208,8 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
             setExperience={setExperience}
           />
           <DashboardPortfolio projects={projects} setProjects={setProjects} />
+          
+          <Achievements achievement={achievement} setAchievement={setAchievement} />
 
           <div className="button-group d-inline-flex align-items-center mt-30">
             {uploading ? (
