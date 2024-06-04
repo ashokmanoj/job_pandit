@@ -8,9 +8,11 @@ import SearchForm from "../../forms/search-form";
 const JobBreadcrumb = ({
   title = "Job Listing",
   subtitle = "We delivered blazing fast & striking work solution",
+  job_data,
 }: {
   title?: string;
   subtitle?: string;
+  job_data: any[];
 }) => {
   return (
     <div className="inner-banner-one position-relative">
@@ -30,7 +32,7 @@ const JobBreadcrumb = ({
             <div className="row">
               <div className="col-xl-9 col-lg-8 m-auto">
                 <div className="job-search-one position-relative">
-                  <SearchForm/>
+                  <SearchForm job_data={job_data}/>
                 </div>
               </div>
             </div>

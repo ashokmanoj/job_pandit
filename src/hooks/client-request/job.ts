@@ -24,3 +24,4 @@ export const fetchJobs = async () => {
     console.log(error,data,"error in delete job");
     return { data, error };  
   }
+

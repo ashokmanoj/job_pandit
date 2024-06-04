@@ -1,12 +1,13 @@
 import React from "react";
 import slugify from "slugify";
-import job_data from "@/data/job-data";
 import NiceSelect from "@/ui/nice-select";
 
 const JobLocationSelect = ({
   setLocationVal,
+  job_data
 }: {
   setLocationVal: React.Dispatch<React.SetStateAction<string>>;
+  job_data: any[];
 }) => {
   const uniqueLocations = [...new Set(job_data.map((job) => job.location))];
   // location_option
