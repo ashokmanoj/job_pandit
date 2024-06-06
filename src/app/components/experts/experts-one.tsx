@@ -4,11 +4,11 @@ import Image from "next/image";
 import Slider from "react-slick";
 import { StaticImageData } from "next/image";
 import shape from "@/assets/images/shape/shape_04.svg";
-import user_1 from "@/assets/images/home_images/student_1.jpg";
-import user_2 from "@/assets/images/home_images/student_2.jpg";
-import user_3 from "@/assets/images/home_images/student_3.jpeg";
-import user_4 from "@/assets/images/home_images/student_4.jpeg";
-import user_5 from "@/assets/images/home_images/student_5.jpeg";
+import user_1 from "@/assets/images/home_images/student_1.png";
+import user_2 from "@/assets/images/home_images/student_2.png";
+import user_3 from "@/assets/images/home_images/student_3.png";
+import user_4 from "@/assets/images/home_images/student_4.png";
+import user_5 from "@/assets/images/home_images/student_5.png";
 
 // expert_data
 const expert_data: {

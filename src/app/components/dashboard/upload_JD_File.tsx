@@ -54,7 +54,7 @@ const Employer_JD_File_Upload = ({ filename, setFileName }: { filename: string; 
                         contentType: 'pdf',
                     });
                 if (error) {
-                    console.error("Error uploading iresume:", error.message);
+                    console.error("Error uploading file:", error.message);
                 } else {
                     console.log("File uploaded successfully:");
                     setFileName(data.path);

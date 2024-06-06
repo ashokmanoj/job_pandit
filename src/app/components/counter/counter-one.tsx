@@ -11,19 +11,19 @@ const counter_data: {
   {
     id: 1,
     number: 7,
-    title: "million",
+    title: "k",
     subtitle: "Completed Jobs",
   },
   {
     id: 2,
-    number: 30,
+    number: 10,
     title: "k+",
     subtitle: "Worldwide Client",
   },
   {
     id: 3,
     number: 13,
-    title: "billion",
+    title: "millon",
     subtitle: "Dollar Payout",
   },
 ];

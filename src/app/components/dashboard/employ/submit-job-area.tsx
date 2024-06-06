@@ -13,7 +13,7 @@ import Education from "./Education";
 import NiceSelect from "@/ui/nice-select";
 import { useUserStore } from "@/lib/store/user";
 import Category from "./category";
-import { redirect } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 
 // props type
 type IProps = {
@@ -61,12 +61,9 @@ const SubmitJobArea = ({ setIsOpenSidebar ,params}: IProps) => {
     setJobType({ });
     setSalaryType({ });
     setEducation({ });
-    setWorkMode({ });
-<<<<<<< HEAD
-    setCandidate({  });
-=======
-    setCandidate({ });
->>>>>>> 72d675007a6493ab37412773aaba87e1c2f5a47f
+    setWorkMode('');
+    setCandidate('');
+    setCandidate('');
     setVacancy(0);
     setIsData(true);
   };
