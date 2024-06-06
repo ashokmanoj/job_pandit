@@ -37,7 +37,7 @@ const AddEducation = ({ education, setEducation }: { education: any, setEducatio
   }
   return (
     <div className="bg-white card-box border-20 mt-40">
-      <h4 className="dash-title-three">Education</h4>
+      <h4 className="dash-title-three">Education<span className="text-danger">*</span></h4>
       <div className="candidates-profile-details me-xxl-5 pe-xxl-4">
         <div className="inner-card border-style mb-60 lg-mb-50">
           {/* <h3 className="dash-title-three">Add Education</h3> */}
@@ -49,7 +49,7 @@ const AddEducation = ({ education, setEducation }: { education: any, setEducatio
         <div className="accordion-item">
           <div className="accordion-header" id="headingOne">
             <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-              Add Education*
+              Add Education
             </button>
           </div>
           <div id="collapseOne" className="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionOne">
@@ -57,7 +57,7 @@ const AddEducation = ({ education, setEducation }: { education: any, setEducatio
               <div className="row">
                 <div className="col-lg-2">
                   <div className="dash-input-wrapper mb-30 md-mb-10">
-                    <label htmlFor="">Title*</label>
+                    <label htmlFor="">Title<span className="text-danger">*</span></label>
                   </div>
                 </div>
                 <div className="col-lg-10">
@@ -69,7 +69,7 @@ const AddEducation = ({ education, setEducation }: { education: any, setEducatio
               <div className="row">
                 <div className="col-lg-2">
                   <div className="dash-input-wrapper mb-30 md-mb-10">
-                    <label htmlFor="">Academy*</label>
+                    <label htmlFor="">Academy<span className="text-danger">*</span></label>
                   </div>
 
                 </div>
@@ -83,20 +83,20 @@ const AddEducation = ({ education, setEducation }: { education: any, setEducatio
               <div className="row">
                 <div className="col-lg-2">
                   <div className="dash-input-wrapper mb-30 md-mb-10">
-                    <label htmlFor="">Year*</label>
+                    <label htmlFor="">Year<span className="text-danger">*</span></label>
                   </div>
                 </div>
                 <div className="col-lg-10">
                   <div className="row">
                     <div className="col-sm-6">
                       <div className="dash-input-wrapper mb-30">
-                        <label htmlFor="">From*</label>
+                        <label htmlFor="">From</label>
                         <input type="date" value={eduVal.from} onChange={(e) => setEduVal({ ...eduVal, from: e.target.value })} />
                       </div>
                     </div>
                     <div className="col-sm-6">
                       <div className="dash-input-wrapper mb-30">
-                        <label htmlFor="">To*</label>
+                        <label htmlFor="">To</label>
                         <input type="date" value={eduVal.to} onChange={(e) => setEduVal({ ...eduVal, to: e.target.value })} />
                       </div>
                     </div>
@@ -106,7 +106,7 @@ const AddEducation = ({ education, setEducation }: { education: any, setEducatio
               <div className="row">
                 <div className="col-lg-2">
                   <div className="dash-input-wrapper mb-30 md-mb-10">
-                    <label htmlFor="">Description*</label>
+                    <label htmlFor="">Description<span className="text-danger">*</span></label>
                   </div>
                 </div>
                 <div className="col-lg-10">
@@ -117,11 +117,13 @@ const AddEducation = ({ education, setEducation }: { education: any, setEducatio
               </div>
             </div>
           </div>
+          
         </div>
       </div>
       <a href="#" className="dash-btn-one coursor-pointer" onClick={handleAdd}><i className="bi bi-plus"></i> Add more</a>
     </div>
     </div>
+    
       </div>
   )
 }

@@ -61,11 +61,9 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
       return notifyError("Please Enter Overview");
     } else if (educations.length === 0) {
       return notifyError("Please Add Education");
-    } else if (experiences.length === 0) {
-      return notifyError("Please Add Experience");
-    } else if (projects.length === 0) {
+    } else if (resume === "") {
       return notifyError("Please Add Projects");
-    } else if (skills.length === 0) {
+    }else if (skills.length === 0) {
       return notifyError("Please Add Skills");
     } else {
       setUploading(true);
@@ -178,14 +176,14 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
           <DashboardHeader setIsOpenSidebar={setIsOpenSidebar} />
           {/* header end */}
 
-          <h2 className="main-title">My Resume</h2>
+          {isData ? <h2 className="main-title">Edit Resume </h2>:<h2 className="main-title">Create Resume</h2>}
 
           <UploadResume resume={resume} setResume={setResume} />
 
           <div className="bg-white card-box border-20 mt-40">
-            <h4 className="dash-title-three">Intro & Overview</h4>
+            <h4 className="dash-title-three">Intro & Overview <span className="text-danger">*</span></h4>
             <div className="dash-input-wrapper mb-35 md-mb-20">
-              <label htmlFor="">Overview*</label>
+              <label htmlFor="">Overview</label>
               <textarea
                 className="size-lg"
                 placeholder="Write something interesting about you...."

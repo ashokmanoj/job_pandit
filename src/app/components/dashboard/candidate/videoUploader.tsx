@@ -70,7 +70,7 @@ async function handleDeleteVideo(imagePath: string) {
       }
   return (
     <>
-    <div className="row">
+    <div className="row dash-input-wrapper">
     {videoUrl ?  <div className="col-sm-6 d-flex">
               <div className="intro-video-post position-relative mt-20" >
              <video src={videoUrl} controls className='w-100 aspect-square'></video>
@@ -86,13 +86,15 @@ async function handleDeleteVideo(imagePath: string) {
                     <span className="visually-hidden">Loading...</span>
                   </div>
                 : 
-                <><span>+ Add Intro Video</span>  
+                <><span>+ Add Intro Video<br /></span>
+
+                
                 <input type="file" id="uploadVdo" name="uploadVdo" placeholder="" onChange={handleUpload}  /></>
                       }
               </div>
               
             </div>}
-            <span>Upload your self-introduction video here</span>
+            <div className="alert-text">Upload your self-introduction video here <span style={{color:'grey',fontSize:'14px', textAlign:'center', width:'100%',margin:'auto',fontWeight:'bold'}}>(recommended)</span></div>
           </div>
 </>
 

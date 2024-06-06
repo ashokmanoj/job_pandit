@@ -24,10 +24,11 @@ const CandidateDetailsArea = ({ candidate }: { candidate: any }) => {
                   <h3 className="title">Overview</h3>
                   <p>{candidate.resume?.overview}</p>
                 </div>
-                <h3 className="title">Intro</h3>
+                {candidate.resume?.video &&
+                (<><h3 className="title">Intro</h3>
                 <div className="video-post d-flex align-items-center justify-content-center mt-25 lg-mt-20 mb-75 lg-mb-50">
                   <VideoPlayer video={candidate.resume?.video} />
-                </div>
+                </div></>)}
                 <div className="inner-card border-style mb-75 lg-mb-50">
                   <h3 className="title">Education</h3>
                   <div className="time-line-data position-relative pt-15">
@@ -47,23 +48,24 @@ const CandidateDetailsArea = ({ candidate }: { candidate: any }) => {
                   <Skills skills={candidate.resume?.skills} />
                   {/* skill area */}
                 </div>
-                <div className="inner-card border-style mb-60 lg-mb-50">
-                  <h3 className="title">Work Experience</h3>
-                  {/* WorkExperience */}
-                  <WorkExperience experience={candidate.resume?.experiences} />
-                  {/* WorkExperience */}
-                </div>
+              {candidate?.resume?.experiences?.length !== 0 && <div className="inner-card border-style mb-60 lg-mb-50">
+                <h3 className="title">Work Experience</h3>
+                {/* WorkExperience */}
+                <WorkExperience experience={candidate.resume?.experiences} />
+                {/* WorkExperience */}
+              </div>}
                 {/* <h3 className="title">Projects</h3> */}
                 {/* Candidate Profile Slider */}
                 {/* <CandidateProfileSlider projects={data.projects} /> */}
-                <div className="inner-card border-style mb-75 lg-mb-50">
+                {candidate.resume.projects}
+                {candidate.resume?.projects?.length!==0 && <div className="inner-card border-style mb-75 lg-mb-50">
                   <h3 className="title">Projects</h3>
                   <div className="time-line-data position-relative pt-15 row">
                     {candidate.resume.projects?.map((item: any, index: number) => (
                       <Projects item={item} index={index} />
                     ))}
                   </div>
-                </div>
+                </div>}
 
                 {/* Candidate Profile Slider */}
               </div>

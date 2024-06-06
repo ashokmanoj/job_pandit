@@ -44,7 +44,7 @@ const NiceSelect = ({
   };
 
   const filteredOptions = options.filter(option => 
-    option.label.toLowerCase().includes(search.toLowerCase())
+    option.label?.toLowerCase().includes(search.toLowerCase())
   );
 
   return (

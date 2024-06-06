@@ -3,6 +3,7 @@ import Image from "next/image";
 import { createClient } from "@/utils/supabase/client";
 import { notifyError } from "@/utils/toast";
 import Projects from "../../candidate-details/projects";
+import Link from "next/link";
 
 // achievements item
 
@@ -73,7 +74,8 @@ const Achievements = ({achievement,setAchievement}:{achievement:any ,setAchievem
   }
   return (
     <div className="bg-white card-box border-20 mt-40">
-      <h4 className="dash-title-three">Add Achievement or Certificate</h4>
+      <h4 className="dash-title-three">Achievements <span style={{color:'grey',fontSize:'12px'}}>(recommended)</span></h4>
+
       <div className="row" >
       {achievement?.map((item:any,index:number)=>
         (
@@ -81,8 +83,6 @@ const Achievements = ({achievement,setAchievement}:{achievement:any ,setAchievem
           <a href={item.url} className="d-block">
             <Image src={`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/achievement_images/${item.image}`} alt="image" className="lazy-img w-100 aspect-ratio-square rounded" style={{ width: '100%', height: 'auto' }} width={500} height={500} />
           </a>
-          <div className="col-6"><i className="bi bi-github" ></i> <i className="bi bi-link-45deg"></i></div>
-
           <h4>{item.title}</h4>
           
           <p>{item.description}</p>
@@ -101,7 +101,7 @@ const Achievements = ({achievement,setAchievement}:{achievement:any ,setAchievem
         <div className="accordion-item">
           <div className="accordion-header" id="headingOne">
             <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-              Add *
+              Add Achievement or Certificates 
             </button>
           </div>
           <div id="collapseOne" className="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionOne">
@@ -109,7 +109,7 @@ const Achievements = ({achievement,setAchievement}:{achievement:any ,setAchievem
               <div className="row">
                 <div className="col-lg-2">
                   <div className="dash-input-wrapper mb-30 md-mb-10">
-                    <label htmlFor="">Title*</label>
+                    <label htmlFor="">Title<span className="text-danger">*</span></label>
                   </div>
                 </div>
                 <div className="col-lg-10">
@@ -121,7 +121,7 @@ const Achievements = ({achievement,setAchievement}:{achievement:any ,setAchievem
               <div className="row">
                 <div className="col-lg-2">
                   <div className="dash-input-wrapper mb-30 md-mb-10">
-                    <label htmlFor="">Image *</label>
+                    <label htmlFor="">Image<span className="text-danger">*</span></label>
                   </div>
 
                 </div>
@@ -138,7 +138,7 @@ const Achievements = ({achievement,setAchievement}:{achievement:any ,setAchievem
               <div className="row">
                 <div className="col-lg-2">
                   <div className="dash-input-wrapper mb-30 md-mb-10">
-                    <label htmlFor="">Description*</label>
+                    <label htmlFor="">Description<span className="text-danger">*</span></label>
                   </div>
                 </div>
                 <div className="col-lg-10">

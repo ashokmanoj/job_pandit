@@ -75,7 +75,8 @@ const DashboardPortfolio = ({projects,setProjects}:{projects:any ,setProjects:an
   }
   return (
     <div className="bg-white card-box border-20 mt-40">
-      <h4 className="dash-title-three">Projects</h4>
+      <h4 className="dash-title-three">Projects <span style={{color:'grey',fontSize:'12px'}}>(recommended)</span></h4>
+      
       <div className="row" >
       {projects?.map((item:any,index:number)=>
         (
@@ -83,7 +84,7 @@ const DashboardPortfolio = ({projects,setProjects}:{projects:any ,setProjects:an
           <a href={item.url} className="d-block">
             <Image src={`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/project_images/${item.image}`} alt="image" className="lazy-img w-100 aspect-ratio-square rounded" style={{ width: '100%', height: 'auto' }} width={500} height={500} />
           </a>
-          <div className="col-6" ><Link href={item.url}><i className="bi bi-github" ></i></Link> </div>
+          <div className="col-6" ><Link href={item.url} target="_blank">{item.url}</Link> </div>
 
           <h4 style={{fontWeight:'bold',color:'black',fontSize:'20px'}}>{item.title}</h4>
           
@@ -103,7 +104,7 @@ const DashboardPortfolio = ({projects,setProjects}:{projects:any ,setProjects:an
         <div className="accordion-item">
           <div className="accordion-header" id="headingOne">
             <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-              Add Project*
+              Add Project
             </button>
           </div>
           <div id="collapseOne" className="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionOne">
@@ -111,7 +112,7 @@ const DashboardPortfolio = ({projects,setProjects}:{projects:any ,setProjects:an
               <div className="row">
                 <div className="col-lg-2">
                   <div className="dash-input-wrapper mb-30 md-mb-10">
-                    <label htmlFor="">Title*</label>
+                    <label htmlFor="">Title<span className="text-danger">*</span></label>
                   </div>
                 </div>
                 <div className="col-lg-10">
@@ -123,7 +124,7 @@ const DashboardPortfolio = ({projects,setProjects}:{projects:any ,setProjects:an
               <div className="row">
                 <div className="col-lg-2">
                   <div className="dash-input-wrapper mb-30 md-mb-10">
-                    <label htmlFor="">Image *</label>
+                    <label htmlFor="">Image <span className="text-danger">*</span></label>
                   </div>
 
                 </div>
@@ -138,7 +139,7 @@ const DashboardPortfolio = ({projects,setProjects}:{projects:any ,setProjects:an
               <div className="row">
                 <div className="col-lg-2">
                   <div className="dash-input-wrapper mb-30 md-mb-10">
-                    <label htmlFor="">Url </label>
+                    <label htmlFor="">Url <span className="text-danger">*</span> </label>
                   </div>
                 </div>
                 <div className="col-lg-10">
@@ -152,7 +153,7 @@ const DashboardPortfolio = ({projects,setProjects}:{projects:any ,setProjects:an
               <div className="row">
                 <div className="col-lg-2">
                   <div className="dash-input-wrapper mb-30 md-mb-10">
-                    <label htmlFor="">Description*</label>
+                    <label htmlFor="">Description<span className="text-danger">*</span></label>
                   </div>
                 </div>
                 <div className="col-lg-10">

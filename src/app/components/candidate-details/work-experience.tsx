@@ -1,6 +1,7 @@
 import React from "react";
 
 const WorkExperience = ({experience}:any) => {
+  
   return (
     <div className="time-line-data position-relative pt-15">
       {experience?.map((item:any, index:any) => (
