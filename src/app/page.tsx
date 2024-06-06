@@ -10,15 +10,16 @@ import JobPortalIntro from "./components/job-portal-intro/job-portal-intro";
 import FooterOne from "@/layouts/footers/footer-one";
 import Wrapper from "@/layouts/wrapper";
 import CategorySectionSix from "./components/category/category-section-6";
-import JobListOne, { JobListItems } from "./components/jobs/list/job-list-one";
+import JobListOne  from "./components/jobs/list/job-list-one";
 import HeroBannerSix from "./components/hero-banners/hero-banner-six";
+import { fetchJobs } from "@/hooks/server-request/job_post";
 
 
 
 
 
-export default function Home() {
-
+export default async function Home() {
+  const jobs = await fetchJobs();
 
   return (
     <Wrapper>
@@ -27,12 +28,12 @@ export default function Home() {
       {/* header end */}
       {/* hero banner start */}
       {/* <HeroBannerFour /> */}
-      <HeroBannerSix />
+      <HeroBannerSix jobs={jobs||[]} />
       {/* hero banner end */}
       {/* category section start */}
       <CategorySectionSix />
       {/* category section end */}
-      <JobListOne />
+      <JobListOne jobs={jobs||[]} />
       {/* job list items end */}
       {/* feature one start */}
 

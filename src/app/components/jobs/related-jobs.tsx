@@ -1,8 +1,8 @@
 "use client";
-import React,{useRef} from "react";
-import job_data from "@/data/job-data";
+import React,{useEffect, useRef} from "react";
 import Slider from "react-slick";
 import JobGridItem from "./grid/job-grid-item";
+import { fetchJobs } from "@/hooks/client-request/job";
 
 // slider setting
 const slider_setting = {
@@ -29,8 +29,15 @@ const slider_setting = {
   ],
 };
 const RelatedJobs = ({category}:{category:string[]}) => {
-  const job_items = job_data.filter((job) => {
-    return category.some((c) => job.category.includes(c));
+  useEffect(() => {
+
+    fetchJobs().then((data:any) => {
+      setJobs(data);
+    })
+  })
+  const [jobs, setJobs] = React.useState<any[]>([]);
+  const job_items = jobs.filter((job:any) => {
+    return category === job.category;
   });;
   const sliderRef = useRef<Slider | null>(null);
 
@@ -50,7 +57,7 @@ const RelatedJobs = ({category}:{category:string[]}) => {
           </div>
 
           <Slider {...slider_setting} ref={sliderRef} className="related-job-slider">
-            {job_items.map((j) => (
+            {job_items.map((j:any) => (
               <div key={j.id} className="item">
                 <JobGridItem item={j} />
               </div>

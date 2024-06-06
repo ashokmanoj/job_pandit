@@ -5,12 +5,14 @@ import banner_2 from '@/assets/images/assets/banner-1.jpg';
 import useSearchFormSubmit from '@/hooks/use-search-form-submit';
 import JobCategorySelect from '../select/job-category';
 import CounterOne from '../counter/counter-one';
+import JobLocationSelect from '../select/job-location';
 
 
-const HeroBannerSix = () => {
+const HeroBannerSix = ({jobs}:{jobs:any}) => {
   const { handleSubmit, setCategoryVal,setSearchText } = useSearchFormSubmit();
   // handleSearchInput
   const handleSearchInput = (e:React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
     setSearchText(e.target.value)
   }
   return (
@@ -31,14 +33,14 @@ const HeroBannerSix = () => {
                     <div className="row">
                       <div className="col-md-5">
                         <div className="input-box">
-                          <div className="label">Your job title, keyword</div>
-                          <input onChange={handleSearchInput} type="text" placeholder="Google" className="keyword" />
+                          <div className="label">Job Location</div>
+                          <JobLocationSelect setLocationVal={setSearchText} job_data={jobs} />
                         </div>
                       </div>
                       <div className="col-md-4">
                         <div className="input-box border-left">
                           <div className="label">Category</div>
-                          <JobCategorySelect setCategoryVal={setCategoryVal} />
+                        <JobCategorySelect setCategoryVal={setCategoryVal} job_data={jobs}   />
                         </div>
                       </div>
                       <div className="col-md-3">

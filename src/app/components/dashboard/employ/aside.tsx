@@ -70,7 +70,7 @@ const nav_data: {
       id: 5,
       icon: nav_5,
       icon_active: nav_5_active,
-      link: "/dashboard/employ-dashboard/submit-job",
+      link: "/dashboard/employ-dashboard/submit-job/new",
       title: "Submit Job",
     },
     {

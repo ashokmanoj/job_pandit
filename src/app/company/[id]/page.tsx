@@ -1,6 +1,6 @@
 import React from "react";
 import { Metadata } from "next";
-import Header from "@/layouts/headers/header";
+import Header from "@/layouts/headers/header-7";
 import Wrapper from "@/layouts/wrapper";
 import JobPortalIntro from "../../components/job-portal-intro/job-portal-intro";
 import CompanyBreadcrumb from "../../components/common/common-breadcrumb";
@@ -22,12 +22,12 @@ const CompanyDetailsPage = async ({ params }: { params: { id: number } }) => {
         {/* header start */}
         <Header />
         {/* header end */}
-
+        <div className="mt-30"></div>
         {/*breadcrumb start */}
-        <CompanyBreadcrumb
+        {/* <CompanyBreadcrumb
           title="Company Details"
           subtitle="Find company details here"
-        />
+        /> */}
         {/*breadcrumb end */}
 
         {/* company details area start */}
@@ -35,11 +35,11 @@ const CompanyDetailsPage = async ({ params }: { params: { id: number } }) => {
         {/* company details area end */}
 
         {/*job Open Position */}
-        <OpenPosition job_data={company?.job_posts}/>
+        <OpenPosition job_data={company?.job_posts} />
         {/*job Open Position */}
 
         {/* job portal intro start */}
-        <JobPortalIntro  top_border={true} />
+        <JobPortalIntro top_border={true} />
         {/* job portal intro end */}
 
         {/* footer start */}

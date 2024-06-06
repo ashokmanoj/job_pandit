@@ -3,7 +3,8 @@ import useSearchFormSubmit from "@/hooks/use-search-form-submit";
 import JobLocationSelect from "../select/job-location";
 import JobCategorySelect from "../select/job-category";
 
-const SearchForm = () => {
+
+const SearchForm = ({job_data}: {job_data: any[]}) => {
   const { handleSubmit, setLocationVal, setCategoryVal } =
     useSearchFormSubmit();
 
@@ -13,13 +14,13 @@ const SearchForm = () => {
         <div className="col-md-5">
           <div className="input-box">
             <div className="label">What are you looking for?</div>
-            <JobLocationSelect setLocationVal={setLocationVal} />
+            <JobLocationSelect setLocationVal={setLocationVal} job_data={job_data}/>
           </div>
         </div>
         <div className="col-md-4">
           <div className="input-box border-left">
             <div className="label">Category</div>
-            <JobCategorySelect setCategoryVal={setCategoryVal} />
+            <JobCategorySelect setCategoryVal={setCategoryVal} job_data={job_data} />
           </div>
         </div>
         <div className="col-md-3">

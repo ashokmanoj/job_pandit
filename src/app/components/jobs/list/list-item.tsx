@@ -19,30 +19,30 @@ const ListItem = ({ item,style_2,cls='' }: { item: any;style_2?:boolean;cls?:str
       <div className="row justify-content-between align-items-center">
         <div className="col-xxl-3 col-lg-4">
           <div className="job-title d-flex align-items-center">
-            <Link href={`/job-details/${item.id}`} className="logo">
+            <Link href={`/job/${item.id}`} className="logo">
             <Image src={item?.company?.avatar ?`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/employer_avatars/${item.company?.avatar}`:"/assets/images/candidates/01.png"} alt="company-logo" className="lazy-img rounded-circle" style={{objectFit:"cover", width:"auto", height:"auto", aspectRatio:"1/1"}} width={60} height={60} />
             </Link>
-            <Link href={`/job-details/${item.id}`} className="title fw-500 tran3s">
+            <Link href={`/job/${item.id}`} className="title fw-500 tran3s">
               {item.title}
             </Link>
           </div>
         </div>
         <div className="col-lg-3 col-md-4 col-sm-6 ms-auto">
-          <Link href={`/job-details/${item.id}`}
+          <Link href={`/job/${item.id}`}
             className={`job-duration fw-500 ${item.job_type === "Part time" ? "part-time" : ""}`}
           >
             {item.job_type}
           </Link>
           <div className="job-date">
-            {new Date(item?.created_at).toDateString()} by <Link href={`/job-details/${item.id}`}>{item.company.company_name}</Link>
+            {new Date(item?.created_at).toDateString()} by <Link href={`/company/${item.company.id}`}>{item.company.company_name}</Link>
           </div>
         </div>
         <div className="col-xxl-2 col-lg-3 col-md-4 col-sm-6 ms-auto xs-mt-10">
           <div className="job-location">
-            <Link href={`/job-details/${item.id}`}>{item.location}</Link>
+            <Link href={`/job/${item.id}`}>{item.location}</Link>
           </div>
           <div className="job-category">
-              <a href="#">
+              <a href="/job">
                 {item.category}
               </a>
           </div>
@@ -55,7 +55,7 @@ const ListItem = ({ item,style_2,cls='' }: { item: any;style_2?:boolean;cls?:str
             >
               <i className="bi bi-bookmark-dash"></i>
             </a>
-            <Link href={`/job-details/${item.id}`}
+            <Link href={`/job/${item.id}`}
               className="apply-btn text-center tran3s"
             >
               APPLY

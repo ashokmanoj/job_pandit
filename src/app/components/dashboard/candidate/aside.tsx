@@ -111,9 +111,9 @@ const CandidateAside = ({isOpenSidebar,setIsOpenSidebar}:IProps) => {
     <aside className={`dash-aside-navbar ${isOpenSidebar?'show':''}`}>
       <div className="position-relative">
         <div className="logo text-md-center d-md-block d-flex align-items-center justify-content-between">
-          {/* <Link href="/">
-            <Image src={logo} alt="logo" priority className="lazy-img" width={100} height={40} style={{objectFit:'contain'}}  />
-          </Link> */}
+        {!candidate?.profile &&<div className="alert alert-danger fs-14" role="alert">
+                Profile is required. <a href="/dashboard/candidate-dashboard/profile" className="alert-link">Create Here</a>.
+              </div>}
           <button onClick={() => setIsOpenSidebar(false)} className="close-btn d-block d-md-none">
             <i className="bi bi-x-lg"></i>
           </button>
@@ -137,7 +137,7 @@ const CandidateAside = ({isOpenSidebar,setIsOpenSidebar}:IProps) => {
               <li>
                 <Link
                   className="dropdown-item d-flex align-items-center"
-                  href={`/candidate-details/${user?.id}`}
+                  href={`/candidate/${user?.id}`}
                 >
                   <Image src={profile_icon_1} alt="icon" className="lazy-img" />
                   <span className="ms-2 ps-1">Profile</span>

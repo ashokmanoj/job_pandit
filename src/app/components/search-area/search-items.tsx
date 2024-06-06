@@ -1,36 +1,33 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import job_data from "@/data/job-data";
-import slugify from "slugify";
 import ListItemTwo from "../jobs/list/list-item-2";
 import JobGridItem from "../jobs/grid/job-grid-item";
-import { IJobType } from "@/types/job-data-type";
 
-const SearchItems = () => {
+
+
+const SearchItems = ({ all_jobs }: { all_jobs: any[] }) => {
+console.log(all_jobs,"all_jobs all_jobs all_jobs")
   const searchParams = useSearchParams();
-  const [jobs, setJobs] = useState<IJobType[]>(job_data);
+  const [jobs, setJobs] = useState<any[]>(all_jobs);
   const [jobType, setJobType] = useState<string>("list");
   const category = searchParams.get("category");
   const location = searchParams.get("location");
   const search = searchParams.get("search");
   const company = searchParams.get("company");
   
-  const categoryMatch = (item:IJobType) => {
-    return item.category.some(
-      (e) =>
-        slugify(e.split(",").join("-").toLowerCase(), "-") === category
+  const categoryMatch = (item:any) => {
+    return (
+       item.category.toLowerCase() === category?.toLowerCase()
     );
   }
-  const locationMatch = (item:IJobType) => {
-    return slugify(item.location.split(",").join("-").toLowerCase(), "-") ===
-    location;
+  const locationMatch = (item:any) => {
+    return item.location.toLowerCase() ===location?.toLowerCase();
   }
-  const companyMatch = (item:IJobType) => {
-    return slugify(item.company.split(",").join("-").toLowerCase(), "-") ===
-    company;
+  const companyMatch = (item:any) => {
+    return item?.company?.company_name.toLowerCase() ===company?.toLowerCase();
   }
-  const titleMatch = (item:IJobType) => {
+  const titleMatch = (item:any) => {
     if(search){
       return item.title.toLowerCase().includes(search.toLowerCase());
     }
@@ -40,7 +37,7 @@ const SearchItems = () => {
     // category && location && company && search all are match
     if (category && location && company && search) {
       setJobs(
-        job_data.filter((j) => {
+        all_jobs.filter((j: any) => {
           const matchingCategory = categoryMatch(j)
           const matchLocation = locationMatch(j);
           const matchCompany = companyMatch(j);
@@ -52,7 +49,7 @@ const SearchItems = () => {
     // category && location && company all are match
     if (category && location && company) {
       setJobs(
-        job_data.filter((j) => {
+        all_jobs.filter((j: any) => {
           const matchingCategory = categoryMatch(j)
           const matchLocation = locationMatch(j);
           const matchCompany = companyMatch(j);
@@ -63,7 +60,7 @@ const SearchItems = () => {
     // category && location && search all are match
     if (category && location && search) {
       setJobs(
-        job_data.filter((j) => {
+        all_jobs.filter((j: any) => {
           const matchingCategory = categoryMatch(j)
           const matchLocation = locationMatch(j);
           const matchTile = titleMatch(j);
@@ -73,7 +70,7 @@ const SearchItems = () => {
     }
     if (category && location) {
       setJobs(
-        job_data.filter((j) => {
+        all_jobs.filter((j: any) => {
           const matchingCategory = categoryMatch(j)
           const matchLocation = locationMatch(j);
           return matchingCategory && matchLocation;
@@ -82,7 +79,7 @@ const SearchItems = () => {
     }
     if (category && search) {
       setJobs(
-        job_data.filter((j) => {
+        all_jobs.filter((j: any) => {
           const matchingCategory = categoryMatch(j)
           const matchTile = titleMatch(j);
           return matchingCategory && matchTile;
@@ -91,7 +88,7 @@ const SearchItems = () => {
     }
     if (category) {
       setJobs(
-        job_data.filter((j) => {
+        all_jobs.filter((j: any) => {
           const matchingCategory = categoryMatch(j)
           return matchingCategory;
         })
@@ -99,7 +96,7 @@ const SearchItems = () => {
     }
     if (location) {
       setJobs(
-        job_data.filter((j) => {
+        all_jobs.filter((j: any) => {
           const matchLocation = locationMatch(j);
           return matchLocation;
         })
@@ -107,7 +104,7 @@ const SearchItems = () => {
     }
     if (search) {
       setJobs(
-        job_data.filter((j) => {
+        all_jobs.filter((j: any) => {
           const matchTile = titleMatch(j);
           return matchTile;
         })
@@ -115,7 +112,7 @@ const SearchItems = () => {
     }
     if (company) {
       setJobs(
-        job_data.filter((j) => {
+        all_jobs.filter((j: any) => {
           const matchCompany = companyMatch(j);
           return matchCompany;
         })
@@ -123,6 +120,9 @@ const SearchItems = () => {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category, company, location, search]);
+ console.log(jobs);
+
+
 
   return (
     <section className="job-listing-three pt-110 lg-pt-80 pb-160 xl-pb-150 lg-pb-80">

@@ -431,3 +431,47 @@ hr {opacity: 0.09; margin: 5px 0;}
   margin-top: 30px;
   margin-right: 30px;
 }
+
+
+.custom-list{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display:flex;
+  flex-wrap: wrap;
+  gap: 1px;
+  li{
+    button{
+      background-color: $color-three;
+      color: #fff;
+      border-radius: 15px;
+      padding: 4px 8px;
+      font-size: 12px;
+      font-weight: 500;
+      &:hover{
+        background-color: $color-one;
+      }
+    }
+  }
+  
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 7px solid $color-one;
+  border-bottom-color: #FF3D00;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  }
+
+  @keyframes rotation {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+  } 

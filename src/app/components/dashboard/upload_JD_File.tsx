@@ -85,7 +85,7 @@ const Employer_JD_File_Upload = ({ filename, setFileName }: { filename: string; 
         <div className="bg-white card-box border-20">
             <h4 className="dash-title-three">File Attachment</h4>
             <div className="dash-input-wrapper mb-20">
-                <label htmlFor="">File Attachment*</label>
+                <label htmlFor="">File Attachment (Optional)</label>
             </div>
             {filename && resumeUrl && (
                 <div className="resume-preview">

@@ -1,6 +1,6 @@
 import React from "react";
 import { Metadata } from "next";
-import Header from "@/layouts/headers/header";
+import Header from "@/layouts/headers/header-7";
 import Wrapper from "@/layouts/wrapper";
 import CompanyBreadcrumb from "../components/common/common-breadcrumb";
 import FooterOne from "@/layouts/footers/footer-one";
@@ -19,10 +19,7 @@ const RegisterPage = () => {
         {/* header end */}
 
         {/*breadcrumb start */}
-        <CompanyBreadcrumb
-          title="Register"
-          subtitle="Create an account & Start posting or hiring talents"
-        />
+        <div className="mt-30"></div>
         {/*breadcrumb end */}
         {/* register area start */}
         <RegisterArea/>

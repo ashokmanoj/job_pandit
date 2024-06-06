@@ -51,7 +51,7 @@ const CandidateFilterModal = () => {
                       <div className="filter-title fw-500 text-dark">
                         Skills
                       </div>
-                      <FilterSkills />
+                      {/* <FilterSkills /> */}
                     </div>
                   </div>
                   <div className="col-lg-3">
@@ -59,7 +59,7 @@ const CandidateFilterModal = () => {
                       <div className="filter-title fw-500 text-dark">
                         Location
                       </div>
-                      <FilterCandidateLocation />
+                      {/* <FilterCandidateLocation /> */}
                     </div>
                   </div>
                   <div className="col-lg-3">
