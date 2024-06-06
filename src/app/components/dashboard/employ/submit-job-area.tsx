@@ -12,6 +12,7 @@ import Education from "./Education";
 import NiceSelect from "@/ui/nice-select";
 import { useUserStore } from "@/lib/store/user";
 import Category from "./category";
+import { redirect, usePathname } from "next/navigation";
 
 
 // props type
@@ -59,6 +60,7 @@ const SubmitJobArea = ({ setIsOpenSidebar, params }: IProps) => {
     setWorkMode('');
     setCandidate('');
     setVacancy('');
+
     setIsData(true);
   };
 

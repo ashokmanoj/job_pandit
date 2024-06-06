@@ -18,13 +18,13 @@ const JobPortalIntro = ({top_border=false}:{top_border?:boolean}) => {
             <div className="col-lg-5">
               <ul className="btn-group style-none d-flex flex-wrap justify-content-center justify-content-lg-end">
                 <li className="me-2">
-                  <Link href="/job-list-v1" className="btn-three">
+                  <Link href="/job" className="btn-three">
                     Looking for job?
                   </Link>
                 </li>
                 <li className="ms-2">
                   <Link href="/register" className="btn-four">
-                    Post a job
+                    Create Profile
                   </Link>
                 </li>
               </ul>

@@ -14,7 +14,6 @@ const VideoPopup = ({
   setIsVideoOpen,
   videoId ,
 }: IPropType) => {
-  console.log(videoId);
   return (
     <ModalVideo
       channel="custom"
