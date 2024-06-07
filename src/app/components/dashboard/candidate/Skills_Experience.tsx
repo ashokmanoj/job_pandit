@@ -109,9 +109,9 @@ const Skills_Experience = ({skills, setSkills, experience, setExperience}:any) =
 
   return (
     <div className="bg-white card-box border-20 mt-40">
-          <h4 className="dash-title-three">Skills & Experience</h4>
+          <h4 className="dash-title-three">Skills & Experience <span style={{color:'red'}}>*</span></h4>
           <div className="dash-input-wrapper mb-40">
-            <label htmlFor="">Add Skills*</label>
+            <label htmlFor="">Add Skills</label>
 
             <div className="skills-wrapper">
               <ul className="custom-list style-none d-flex flex-wrap align-items-center">
@@ -130,7 +130,7 @@ const Skills_Experience = ({skills, setSkills, experience, setExperience}:any) =
           </div>
           <div className="candidates-profile-details me-xxl-5 pe-xxl-4">
           <div className="inner-card border-style mb-60 lg-mb-50">
-                  <h3 className="dash-title-three">Add Work Experience</h3>
+                  <h3 className="dash-title-three">Experience <span style={{color:'gray',fontSize:'12px'}}>(Recommended)</span> </h3>
                   {/* WorkExperience */}
                   <WorkExperienceEdit experience={experience} handleDelete={handleDeleteExp} />
                   {/* WorkExperience */}
@@ -145,7 +145,7 @@ const Skills_Experience = ({skills, setSkills, experience, setExperience}:any) =
             <div className="accordion-item">
               <div className="accordion-header" id="headingOneA">
                 <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneA" aria-expanded="false" aria-controls="collapseOneA">
-                  Experience 1*
+                 Add Experience or Internship
                 </button>
               </div>
               <div id="collapseOneA" className="accordion-collapse collapse" aria-labelledby="headingOneA" data-bs-parent="#accordionTwo">
@@ -153,7 +153,7 @@ const Skills_Experience = ({skills, setSkills, experience, setExperience}:any) =
                   <div className="row">
                     <div className="col-lg-2">
                       <div className="dash-input-wrapper mb-30 md-mb-10">
-                        <label htmlFor="">Title*</label>
+                        <label htmlFor="">Title<span className="text-danger">*</span></label>
                       </div>
                     </div>
                     <div className="col-lg-10">
@@ -165,7 +165,7 @@ const Skills_Experience = ({skills, setSkills, experience, setExperience}:any) =
                   <div className="row">
                     <div className="col-lg-2">
                       <div className="dash-input-wrapper mb-30 md-mb-10">
-                        <label htmlFor="">Company*</label>
+                        <label htmlFor="">Company<span className="text-danger">*</span></label>
                       </div>
                     </div>
                     <div className="col-lg-10">
@@ -177,7 +177,7 @@ const Skills_Experience = ({skills, setSkills, experience, setExperience}:any) =
                   <div className="row">
                     <div className="col-lg-2">
                       <div className="dash-input-wrapper mb-30 md-mb-10">
-                        <label htmlFor="">Year*</label>
+                        <label htmlFor="">Year<span className="text-danger">*</span></label>
                       </div>
                     </div>
                     <div className="col-lg-10">
@@ -185,14 +185,14 @@ const Skills_Experience = ({skills, setSkills, experience, setExperience}:any) =
                         <div className="col-sm-6">
                           {/* <SelectYear /> */}
                           <div className="dash-input-wrapper mb-30">
-                <label htmlFor="">From*</label>
+                <label htmlFor="">From</label>
                 <input type="date" value={expValue.from} onChange={(e) => setExpValue({...expValue,from:e.target.value})} />
               </div>
                         </div>
                         <div className="col-sm-6">
                           {/* <SelectYear /> */}
                           <div className="dash-input-wrapper mb-30">
-                <label htmlFor="">To*</label>
+                <label htmlFor="">To</label>
                 <input type="date" value={expValue.to} onChange={(e) => setExpValue({...expValue,to:e.target.value})} />
               </div>
                         </div>
@@ -202,7 +202,7 @@ const Skills_Experience = ({skills, setSkills, experience, setExperience}:any) =
                   <div className="row">
                     <div className="col-lg-2">
                       <div className="dash-input-wrapper mb-30 md-mb-10">
-                        <label htmlFor="">Description*</label>
+                        <label htmlFor="">Description<span className="text-danger">*</span></label>
                       </div>
                     </div>
                     <div className="col-lg-10">

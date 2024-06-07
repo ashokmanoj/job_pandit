@@ -83,9 +83,9 @@ const UploadResume = ({ resume, setResume }: { resume: string; setResume: any })
 
     return (
         <div className="bg-white card-box border-20">
-            <h4 className="dash-title-three">Resume Attachment</h4>
+            <h4 className="dash-title-three">Resume Attachment <span className="text-danger">*</span></h4>
             <div className="dash-input-wrapper mb-20">
-                <label htmlFor="">CV Attachment*</label>
+                <label htmlFor="">CV Attachment</label>
             </div>
             {resume && resumeUrl && (
                 <div className="resume-preview">

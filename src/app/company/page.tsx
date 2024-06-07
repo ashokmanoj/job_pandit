@@ -19,7 +19,9 @@ const CompanyV1Page = async () => {
         {/* header start */}
         <Header />
         {/* header end */}
-      <div className="mt-30"></div>
+        <div className="mt-30">
+          
+        </div>
         {/*breadcrumb start */}
         {/* <CompanyBreadcrumb title="Company" subtitle="Find your desire company and get your dream job" /> */}
         {/*breadcrumb end */}

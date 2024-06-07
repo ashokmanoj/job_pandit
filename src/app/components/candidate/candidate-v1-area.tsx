@@ -48,11 +48,11 @@ const CandidateV1Area = ({style_2=false,candidates_data}:{style_2?:boolean,candi
   ]);
 
 
-  const handlePageClick = (event: { selected: number }) => {
+const handlePageClick = (event: { selected: number }) => {
     const newOffset = (event.selected * 8) % all_candidate_data.length;
     setItemOffset(newOffset);
   };
-// handleShort
+
 const handleShort = (item: { value: string; label: string }) => {
   setShortValue(item.value)
 }

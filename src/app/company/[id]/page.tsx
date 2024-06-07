@@ -3,19 +3,19 @@ import { Metadata } from "next";
 import Header from "@/layouts/headers/header-7";
 import Wrapper from "@/layouts/wrapper";
 import JobPortalIntro from "../../components/job-portal-intro/job-portal-intro";
-import CompanyBreadcrumb from "../../components/common/common-breadcrumb";
 import FooterOne from "@/layouts/footers/footer-one";
 import CompanyDetailsArea from "../../components/company-details/company-details-area";
 import OpenPosition from "../../components/company-details/open-position";
 import { fetchCompany } from "@/hooks/server-request/company";
 
 export const metadata: Metadata = {
-  title: "Company Details",
+  title:'Company Details',
 };
 
 const CompanyDetailsPage = async ({ params }: { params: { id: number } }) => {
   const company = await fetchCompany(params.id);
   console.log(company);
+  
   return (
     <Wrapper>
       <div className="main-page-wrapper">
