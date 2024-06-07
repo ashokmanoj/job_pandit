@@ -68,9 +68,6 @@ const CandidateItem = ({ item }: { item:any }) => {
                 >
                   <i className="bi bi-eye"></i>
                 </a>
-                
-                <div className="action-dots float-end mt-10 ms-2">
-                </div>
               </div>
             </div>
           </div>

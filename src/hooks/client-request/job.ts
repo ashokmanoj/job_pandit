@@ -21,7 +21,7 @@ export const fetchJobs = async () => {
       .from('job_posts')
       .delete()
       .eq('id', id).eq('user_id', userId).select('*').single();
-      
-    console.log(error,"error in delete job");
-    return data;  
+    console.log(error,data,"error in delete job");
+    return { data, error };  
   }
+

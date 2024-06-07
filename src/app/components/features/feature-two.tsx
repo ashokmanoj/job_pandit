@@ -2,7 +2,7 @@ import React from "react";
 import Image, { StaticImageData } from "next/image";
 // internal
 import logo from "@/assets/images/home_images/logo_j.png";
-import media_1 from "@/assets/images/home_images/aicte_logo.png";
+import media_1 from "@/assets/images/home_images/aicte.png";
 import media_2 from "@/assets/images/home_images/wipro.png";
 import media_3 from "@/assets/images/home_images/toyota.png";
 import media_4 from "@/assets/images/home_images/skill-india.png";
@@ -14,7 +14,7 @@ import Link from "next/link";
 function BrandIcon({ img, id }: { img: StaticImageData; id: string }) {
   return (
     <div
-      className={`brand-icon icon_${id} rounded-circle d-flex align-items-center justify-content-center`}
+      className={`brand-icon icon_${id} rounded-circle d-flex align-items-center justify-content-center `}
     >
       <Image src={img} alt="" className="lazy-img" />
     </div>
@@ -50,11 +50,11 @@ const FeatureTwo = () => {
                 <Image src={logo} alt="logo" className="lazy-img" />
               </div>
               {/*  /.inner-circle  */}
-              <BrandIcon id="01" img={media_1} />
+              <BrandIcon id="01" img={media_3} />
               <BrandIcon id="02" img={media_2} />
-              <BrandIcon id="03" img={media_3} />
-              <BrandIcon id="04" img={media_4} />
-              <BrandIcon id="05" img={media_5} />
+              <BrandIcon id="03" img={media_1} />
+              <BrandIcon id="04" img={media_5} />
+              <BrandIcon id="05" img={media_4} />
 
               <Image
                 src={shape}

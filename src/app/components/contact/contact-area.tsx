@@ -23,8 +23,10 @@ const ContactArea = () => {
                     </div>
                     <h5 className="title">Our Address</h5>
                     <p>
-                      Bass Hill Plaza Medical Centre <br />
-                      Sydney, Australia
+                      No. 74, 3rd Floor, Sandesh Mahindra Arcade, 17th Main,
+                      Sahukar Chennaiah Road,<br/>
+                      Saraswathipuram,<br/>
+                      Mysuru, Karnataka 570009.
                     </p>
                   </div>
                 </div>
@@ -36,8 +38,8 @@ const ContactArea = () => {
                     <h5 className="title">Contact Info</h5>
                     <p>
                       Open a chat or give us call at <br />
-                      <a href="tel:310.841.5500" className="call">
-                        310.841.5500
+                      <a href="tel:+91 8884555677" className="call">
+                        +91 8884555677
                       </a>
                     </p>
                   </div>
@@ -47,11 +49,10 @@ const ContactArea = () => {
                     <div className="icon rounded-circle d-flex align-items-center justify-content-center m-auto">
                       <Image src={icon_3} alt="icon" />
                     </div>
-                    <h5 className="title">Live Support</h5>
+                    <h5 className="title">Email</h5>
                     <p>
-                      live chat service <br />
-                      <a href="#" className="webaddress">
-                        www.jobilivechat.com
+                      <a href="mailto:care@rankbook.in" className="webaddressv">
+                        jobpandith@gmail.com
                       </a>
                     </p>
                   </div>

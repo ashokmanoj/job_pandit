@@ -13,8 +13,7 @@ export function JobListItems({style_2=false ,jobs}:{style_2?:boolean,jobs:any}) 
   )
 }
 
-const JobListOne = async () => {
-  const jobs = await fetchJobs();
+const JobListOne = async ({jobs}:{jobs:any[]}) => {
   
   return (
     <>

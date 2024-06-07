@@ -92,10 +92,9 @@ console.log(jobPosts,"jobposts")
                         jobPost={item}
                       />
                     )):<>
-                    <div>
-                      <h4 className="text-center title">No Jobs Found</h4>
-                    </div>
-                    
+                      <tr>
+                        <td colSpan={5} className="text-center">No Jobs Found</td>
+                      </tr>
                     </>}
                   </tbody>
                 </table>

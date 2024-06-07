@@ -7,7 +7,7 @@ const FilterJobType = () => {
       <div className="filter-title fw-500 text-dark mt-1">Job Type : </div>
       <div className="main-body ps-xl-4 flex-fill">
         <ul className="style-none filter-input">
-          <JobTypeItems showLength={false} />
+          {/* <JobTypeItems showLength={false} /> */}
         </ul>
       </div>
     </div>

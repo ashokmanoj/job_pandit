@@ -31,7 +31,7 @@ const HeroBannerSeven = () => {
                       <div className="col-md-5">
                         <div className="input-box">
                           <div className="label">Job Categories</div>
-                          <JobCategorySelect setCategoryVal={setCategoryVal} />
+                          <JobCategorySelect setCategoryVal={setCategoryVal}  job_data={[]}/>
                         </div>
                       </div>
                       <div className="col-md-4">

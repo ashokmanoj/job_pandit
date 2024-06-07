@@ -28,7 +28,7 @@ const HeroBanner = () => {
                 <div className="job-search-one position-relative me-xl-5 wow fadeInUp"
               data-wow-delay="0.5s">
                   {/* search form start */}
-                  <SearchForm/>
+                  {/* <SearchForm/> */}
                   {/* search form end */}
                   <ul className="tags d-flex flex-wrap style-none mt-20">
                     <li className="fw-500 text-white me-2">Popular:</li>

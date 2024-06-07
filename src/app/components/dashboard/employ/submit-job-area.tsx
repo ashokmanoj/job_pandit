@@ -12,6 +12,7 @@ import Education from "./Education";
 import NiceSelect from "@/ui/nice-select";
 import { useUserStore } from "@/lib/store/user";
 import Category from "./category";
+import { redirect, usePathname } from "next/navigation";
 
 
 // props type
@@ -52,7 +53,6 @@ const SubmitJobArea = ({ setIsOpenSidebar, params }: IProps) => {
     setLocation("");
     setSkills([]);
     setFileName("");
-<<<<<<< HEAD
     setExperience({});
     setJobType({});
     setSalaryType({});
@@ -60,19 +60,7 @@ const SubmitJobArea = ({ setIsOpenSidebar, params }: IProps) => {
     setWorkMode('');
     setCandidate('');
     setVacancy('');
-=======
-    setExperience({ });
-    setJobType({ });
-    setSalaryType({ });
-    setEducation({ });
-    setWorkMode({ });
-<<<<<<< HEAD
-    setCandidate({  });
-=======
-    setCandidate({ });
->>>>>>> 72d675007a6493ab37412773aaba87e1c2f5a47f
-    setVacancy(0);
->>>>>>> d52134e733aad624e92ba46fd072bca6d25578c5
+
     setIsData(true);
   };
 
@@ -212,7 +200,7 @@ const SubmitJobArea = ({ setIsOpenSidebar, params }: IProps) => {
         <DashboardHeader setIsOpenSidebar={setIsOpenSidebar} />
         {/* header end */}
 
-        <h2 className="main-title">Post a New Job</h2>
+       {!isData? <h2 className="main-title">Post a New Job</h2>: <h2 className="main-title">Edit Job</h2>}
 
         <div className="bg-white card-box border-20">
           <h4 className="dash-title-three">Job Details</h4>

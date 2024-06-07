@@ -9,7 +9,9 @@ const CandidateBio = ({profileData}: {profileData: any}) => {
       </li>
       <li>
         <span>Age: </span>
+
         <div>{new Date().getFullYear() - new Date(profileData.dob).getFullYear()}</div>
+
       </li>
       <li>
         <span>Email: </span>

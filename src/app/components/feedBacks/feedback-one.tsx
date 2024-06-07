@@ -9,11 +9,14 @@ import logo_white_2 from "@/assets/images/logo/media_28.png";
 import logo_white_3 from "@/assets/images/logo/media_27.png";
 import Image, { StaticImageData } from "next/image";
 import PartnersSlider from "../partners/partners-slider";
+import { auto } from "@popperjs/core";
 
 // slider_setting
 const slider_setting = {
   dots: false,
   arrows: false,
+  with: auto,
+  hight:auto,
   centerPadding: "0px",
   slidesToShow: 2,
   slidesToScroll: 1,
@@ -44,7 +47,7 @@ const feedback_data: {
       id: 1,
       logo: logo_1,
       title:
-        "“Seattle opera simplifies Performance planning with jobi eSignature.”",
+        "“Seattle opera simplifies Performance planning with jobpandit eSignature.”",
       name: "James Brower",
       user_title: "Lead Designer",
       rating: 4.5,
@@ -55,7 +58,7 @@ const feedback_data: {
       id: 2,
       logo: logo_2,
       title:
-        "“Seattle opera simplifies Performance planning with jobi eSignature.”",
+        "“efficiency,  effortless,  convenience  and planning with JobPandit eSignature”",
       name: "Mark Joge",
       user_title: "Marketing Chief",
       rating: 4.8,
@@ -66,7 +69,7 @@ const feedback_data: {
       id: 3,
       logo: logo_3,
       title:
-        "“Seattle opera simplifies Performance planning with jobi eSignature.”",
+        "“efficiency,  effortless,  convenience  and planning with JobPandit eSignature”",
       name: "James Brower",
       user_title: "Lead Designer",
       rating: 4.8,

@@ -9,7 +9,7 @@ const FilterExperience = () => {
       </div>
       <div className="main-body ps-xl-4 flex-fill">
         <ul className="style-none filter-input">
-          <JobExperienceItems showLength={false} />
+          {/* <JobExperienceItems showLength={false} /> */}
         </ul>
       </div>
     </div>
