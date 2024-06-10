@@ -149,7 +149,7 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
     } else {
 
       try {
-
+         setAddress(address);
         if (isData) {
           const supabase = createClient();
           console.log(user.id)

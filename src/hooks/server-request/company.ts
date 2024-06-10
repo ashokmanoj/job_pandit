@@ -28,3 +28,21 @@ if(userId){
 }
 
 }
+
+export const fetchCompanyByID = async (id:number) => {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from('employer_profile')
+    .select(`*,job_posts(*)`).eq('id',id).single();
+       if(data){
+        return  data;
+       }
+    if(error){
+      const { data, error } = await supabase
+      .from('consultant_profile')
+      .select(`*`).eq('id',id).single();
+         return  data;
+    }
+
+  return  data;
+} 

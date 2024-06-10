@@ -3,8 +3,7 @@ import Wrapper from '@/layouts/wrapper';
 import EmployDashboardMain from '@/app/components/dashboard/employ';
 import { getRole } from '@/hooks/user/getRole';
 import { redirect } from 'next/navigation';
-import { fetchCompany, fetchCompanyDashboard } from '@/hooks/server-request/company';
-
+import { fetchCompanyDashboard } from '@/hooks/server-request/company';
 
 const EmployDashboardPage = async () => {
   const role = await getRole();
@@ -13,15 +12,15 @@ const EmployDashboardPage = async () => {
    redirect('/register');
  }else if( role ==='user'){
    redirect('/confirm-role');
- }else if( role !=='company'){
+ }else if( role !=='consultant'){
    redirect('/');
  }
  
-const company = await fetchCompanyDashboard();
+const consultant = await fetchCompanyDashboard();
+console.log(consultant);
 
-
-if (!company) {
-  redirect('/dashboard/employ-dashboard/profile');
+if (!consultant) {
+  redirect('/dashboard/consultant-dashboard/profile');
 }
 
   return (

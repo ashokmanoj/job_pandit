@@ -138,7 +138,7 @@ const UserRoleForm = () => {
     // on submit
     const onSubmit = async (formData: IFormData) => {
         setIsUploading(true);
-        if (otp === userOtp) {
+        if (otp === userOtp && otpSent) {
             if (user) {
                 const { data, error } = await supabase
                     .from("user_role")
@@ -214,21 +214,38 @@ const UserRoleForm = () => {
                         </div>
                     </div>
                 </div>
-                <div className="col-3">
-                    <div className="input-group-meta position-relative mb-25">
+                <div className="col-4">
+                <div className="input-group-meta position-relative mb-25">
                         <label htmlFor="countryCode">Country Code*</label>
-                        <input
-                            type="text"
-                            placeholder="+91"
+                        <select
                             {...register("countryCode", { required: "Country Code is required!" })}
                             name="countryCode"
-                        />
+                            id="countryCode"
+                            style={{width: "100%",
+                                maxWidth: "100%",
+                                border: "none",
+                                borderRadius: "7px",
+                                background: "#F2F2F2",
+                            height: "55px",
+                        padding: "0 30px"}}
+                        >
+                            <option value="+91">+91 (India)</option>
+                            <option value="+1">+1 (USA)</option>
+                            <option value="+44">+44 (UK)</option>
+                            <option value="+61">+61 (Australia)</option>
+                            <option value="+81">+81 (Japan)</option>
+                            <option value="+1">+1 (Canada)</option>
+                            <option value="+86">+86 (China)</option>
+                            <option value="+44">+44 (UK)</option>
+
+
+                        </select>
                         <div className="help-block with-errors">
                             <ErrorMsg msg={errors.countryCode?.message!} />
                         </div>
                     </div>
                 </div>
-                <div className="col-9 ">
+                <div className="col-8 ">
                     <div className="input-group-meta position-relative mb-25 ">
                         <label htmlFor="phoneNumber">Phone Number*</label>
                         <input

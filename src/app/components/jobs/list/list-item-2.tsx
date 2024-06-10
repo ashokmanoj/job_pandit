@@ -21,7 +21,7 @@ const ListItemTwo = ({ item }: { item: any }) => {
         <div className="col-md-5">
           <div className="job-title d-flex align-items-center ">
             <Link href={`/job/${item.id}`} className="logo">
-            <Image src={item?.avatar?`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/employer_avatars/${item?.avatar}`:"/assets/images/candidates/01.png"} alt="company-logo" className="lazy-img rounded-circle" style={{objectFit:"cover", width:"auto", height:"auto",aspectRatio:"1/1"}} width={60} height={60} />
+            <Image src={item?.company_logo!==null?`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/employer_avatars/${item?.company_logo}`: item.company.avatar?`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/employer_avatars/${item?.company.avatar}`:"/assets/images/candidates/01.png"} alt="company-logo" className="lazy-img rounded-circle" style={{objectFit:"cover", width:"auto", height:"auto",aspectRatio:"1/1"}} width={60} height={60} />
             </Link>
             <div className="split-box1">
               <Link

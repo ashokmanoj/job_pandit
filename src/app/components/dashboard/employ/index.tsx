@@ -1,7 +1,8 @@
 'use client'
 import React, { useState } from 'react';
-import EmployAside from './aside';
+
 import EmployDashboardArea from './dashboard-area';
+import EmployAside from '../consultant/aside';
 
 const EmployDashboardMain = () => {
   const [isOpenSidebar,setIsOpenSidebar] = useState<boolean>(false);

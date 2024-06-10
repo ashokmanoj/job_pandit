@@ -28,7 +28,7 @@ const ActionDropdown = ({ jobpost }: { jobpost: any }) => {
         notifyError(`Something went wrong`);
       }
 
-
+      window.location.reload()
     })
   }
 
