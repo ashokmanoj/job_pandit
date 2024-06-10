@@ -19,7 +19,7 @@ const HowItWorks = () => {
               <Image
                 src={shape_1}
                 alt="shape"
-                className="lazy-img shapes shape"
+                className="lazy-img shapes shape" style={{height:'auto',width:'auto',objectFit:'cover'}}
               />
             </span>
           </h2>
@@ -33,7 +33,7 @@ const HowItWorks = () => {
             >
               <div className="card-style-two text-center mt-25 wow fadeInUp">
                 <div className="icon rounded-circle d-flex align-items-center justify-content-center m-auto">
-                  <Image src={item.icon} alt="icon" className="lazy-img" />
+                  <Image src={item.icon} alt="icon" className="lazy-img" style={{height:'auto',width:'auto',objectFit:'cover'}}/>
                 </div>
                 <div className="title fw-500 text-white">{item.title}</div>
                 <p>{item.sub_title}</p>
@@ -42,8 +42,8 @@ const HowItWorks = () => {
           ))}
         </div>
       </div>
-      <Image src={shape_2} alt="shape" className="lazy-img shapes shape_01" />
-      <Image src={shape_3} alt="shape" className="lazy-img shapes shape_02" />
+      <Image src={shape_2} alt="shape" className="lazy-img shapes shape_01" style={{height:'auto',width:'auto',objectFit:'cover'}}/>
+      <Image src={shape_3} alt="shape" className="lazy-img shapes shape_02" style={{height:'auto',width:'auto',objectFit:'cover'}}/>
     </section>
   );
 };

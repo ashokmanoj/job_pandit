@@ -304,7 +304,7 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
                 <label htmlFor="">Phone Number <span className="text-danger">*</span></label>
                 <input
                   type="tel"
-                  placeholder="Ex : +91 91723801729"
+                  placeholder="Ex : +91 723801729"
                   onChange={(e) => setPhone(e.target.value)}
                   value={phone}
                 />

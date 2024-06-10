@@ -16,7 +16,7 @@ function BrandIcon({ img, id }: { img: StaticImageData; id: string }) {
     <div
       className={`brand-icon icon_${id} rounded-circle d-flex align-items-center justify-content-center `}
     >
-      <Image src={img} alt="" className="lazy-img" />
+      <Image src={img} alt="" className="lazy-img" style={{height:'auto',width:'auto',objectFit:'cover'}} />
     </div>
   );
 }
@@ -47,7 +47,7 @@ const FeatureTwo = () => {
           <div className="col-lg-7 order-lg-first">
             <div className="big-circle rounded-circle position-relative d-flex align-items-center justify-content-center ms-lg-5 wow fadeInLeft">
               <div className="inner-circle rounded-circle d-flex align-items-center justify-content-center w-50px">
-                <Image src={logo} alt="logo" className="lazy-img" />
+                <Image src={logo} alt="logo" className="lazy-img" style={{height:'auto',width:'auto',objectFit:'cover'}}/>
               </div>
               {/*  /.inner-circle  */}
               <BrandIcon id="01" img={media_3} />
@@ -59,7 +59,7 @@ const FeatureTwo = () => {
               <Image
                 src={shape}
                 alt="shape"
-                className="lazy-img shapes shape_01"
+                className="lazy-img shapes shape_01" style={{height:'auto',width:'auto',objectFit:'cover'}}
               />
             </div>
             {/*  /.big-circle  */}

@@ -22,21 +22,21 @@ const FancyBanner = () => {
                     </div>
                     <p className="text-md mt-25 lg-mt-20 mb-45 lg-mb-30">Find your dream job & earn from world leading brands. Upload your CV now.</p>
                     <form action="#" className="upload-btn position-relative d-flex align-items-center justify-content-center">
-                      <Image src={icon} alt="icon" className="lazy-img" /> <a className="fw-500 ms-2 text-dark" href='/job'>Find your job</a>
+                      <Image src={icon} alt="icon" className="lazy-img" /> <a className="fw-500 ms-2 text-dark" href='/job' style={{height:'auto',width:'auto',objectFit:'cover'}}>Find your job</a>
                     </form>
                   </div>
                 </div>
                 <div className="col-xl-7 col-lg-6 order-lg-first">
                   <div className="img-meta md-mt-20 position-relative">
-                    <Image src={banner_img} alt="banner_img" className="lazy-img m-auto" />
-                    <Image src={shape_1} alt="shape" className="lazy-img shapes shape_01" />
-                    <Image src={shape_2} alt="shape" className="lazy-img shapes shape_02" />
+                    <Image src={banner_img} alt="banner_img" className="lazy-img m-auto" style={{height:'auto',width:'auto',objectFit:'cover'}}/>
+                    <Image src={shape_1} alt="shape" className="lazy-img shapes shape_01" style={{height:'auto',width:'auto',objectFit:'cover'}}/>
+                    <Image src={shape_2} alt="shape" className="lazy-img shapes shape_02" style={{height:'auto',width:'auto',objectFit:'cover'}}/>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <Image src={shape_3} alt="shape" className="lazy-img shapes shape_03" />
+          <Image src={shape_3} alt="shape" className="lazy-img shapes shape_03" style={{height:'auto',width:'auto',objectFit:'cover'}}/>
         </div>
       </div>
     </section>

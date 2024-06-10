@@ -2,11 +2,11 @@
 import Slider from "react-slick";
 import React, { useRef } from "react";
 import logo_1 from "@/assets/images/logo/media_01.png";
-import logo_2 from "@/assets/images/logo/media_02.png";
-import logo_3 from "@/assets/images/logo/media_01.png";
+import logo_2 from "@/assets/images/logo/media_06.png";
+import logo_3 from "@/assets/images/logo/media_07.png";
 import logo_white_1 from "@/assets/images/logo/media_27.png";
 import logo_white_2 from "@/assets/images/logo/media_28.png";
-import logo_white_3 from "@/assets/images/logo/media_27.png";
+import logo_white_3 from "@/assets/images/logo/media_29.png";
 import Image, { StaticImageData } from "next/image";
 import PartnersSlider from "../partners/partners-slider";
 import { auto } from "@popperjs/core";
@@ -36,7 +36,7 @@ const slider_setting = {
 const feedback_data: {
   id: number;
   logo: StaticImageData;
-  title: string;
+  title: any;
   name: string;
   user_title: string;
   rating: number;
@@ -46,10 +46,9 @@ const feedback_data: {
     {
       id: 1,
       logo: logo_1,
-      title:
-        "“Seattle opera simplifies Performance planning with jobpandit eSignature.”",
-      name: "James Brower",
-      user_title: "Lead Designer",
+      title:<h3>“We've seen a significant improvement in our recruitment process since partnering with JobPandit. Their platform is user-friendly, and the quality of candidates has been exceptional.”</h3>,
+      name: "John Doe",
+      user_title: "Head of Human Resources, Bigleap Innovators Inc.",
       rating: 4.5,
       rating_text: "Excellent",
       white_logo: logo_white_1,
@@ -58,20 +57,19 @@ const feedback_data: {
       id: 2,
       logo: logo_2,
       title:
-        "“efficiency,  effortless,  convenience  and planning with JobPandit eSignature”",
-      name: "Mark Joge",
-      user_title: "Marketing Chief",
-      rating: 4.8,
+        <h3>“Thanks to JobPandit, we've managed to fill our open positions with top-tier candidates in record time. Their advanced search features and detailed analytics have been incredibly valuable.”</h3>,
+      name: "Michael Johnson",
+      user_title: "Recruitment Director",
+      rating: 4.7,
       rating_text: "Awesome",
       white_logo: logo_white_2,
     },
     {
       id: 3,
       logo: logo_3,
-      title:
-        "“efficiency,  effortless,  convenience  and planning with JobPandit eSignature”",
-      name: "James Brower",
-      user_title: "Lead Designer",
+      title:<h3>“JobPandit has been instrumental in helping us attract high-quality candidates. The platform's ease of use and the support from their team have been outstanding. Our hiring process is now more efficient and effective.”</h3>,
+      name: "Emily Brown",
+      user_title: "Chief Operating Officer",
       rating: 4.8,
       rating_text: "Excellent",
       white_logo: logo_white_3,
@@ -91,9 +89,9 @@ const FeedbackOne = ({ style_2 = false, style_3 = false, about_p = false }: { st
     <section className={`feedback-section-one ${style_3 ? 'pt-120 lg-pt-100' : 'pt-180 xl-pt-150 lg-pt-100'} ${about_p ? 'pb-80 lg-pb-20' : ''}`}>
       <div className="container position-relative">
         <div className="row">
-          <div className="col-lg-5 col-md-6">
+          <div className="col-lg-7 col-md-6">
             <div className="title-one text-center text-md-start mb-65 md-mb-50 wow fadeInUp" data-wow-delay="0.3s">
-              <h2 className={style_3 ? 'main-font' : ''}>Trusted by leading startups.</h2>
+              <h2 className={style_3 ? 'main-font' : ''}>Valued by the most innovative companies.</h2>
             </div>
           </div>
         </div>
@@ -107,7 +105,7 @@ const FeedbackOne = ({ style_2 = false, style_3 = false, about_p = false }: { st
             <div key={item.id} className="item">
               <div className={`feedback-block-one ${style_2 ? 'color-two' : ''}`}>
                 <div className="logo">
-                  <Image src={style_2 ? item.white_logo : item.logo} alt="logo" />
+                  <Image src={style_2 ? item.white_logo : item.logo} style={{height:'auto',width:'auto',objectFit:'cover'}} alt="logo" />
                 </div>
                 <blockquote className={`fw-500 mt-50 md-mt-30 mb-50 md-mb-30 ${style_2 ? 'text-white' : ''}`}>
                   {item.title}
