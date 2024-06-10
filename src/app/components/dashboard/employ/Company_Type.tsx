@@ -9,8 +9,8 @@ const Company_Type = ({companyType, setCompanyType}:any) => {
                   options={[
                     { value: "Others", label: "Others" },
                     { value: "Consultancy", label: "consultancye" },
-                    { value: "Private companies", label: "Private companies" },
-                    { value: "Government companies", label: "Government companies" },
+                    { value: "Private company", label: "Private company" },
+                    { value: "Government company", label: "Government company" },
                     { value: "Corporate company", label: "Corporate company" },
                   ]}
                   defaultCurrent={0}

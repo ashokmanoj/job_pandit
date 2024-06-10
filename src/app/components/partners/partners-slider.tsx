@@ -55,11 +55,11 @@ const logos: StaticImageData[] = [
 const PartnersSlider = () => {
   return (
     <>
-      <Slider {...slider_setting} className="partner-slider">
+      <Slider {...slider_setting} className="partner-slider" >
         {logos.map((logo, i) => (
           <div key={i} className="item">
             <div className="logo d-flex align-items-center">
-              <Image src={logo} alt="logo" style={{height:'auto'}} />
+              <Image src={logo} alt="logo" style={{height:'auto',width:'auto',objectFit:'cover'}} />
             </div>
           </div>
         ))}

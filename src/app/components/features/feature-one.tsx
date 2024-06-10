@@ -1,16 +1,11 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import girl from "@/assets/images/assets/img_03.jpg";
-import man_2 from "@/assets/images/assets/img_04.jpg";
-import screen_2 from "@/assets/images/assets/screen_02.png";
-import screen_3 from "@/assets/images/assets/screen_03.png";
 import shape from "@/assets/images/shape/shape_06.svg";
 import home_image_1 from "@/assets/images/home_images/home_image_1.png"
 import home_image_2 from "@/assets/images/home_images/home_image_2.png"
 import home_image_3 from "@/assets/images/home_images/home_image_3.jpg"
 import home_image_4 from "@/assets/images/home_images/home_image_4.png"
-import home_image_5 from "@/assets/images/home_images/home_image_5.png"
 import home_image_6 from "@/assets/images/home_images/home_image_6.jpg"
 
 // FeatureImgData
@@ -19,7 +14,7 @@ export function FeatureImgData() {
     <div className="img-data position-relative pe-xl-5 me-xl-5 md-mt-50">
       <div className="row">
         <div className="col-md-6 col-sm-8 col-10">
-          <Image src={home_image_2} alt="man img" className="lazy-img img01" />
+          <Image src={home_image_2} alt="man img" className="lazy-img img01"style={{height:'auto',width:'auto',objectFit:'cover'}} />
         </div>
       </div>
       <div className="row">
@@ -28,6 +23,7 @@ export function FeatureImgData() {
             src={home_image_6}
             alt="girl img"
             className="lazy-img img02 mt-35"
+            style={{objectFit:'cover'}}
           />
         </div>
         <div className="col-md-6 col-7">
@@ -35,6 +31,7 @@ export function FeatureImgData() {
             src={home_image_3}
             alt="man-img-2"
             className="lazy-img img01 mt-35"
+            style={{objectFit:'cover'}}
           />
         </div>
       </div>
@@ -42,6 +39,7 @@ export function FeatureImgData() {
         src={home_image_1}
         alt="screen_1-img"
         className="lazy-img shapes screen01 wow fadeInRight"
+        style={{objectFit:'cover'}}
       />
       {/* <Image
         src={screen_2}
@@ -52,11 +50,13 @@ export function FeatureImgData() {
         src={home_image_4}
         alt="screen_3-img"
         className="lazy-img shapes screen03 wow fadeInUp"
+        style={{objectFit:'cover'}}
       />
       <Image
         src={shape}
         alt="shape"
         className="lazy-img shapes shape_01"
+        style={{objectFit:'cover'}}
       />
     </div>
   )
