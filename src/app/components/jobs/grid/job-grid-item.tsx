@@ -7,22 +7,26 @@ import useWishlistStore from "@/lib/store/wishlist";
 import formatAmount from "@/hooks/funcs/formateAmount";
 
 
-const JobGridItem = ({ item,style_2=true }: { item: any;style_2?:boolean }) => {
-  
-  const {wishlist,add_to_wishlist} = useWishlistStore((state) => state);
+const JobGridItem = ({ item, style_2 = true }: { item: any; style_2?: boolean }) => {
+
+  const { wishlist, add_to_wishlist } = useWishlistStore((state) => state);
   const isActive = wishlist.some(p => p.id === item.id);
   // handle add wishlist
   const handleAddWishlist = (item: IJobType) => {
     add_to_wishlist(item)
   };
   return (
-    <div className={`job-list-two ${style_2?'style-two':''} position-relative`}>
+    <div className={`job-list-two ${style_2 ? 'style-two' : ''} position-relative`}>
       <Link href={`/job-details/${item.id}`} className="logo">
-      <Image src={item?.company?.avatar ?`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/employer_avatars/${item.company?.avatar}`:"/assets/images/candidates/01.png"} alt="company-logo" className="lazy-img rounded-circle" style={{objectFit:"cover", width:"45px", height:"auto",aspectRatio:"1/1"}} width={60} height={60} />
+        
+          <Image src={item?.company_logo!==null?`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/employer_avatars/${item?.company_logo}`: item.company.avatar?`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/employer_avatars/${item?.company.avatar}`:"/assets/images/candidates/01.png"} alt="company-logo" className="lazy-img rounded-circle" style={{ objectFit: "cover", width: "45px", height: "auto", aspectRatio: "1/1" }} width={60} height={60} /> 
+
+
+
       </Link>
       <a onClick={() => handleAddWishlist(item)}
-        className={`save-btn text-center rounded-circle tran3s cursor-pointer ${isActive?'active':''}`}
-        title={`${isActive?'Remove Job':'Save Job'}`}
+        className={`save-btn text-center rounded-circle tran3s cursor-pointer ${isActive ? 'active' : ''}`}
+        title={`${isActive ? 'Remove Job' : 'Save Job'}`}
       >
         <i className="bi bi-bookmark-dash"></i>
       </a>

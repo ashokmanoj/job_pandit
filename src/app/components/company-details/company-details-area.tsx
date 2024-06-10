@@ -42,7 +42,7 @@ const CompanyDetailsArea = ({ company }: { company: any }) => {
                     </li>
                     <li className="col-12">
                       <span>Sector: </span>
-                      <div>{company.category}</div>
+                      <div>{company?.category}</div>
                     </li>
                     <li className="col-12">
                       <span>Social: </span>

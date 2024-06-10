@@ -34,12 +34,12 @@ const Header =  ({}) => {
                   </Link>}
                </li>
                <li>
-                {user?.role === 'company' && <Link href="/dashboard/employ-dashboard/submit-job/new" className="login-btn-one">
+                {user?.role === 'company' ? <Link href="/dashboard/employ-dashboard/submit-job/new" className="login-btn-one">
                   Post Job
-                  </Link>}
+                  </Link>: user?.role === 'consultant' ? <Link href="/dashboard/consultant-dashboard/submit-job/new" className="login-btn-one"> Post Job</Link> : <></>}
                </li>
                 <li className="d-none d-md-block ms-4">
-                  {user ?  <Link href={user.role === 'company' ? '/dashboard/employ-dashboard' : user.role === 'candidate' ? '/dashboard/candidate-dashboard':'/confirm-role'} className="btn-one">
+                  {user ?  <Link href={user.role === 'company' ? '/dashboard/employ-dashboard' : user.role === 'candidate' ? '/dashboard/candidate-dashboard': user.role === 'consultant' ? '/dashboard/consultant-dashboard':'/confirm-role'} className="btn-one">
                     Dashboard
                   </Link> :<a
                     href=''

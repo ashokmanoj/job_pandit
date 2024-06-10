@@ -28,17 +28,22 @@ const Header =  ({}) => {
             </div>
             <div className="right-widget ms-auto order-lg-3">
               <ul className="d-flex align-items-center style-none">
-                <li><Link href="/dashboard/candidate-dashboard" className="login-btn-one">
-                   Post Job
-                  </Link>
-                  
-                </li>
+              <li>
+                {!user && <Link href="/register" className="login-btn-one">
+                  Register
+                  </Link>}
+               </li>
+               <li>
+                {user?.role === 'company' ? <Link href="/dashboard/employ-dashboard/submit-job/new" className="login-btn-one">
+                  Post Job
+                  </Link>: user?.role === 'consultant' ? <Link href="/dashboard/consultant-dashboard/submit-job/new" className="login-btn-one"> Post Job</Link> : <></>}
+               </li>
                 <li className="d-none d-md-block ms-4">
-                  {user ?  <Link href={user.role === 'company' ? '/dashboard/employ-dashboard' : user.role === 'candidate' ? '/dashboard/candidate-dashboard':'/confim-role'} className="btn-one">
+                  {user ?  <Link href={user.role === 'company' ? '/dashboard/employ-dashboard' : user.role === 'candidate' ? '/dashboard/candidate-dashboard': user.role === 'consultant' ? '/dashboard/consultant-dashboard':'/confirm-role'} className="btn-one">
                     Dashboard
                   </Link> :<a
                     href=''
-                    className="login-btn-one"
+                    className="btn-one"
                     data-bs-toggle="modal"
                     data-bs-target="#loginModal"
                   >Login

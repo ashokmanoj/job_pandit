@@ -51,7 +51,7 @@ const resolver: Resolver<IFormData> = async (values) => {
     };
 };
 
-const EmployeRoleForm = () => {
+const ConsultantRoleForm = () => {
     const [user, setUser] = useState<any>({});
     const [isUploading, setIsUploading] = useState(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -141,7 +141,7 @@ const EmployeRoleForm = () => {
                         {
                             first_name: formData.company,
                             phone_number: `${formData.countryCode}${formData.phoneNumber}`,
-                            role: "company",
+                            role: "consultant",
                         }
                     ).eq("id", user.id).select();
                 console.log(data, error);
@@ -301,4 +301,4 @@ const EmployeRoleForm = () => {
     );
 };
 
-export default EmployeRoleForm;
+export default ConsultantRoleForm;

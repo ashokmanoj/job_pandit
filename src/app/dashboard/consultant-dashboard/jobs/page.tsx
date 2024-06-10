@@ -1,13 +1,12 @@
 'use client'
 import React,{useEffect, useState} from 'react';
 import Wrapper from '@/layouts/wrapper';
-import CandidateAside from '@/app/components/dashboard/candidate/aside';
-import DashboardMessage from '@/app/components/dashboard/candidate/dashboard-message';
-
-import { getRole } from '@/hooks/client-request/getRole';
+import EmployAside from '@/app/components/dashboard/employ/aside';
+import EmployJobArea from '@/app/components/dashboard/employ/job-area';
 import { useRouter } from 'next/navigation';
+import { getRole } from '@/hooks/client-request/getRole';
 
-const CandidateDashboardMessagesPage = () => {
+const EmployDashboardJobsPage = () => {
   const [isOpenSidebar,setIsOpenSidebar] = useState<boolean>(false);
   const router= useRouter();
   useEffect(() => {
@@ -17,7 +16,7 @@ const CandidateDashboardMessagesPage = () => {
         router.push('/register');
       }else if( role ==='user'){
         router.push('/confirm-role');
-      }else if( role !=='candidate'){
+      }else if( role !=='consultant'){
         router.push('/');
       }
      }
@@ -28,15 +27,15 @@ const CandidateDashboardMessagesPage = () => {
 
     <div className='main-page-wrapper'>
       {/* aside start */}
-      <CandidateAside isOpenSidebar={isOpenSidebar} setIsOpenSidebar={setIsOpenSidebar}/>
+      <EmployAside isOpenSidebar={isOpenSidebar} setIsOpenSidebar={setIsOpenSidebar}/>
       {/* aside end  */}
 
-      {/* messages area start */}
-      <DashboardMessage setIsOpenSidebar={setIsOpenSidebar}/>
-      {/* messages area end */}
+      {/* job area start */}
+      <EmployJobArea setIsOpenSidebar={setIsOpenSidebar}/>
+      {/* job area end */}
     </div>
     </Wrapper>
   );
 };
 
-export default CandidateDashboardMessagesPage;
+export default EmployDashboardJobsPage;

@@ -1,12 +1,12 @@
 'use client'
 import React,{useEffect, useState} from 'react';
 import Wrapper from "@/layouts/wrapper";
-import CandidateAside from "@/app/components/dashboard/candidate/aside";
-import DashboardSettingArea from "@/app/components/dashboard/candidate/dashboard-setting";
+import EmployAside from "@/app/components/dashboard/employ/aside";
+import SavedCandidateArea from "@/app/components/dashboard/employ/saved-candidate-area";
 import { useRouter } from 'next/navigation';
 import { getRole } from '@/hooks/client-request/getRole';
 
-const CandidateDashboardSettingPage = () => {
+const EmployDashboardSavedCandidatePage = () => {
   const [isOpenSidebar,setIsOpenSidebar] = useState<boolean>(false);
   const router= useRouter();
   useEffect(() => {
@@ -16,7 +16,7 @@ const CandidateDashboardSettingPage = () => {
         router.push('/register');
       }else if( role ==='user'){
         router.push('/confirm-role');
-      }else if( role !=='candidate'){
+      }else if( role !=='consultant'){
         router.push('/');
       }
      }
@@ -26,15 +26,15 @@ const CandidateDashboardSettingPage = () => {
     <Wrapper>
       <div className="main-page-wrapper">
         {/* aside start */}
-        <CandidateAside isOpenSidebar={isOpenSidebar} setIsOpenSidebar={setIsOpenSidebar} />
+        <EmployAside isOpenSidebar={isOpenSidebar} setIsOpenSidebar={setIsOpenSidebar} />
         {/* aside end  */}
 
-        {/* setting area start */}
-        <DashboardSettingArea setIsOpenSidebar={setIsOpenSidebar} />
-        {/* setting area end */}
+        {/* saved candidate area start */}
+        <SavedCandidateArea setIsOpenSidebar={setIsOpenSidebar} />
+        {/* saved candidate area end */}
       </div>
     </Wrapper>
   );
 };
 
-export default CandidateDashboardSettingPage;
+export default EmployDashboardSavedCandidatePage;

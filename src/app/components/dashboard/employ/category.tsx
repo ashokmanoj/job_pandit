@@ -1,10 +1,10 @@
 import NiceSelect from '@/ui/nice-select'
 import React from 'react'
 
-const category = ({category, setCategory}:any) => {
+const category = ({category, setCategory,title}:{category:any, setCategory:any,title?:any}) => {
   return (
     <div className="dash-input-wrapper mb-30">
-      <label htmlFor="">Category<span className="text-danger">*</span></label>
+      {!title && <label htmlFor="">Category <span className="text-danger">*</span></label>}
       <NiceSelect
         options={[
           { value: "Software Development", label: "Software Development" },

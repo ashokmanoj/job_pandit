@@ -39,7 +39,7 @@ const UserRoleConfirmation = () => {
                                     Company
                                 </button>
                             </li>
-                            {/* <li className="nav-item" role="presentation">
+                            <li className="nav-item" role="presentation">
                                 <button
                                     className="nav-link"
                                     data-bs-toggle="tab"
@@ -50,7 +50,7 @@ const UserRoleConfirmation = () => {
                                 >
                                     Consultant
                                 </button>
-                            </li> */}
+                            </li>
                         </ul>
                         <div className="tab-content mt-40">
                             <div
@@ -61,6 +61,9 @@ const UserRoleConfirmation = () => {
                                 <UserRoleForm />
                             </div>
                             <div className="tab-pane fade" role="tabpanel" id="fc2">
+                                <EmployeRoleForm/>
+                            </div>
+                            <div className="tab-pane fade" role="tabpanel" id="fc3">
                                 <EmployeRoleForm/>
                             </div>
                         </div>

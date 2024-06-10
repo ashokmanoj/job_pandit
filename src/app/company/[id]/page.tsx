@@ -6,15 +6,15 @@ import JobPortalIntro from "../../components/job-portal-intro/job-portal-intro";
 import FooterOne from "@/layouts/footers/footer-one";
 import CompanyDetailsArea from "../../components/company-details/company-details-area";
 import OpenPosition from "../../components/company-details/open-position";
-import { fetchCompany } from "@/hooks/server-request/company";
+import {  fetchCompanyByID } from "@/hooks/server-request/company";
 
 export const metadata: Metadata = {
   title:'Company Details',
 };
 
 const CompanyDetailsPage = async ({ params }: { params: { id: number } }) => {
-  const company = await fetchCompany(params.id);
-  console.log(company);
+  const company = await fetchCompanyByID(params.id);
+  console.log(company, "company");
   
   return (
     <Wrapper>
@@ -35,7 +35,7 @@ const CompanyDetailsPage = async ({ params }: { params: { id: number } }) => {
         {/* company details area end */}
 
         {/*job Open Position */}
-        <OpenPosition job_data={company?.job_posts} />
+        <OpenPosition job_data={company?.job_posts || []} />
         {/*job Open Position */}
 
         {/* job portal intro start */}
