@@ -136,7 +136,8 @@ const SubmitJobArea = ({ setIsOpenSidebar, params }: IProps) => {
                     notifyError("Error updating data");
                     setIsData(false);
                 } else {
-                    notifySuccess("Profile Updated Successfully");
+                    notifySuccess("job post Updated Successfully");
+                    
                 }
             } else {
                 const { data, error } = await supabase.from("job_posts").insert([
@@ -158,7 +159,8 @@ const SubmitJobArea = ({ setIsOpenSidebar, params }: IProps) => {
                 console.log(data, error);
                 if (!error) {
                     notifySuccess("Job Posted Successfully");
-                    redirect("/dashboard/consultant/jobs");
+                    setIsData(false);
+                
                     
                 } else {
                     notifyError("something went worng. Please Retry");
@@ -392,25 +394,11 @@ const SubmitJobArea = ({ setIsOpenSidebar, params }: IProps) => {
                 </div>
 
                 <div className="button-group d-inline-flex align-items-center mt-30">
-                    {isUploading ? (
-                        <button
-                            className="dash-btn-two tran3s me-3"
-                            type="button"
-                            disabled
-                        >
-                            <span
-                                className="spinner-border spinner-border-sm"
-                                role="status"
-                                aria-hidden="true"
-                            ></span>
-                            Loading...
-                        </button>
-                    ) : (
 
                         <button className="dash-btn-two tran3s me-3" onClick={handlePost}>
                             Post
                         </button>
-                    )}
+                   
                     <a
                         href="#"
                         className="dash-cancel-btn tran3s"

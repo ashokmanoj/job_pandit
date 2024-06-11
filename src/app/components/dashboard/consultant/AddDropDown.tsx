@@ -8,7 +8,7 @@ import { notifyError, notifySuccess } from "@/utils/toast";
 import DeleteJobModal from "../../common/popup/delete-job";
 import { deleteJob } from "@/hooks/client-request/job";
 
-const ActionDropdown = ({ jobpost }: { jobpost: any }) => {
+const ActionDropdownConsultant = ({ jobpost }: { jobpost: any }) => {
   function handleCopy() {
     try {
       navigator.clipboard.writeText(window.location.origin + "/job/" + jobpost.id).then(() => {
@@ -41,7 +41,7 @@ const ActionDropdown = ({ jobpost }: { jobpost: any }) => {
           </a>
         </li>
         <li>
-          <a className="dropdown-item" href={`/dashboard/employ-dashboard/submit-job/${jobpost.id}`}>
+          <a className="dropdown-item" href={`/dashboard/consultant-dashboard/submit-job/${jobpost.id}`}>
             <Image src={edit} alt="icon" className="lazy-img" /> Edit
           </a>
         </li>
@@ -67,4 +67,4 @@ const ActionDropdown = ({ jobpost }: { jobpost: any }) => {
   );
 };
 
-export default ActionDropdown;
+export default ActionDropdownConsultant;
