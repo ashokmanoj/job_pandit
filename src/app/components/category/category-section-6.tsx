@@ -38,7 +38,7 @@ const CategorySectionSix = ({style_2=true}:{style_2?:boolean}) => {
                 style={{background:style_2?`${item.bg_clr}`:''}}
               >
                 <div className="icon d-flex align-items-center justify-content-center">
-                  <Image src={item.icon} alt="icon" className="lazy-img" />
+                  <Image src={item.icon} alt="icon" className="lazy-img" style={{height:'auto',width:'auto',objectFit:'cover'}}/>
                 </div>
                 <div className="title fw-500">{item.title}</div>
               </Link>

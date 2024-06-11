@@ -12,8 +12,8 @@ const Education = ({ education, setEducation }: any) => {
             { value: "Any", label: "Any" },
             { value: "SSLC", label: "SSCL" },
             { value: "PUC", label: "PUC" },
-            { value: "Any Graduate", label: "Any Graduate" },
-            { value: "Post-Graduate", label: "Post-Graduate" },
+            { value: "Any Graduation in CS", label: "Any Graduation in CS" },
+            { value: "Any Post-Graduate", label: "Any Post-Graduate" },
             { value: "PhD", label: "PhD" },
             { value: "MBA", label: "MBA" },
             { value: "MCA", label: "MCA" },
@@ -37,7 +37,6 @@ const Education = ({ education, setEducation }: any) => {
             { value: "M.Tech", label: "M.Tech" },
             { value: "B.Tech", label: "B.Tech" },
             { value: "Medical-MS/MD", label: "Medical-MS/MD" },
-            { value: "Other Graduation", label: "Other Graduation" },
           ]}
           onChange={(item) => setEducation(item.value)}
           name="Education"

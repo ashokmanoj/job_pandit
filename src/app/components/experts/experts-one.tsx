@@ -19,7 +19,7 @@ const expert_data: {
 }[] = [
   {
     id: 1,
-    user: user_1,
+    user: user_3,
     name: "Nisarga N M",
     title: "Product Designer",
   },
@@ -31,7 +31,7 @@ const expert_data: {
   },
   {
     id: 3,
-    user: user_3,
+    user: user_1,
     name: "Harshitha R",
     title: "Marketing Expert",
   },
@@ -98,7 +98,7 @@ const ExpertsOne = () => {
                   <Image
                     src={shape}
                     alt="shape"
-                    className="lazy-img shapes shapes"
+                    className="lazy-img shapes shapes" style={{height:'auto',width:'auto',objectFit:'cover'}}
                   />
                 </span>{" "}
                 expert in jobPandit.
@@ -116,7 +116,7 @@ const ExpertsOne = () => {
             <div key={item.id} className="item">
               <div className="card-style-three text-center">
                 <div className="img-meta mb-40 lg-mb-20">
-                  <Image src={item.user} alt="user-img" className="m-auto" style={{height:'auto'}} />
+                  <Image src={item.user} alt="user-img" className="m-auto" style={{width:'auto',height:'auto',objectFit:'cover'}} />
                 </div>
                 <a href="#" className="name text-md fw-500 text-dark">
                   {item.name}
