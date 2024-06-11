@@ -3,6 +3,8 @@ import React,{useEffect, useRef} from "react";
 import Slider from "react-slick";
 import JobGridItem from "./grid/job-grid-item";
 import { fetchJobs } from "@/hooks/client-request/job";
+import JobListTwo from "./list/job-list-two";
+import ListItem from "./list/list-item";
 
 // slider setting
 const slider_setting = {
@@ -56,10 +58,10 @@ const RelatedJobs = ({category}:{category:string[]}) => {
             <h2 className="main-font">Related Jobs</h2>
           </div>
 
-          <Slider {...slider_setting} ref={sliderRef} className="related-job-slider">
+          <Slider {...slider_setting} ref={sliderRef}   className="related-job-slider">
             {job_items.map((j:any) => (
               <div key={j.id} className="item">
-                <JobGridItem item={j} />
+                <JobGridItem item={j} />   
               </div>
             ))}
           </Slider>

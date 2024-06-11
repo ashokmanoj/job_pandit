@@ -177,16 +177,17 @@ setIsAdding(false);
             <div className="row">
               <div className="col-lg-6">
                 <div className="dash-input-wrapper mb-20">
-                  <label htmlFor="">First Name</label>
+                  <label htmlFor="">{user?.role==='candidate'?'First Name':user?.role==='company'?'Company Name':user?.role==='consultant'?'Company Name':''}</label>
                   <input type="text" placeholder="John Doe" onChange={(e) => setFirstName(e.target.value)} value={first_name} />
                 </div>
               </div>
+              {user?.role === 'candidate' || user?.role==='consultant' &&
               <div className="col-lg-6">
-                <div className="dash-input-wrapper mb-20">
-                  <label htmlFor="">Last Name</label>
-                  <input type="text" placeholder="Kabir" onChange={(e) => setLastName(e.target.value)} value={last_name} />
-                </div>
+              <div className="dash-input-wrapper mb-20">
+                <label htmlFor=""> {user?.role==='consultant'?'HR Name':'Last Name'}</label>
+                <input type="text" placeholder="Kabir" onChange={(e) => setLastName(e.target.value)} value={last_name} />
               </div>
+            </div>}
               <div className="col-12">
                 <div className="dash-input-wrapper mb-20">
                   <label htmlFor="">Email</label>

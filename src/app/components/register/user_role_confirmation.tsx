@@ -2,6 +2,7 @@
 import React from "react";
 import UserRoleForm from "../forms/user-role";
 import EmployeRoleForm from "../forms/employe-role";
+import ConsultantRoleForm from "../forms/consultant-role";
 
 const UserRoleConfirmation = () => {
     
@@ -64,7 +65,7 @@ const UserRoleConfirmation = () => {
                                 <EmployeRoleForm/>
                             </div>
                             <div className="tab-pane fade" role="tabpanel" id="fc3">
-                                <EmployeRoleForm/>
+                                <ConsultantRoleForm/>
                             </div>
                         </div>
 

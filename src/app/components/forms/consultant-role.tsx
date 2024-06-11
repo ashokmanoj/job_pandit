@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 // form data type
 type IFormData = {
     company: string;
+    name:string;
     countryCode: string;
     phoneNumber: string;
 };
@@ -18,6 +19,7 @@ type IFormData = {
 // schema
 const schema = Yup.object().shape({
     company: Yup.string().required().label("Company"),
+    name: Yup.string().required().label("Name"),
     countryCode: Yup.string().required().label("Country Code"),
     phoneNumber: Yup.string().required().min(6).label("Phone Number"),
 
@@ -30,6 +32,13 @@ const resolver: Resolver<IFormData> = async (values) => {
         errors.company = {
             type: "required",
             message: "Company Name is required.",
+        };
+    }
+
+    if (!values.name) { 
+        errors.name = {
+            type: "required",
+            message: "Name is required.",
         };
     }
 
@@ -142,6 +151,7 @@ const ConsultantRoleForm = () => {
                             first_name: formData.company,
                             phone_number: `${formData.countryCode}${formData.phoneNumber}`,
                             role: "consultant",
+                            last_name:formData.name
                         }
                     ).eq("id", user.id).select();
                 console.log(data, error);
@@ -150,7 +160,7 @@ const ConsultantRoleForm = () => {
                 } else {
                     notifySuccess("User added successfully");
                     setIsUploading(false);
-                    router.push("/dashboard/employ-dashboard/profile");
+                    router.push("/dashboard/consultant-dashboard/profile");
                 }
             } else {
                 notifyError("Something went wrong. Please try again");
@@ -184,6 +194,20 @@ const ConsultantRoleForm = () => {
                         />
                         <div className="help-block with-errors">
                             <ErrorMsg msg={errors.company?.message!} />
+                        </div>
+                    </div>
+                </div>
+                <div className="col-12">
+                    <div className="input-group-meta position-relative mb-25">
+                        <label htmlFor="firstName">HR Name*</label>
+                        <input
+                            type="text"
+                            placeholder="HR Name"
+                            {...register("name", { required: "HR Name is required!" })}
+                            name="name"
+                        />
+                        <div className="help-block with-errors">
+                            <ErrorMsg msg={errors.name?.message!} />
                         </div>
                     </div>
                 </div>
