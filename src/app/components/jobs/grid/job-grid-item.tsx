@@ -21,8 +21,6 @@ const JobGridItem = ({ item, style_2 = true }: { item: any; style_2?: boolean })
         
           <Image src={item?.company_logo!==null?`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/employer_avatars/${item?.company_logo}`: item.company.avatar?`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/employer_avatars/${item?.company.avatar}`:"/assets/images/candidates/01.png"} alt="company-logo" className="lazy-img rounded-circle" style={{ objectFit: "cover", width: "45px", height: "auto", aspectRatio: "1/1" }} width={60} height={60} /> 
 
-
-
       </Link>
       <a onClick={() => handleAddWishlist(item)}
         className={`save-btn text-center rounded-circle tran3s cursor-pointer ${isActive ? 'active' : ''}`}

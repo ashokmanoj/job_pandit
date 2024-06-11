@@ -15,7 +15,7 @@ const EmployDashboardSettingPage = () => {
         router.push('/register');
       }else if( role ==='user'){
         router.push('/confirm-role');
-      }else if( role !=='candidate'){
+      }else if( role !=='company'){
         router.push('/');
       }
      }
