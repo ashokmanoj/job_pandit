@@ -3,8 +3,10 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import CompanyReviews from './company-reviews';
 import VideoPopup from '../common/video-popup';
+import Companies from '../dashboard/consultant/companies';
 
 const CompanyDetailsArea = ({ company }: { company: any }) => {
+  console.log(company);
   const [isVideoOpen, setIsVideoOpen] = useState<boolean>(false);
   return (
     <>
@@ -71,6 +73,9 @@ const CompanyDetailsArea = ({ company }: { company: any }) => {
                     <i className="bi bi-play-fill"></i>
                   </a>
                 </div> */}
+
+                <h3>Vender Companies</h3>
+                <Companies company={company.vender_companies}/>
                 <div className="position-relative">
                   <h3>Company Reviews</h3>
 

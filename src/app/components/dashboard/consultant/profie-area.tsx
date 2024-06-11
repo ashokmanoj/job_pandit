@@ -8,6 +8,7 @@ import { notifyError, notifySuccess } from "@/utils/toast";
 import Company_Type from "../employ/Company_Type";
 import Category from "../employ/category"
 import AddCompanies from "./AddCompanies";
+import Link from "next/link";
 
 
 
@@ -241,10 +242,16 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
         {/* header end */}
 
         <h2 className="main-title">Profile</h2>
-
+        {isData &&<div >
+          <Link href={`/company/${user?.id}`} className="btn-two mb-30">
+          View Profile</Link>
+        </div>}
         <div className="bg-white card-box border-20">
-          <EmployUploadPhoto avatar={avatar} setAvatar={setAvatar} />
-          <div className="row">
+          <div className="row position-relative">
+            <EmployUploadPhoto avatar={avatar} setAvatar={setAvatar} />
+        
+            
+            
             <div className="col-md-6">
               <div className="dash-input-wrapper mb-30">
                 <label htmlFor="">Company Name <span className="text-danger">*</span></label>
@@ -254,6 +261,7 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
                   onChange={(e) => setCompanyname(e.target.value)}
                   value={companyname}
                 />
+
               </div>
             </div>
             <div className="col-md-6">

@@ -116,7 +116,7 @@ const EmployAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
         <div className="position-relative">
           <div className="logo text-md-center d-md-block d-flex align-items-center justify-content-between">
           {!company &&<div className="alert alert-danger fs-14" role="alert">
-                Profile is required. <a href="/dashboard/employ-dashboard/profile" className="alert-link">Create Here</a>.
+                Profile is required. <a href="/dashboard/consultant-dashboard/profile" className="alert-link">Create Here</a>.
               </div>}
             <button className="close-btn d-block d-md-none" onClick={() => setIsOpenSidebar(false)}>
               <i className="bi bi-x-lg"></i>
@@ -128,7 +128,7 @@ const EmployAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
             </div>
             <div className="user-name-data">
               <button
-                className="user-name dropdown-toggle"
+                className="user-name dropdown-toggle px-3 text-wrap"
                 type="button"
                 id="profile-dropdown"
                 data-bs-toggle="dropdown"
@@ -136,6 +136,7 @@ const EmployAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
                 aria-expanded="false"
               >
                 {company? company?.company_name:user?.first_name}
+                ({user?.last_name})
               </button>
               
               <ul className="dropdown-menu" aria-labelledby="profile-dropdown">
@@ -151,7 +152,7 @@ const EmployAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
                 <li>
                   <Link
                     className="dropdown-item d-flex align-items-center"
-                    href="/dashboard/employ-dashboard/profile"
+                    href="/dashboard/consultant-dashboard/profile"
                   >
                     <Image src={profile_icon_2} alt="icon" className="lazy-img" />
                     <span className="ms-2 ps-1">Account Settings</span>
