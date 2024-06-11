@@ -1,10 +1,10 @@
 'use client'
 import React,{useEffect, useState} from 'react';
 import Wrapper from '@/layouts/wrapper';
-import EmployAside from '@/app/components/dashboard/employ/aside';
 import DashboardSettingArea from '@/app/components/dashboard/candidate/dashboard-setting';
 import { useRouter } from 'next/navigation';
 import { getRole } from '@/hooks/client-request/getRole';
+import EmployAside from '@/app/components/dashboard/consultant/aside';
 
 const EmployDashboardSettingPage = () => {
   const [isOpenSidebar,setIsOpenSidebar] = useState<boolean>(false);

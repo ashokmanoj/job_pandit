@@ -6,7 +6,7 @@ import { notifyError, notifySuccess } from "@/utils/toast";
 import { createClient } from "@/utils/supabase/client";
 import NiceSelect from "@/ui/nice-select";
 import { useUserStore } from "@/lib/store/user";
-import { redirect, usePathname } from "next/navigation";
+import { redirect } from "next/navigation";
 import Category from "../employ/category";
 import Job_Type from "../employ/job_Type";
 import Salary from "../employ/salary";
@@ -137,7 +137,8 @@ const SubmitJobArea = ({ setIsOpenSidebar, params }: IProps) => {
                     setIsData(false);
                 } else {
                     notifySuccess("job post Updated Successfully");
-                    
+                    setIsData(false);
+                    window.location.replace("/dashboard/consultant-dashboard/jobs");
                 }
             } else {
                 const { data, error } = await supabase.from("job_posts").insert([
@@ -160,6 +161,7 @@ const SubmitJobArea = ({ setIsOpenSidebar, params }: IProps) => {
                 if (!error) {
                     notifySuccess("Job Posted Successfully");
                     setIsData(false);
+                    window.location.replace("/dashboard/consultant-dashboard/jobs");
                 
                     
                 } else {
@@ -196,7 +198,8 @@ const SubmitJobArea = ({ setIsOpenSidebar, params }: IProps) => {
                 setVacancy(data.vacancy);
                 setIsData(true);
                 setJobPostId(data.id);
-                setExternalLink(data.external_link)
+                setExternalLink(data.external_link);
+                setIsExternal(data.external_link ? true : false);
                 setCompanyName(data.company_name);
                 setCompanyLogo(data.company_logo);
             } else {
