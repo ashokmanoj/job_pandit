@@ -1,5 +1,6 @@
 import React from "react";
-import ActionDropdown from "./ActionDropdown";
+import ActionDropdownConsultant from "../consultant/AddDropDown";
+
 
 
 const EmployJobItem = ({
@@ -39,7 +40,7 @@ const EmployJobItem = ({
             <span></span>
           </button>
           {/* action dropdown start */}
-          <ActionDropdown jobpost={jobPost} />
+          <ActionDropdownConsultant jobpost={jobPost} />
           {/* action dropdown end */}
         </div>
       </td>
