@@ -79,9 +79,9 @@ const Achievements = ({achievement,setAchievement}:{achievement:any ,setAchievem
       <div className="row" >
       {achievement?.map((item:any,index:number)=>
         (
-        <div className="candidate-portfolio-block position-relative mb-25 col-lg-6 col-6" key={index}>
+        <div className="candidate-portfolio-block position-relative mb-25 col-lg-6 col-md-12" key={index}>
           <a href={item.url} className="d-block">
-            <Image src={`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/achievement_images/${item.image}`} alt="image" className="lazy-img w-100 aspect-ratio-square rounded" style={{ width: '100%', height: 'auto' }} width={500} height={500} />
+            <Image src={`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/achievement_images/${item.image}`} alt="image" className="lazy-img w-100 aspect-ratio-square rounded" style={{ width: '100%', height: '300px' , objectFit: 'cover', aspectRatio: '1/1'}} width={500} height={500} />
           </a>
           <h4>{item.title}</h4>
           

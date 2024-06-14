@@ -1,6 +1,6 @@
 import React from "react";
 
-const EducationEdit = ({education,handleDelete}: {education: [{title:string,college:string,from:string,to:string,description:string}],handleDelete:any}) => {
+const EducationEdit = ({education,handleDelete}: {education: any[],handleDelete:any}) => {
   return (
     <div className="time-line-data position-relative pt-15">
       {education?.map((item, index) => (

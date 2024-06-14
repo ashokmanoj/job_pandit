@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import WorkExperienceEdit from './WorkExperienceEdit';
 import { notifyError } from '@/utils/toast';
 
-const Skills_Experience = ({skills, setSkills, experience, setExperience}:any) => {
+const Skills_Experience = ({skills, setSkills, experience, setExperience}:{skills:any[], setSkills:any, experience:any[], setExperience:any}) => {
  const [val ,setVal] = useState<string>('');
  const [expValue, setExpValue] = useState<{title:string,company:string,from:string,to:string,description:string}>({title:'',company:'',from:'',to:'',description:''});
 
@@ -122,7 +122,7 @@ const Skills_Experience = ({skills, setSkills, experience, setExperience}:any) =
                 <li className="more_tag"><button style={{ cursor: "pointer",color:"black" }} onClick={handleAdd}>+</button></li>
               </ul>
               <ul className="custom-list">
-            {jobMarketSkills?.filter((item) => !skills.includes(item))?.map((item: any, i: any) => (
+            {jobMarketSkills?.filter((item) => !skills?.includes(item))?.map((item: any, i: any) => (
               <li key={i}  onClick={() => { setSkills([...skills, item]) }}><button >{item}</button></li>
             ))}
           </ul>

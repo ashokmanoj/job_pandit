@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import EducationEdit from './EducationEdit';
 import { notifyError } from '@/utils/toast';
 
-const AddEducation = ({ education, setEducation }: { education: any, setEducation: any }) => {
+const AddEducation = ({ education, setEducation }: { education: any[], setEducation: any }) => {
   const [eduVal, setEduVal] = useState({ title: '', college: '', from: '', to: '', description: '' })
   const handleAdd = (e: any) => {
     e.preventDefault();

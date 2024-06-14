@@ -36,12 +36,12 @@ const CandidateGridItem = ({ item, style_2 = false }: { item: any; style_2?: boo
       </h4>
       <div className="candidate-post">{item.post}</div>
       <ul className="cadidate-skills style-none d-flex flex-wrap align-items-center justify-content-center justify-content-md-between pt-30 sm-pt-20 pb-10">
-        {item.resume.skills.slice(0, 3).map((s: string, i: number) => (
+        {item?.skills?.slice(0, 3).map((s: string, i: number) => (
           <li key={i}>{s}</li>
         ))}
-        {item.resume.skills.length > 3 && (
+        {item?.skills?.length > 3 && (
           <li className="more">
-            {item.resume.skills.length - item.resume.skills.slice(0, 3).length}+
+            {item?.skills.length - item?.skills.slice(0, 3).length}+
           </li>
         )}
       </ul>
