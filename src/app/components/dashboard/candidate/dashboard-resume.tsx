@@ -69,7 +69,7 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
       setUploading(true);
       if (isData) {
         const { data, error } = await supabase
-          .from("candidate_resume_details")
+          .from("candidate_profile")
           .update({
             resume,
             overview,
@@ -78,9 +78,9 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
             experiences,
             skills,
             projects,
-           achievement,
+           achievements: achievement,
           })
-          .eq("user_id", user.id)
+          .eq("id", user.id)
           .select("*")
           .single();
         if (error) {
@@ -90,22 +90,22 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
         } else {
           console.log("Data updated successfully", data);
           notifySuccess("Data updated successfully");
-          setResume(data.resume);
-          setOverview(data.overview);
-          setVideo(data.video);
-          setEducation(data.educations);
-          setExperience(data.experiences);
-          setSkills(data.skills);
-          setProjects(data.projects);
-          setAchievement(data.achievement);
+          setResume(data?.resume || "");
+          setOverview(data.overview || "");
+          setVideo(data.video   || "");
+          setEducation(data.educations  || []);
+          setExperience(data.experiences || []);
+          setSkills(data.skills || []);
+          setProjects(data.projects || []);
+          setAchievement(data.achievements || []);
           setIsData(true);
         }
       } else {
         const { data, error } = await supabase
-          .from("candidate_resume_details")
+          .from("candidate_profile")
           .insert([
             {
-              user_id: user?.id,
+              id: user?.id,
               resume,
               overview,
               video,
@@ -113,7 +113,7 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
               experiences,
               skills,
               projects,
-              achievement,
+              achievements: achievement,
             },
           ])
           .select("*")
@@ -132,7 +132,7 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
           setExperience(data.experiences);
           setSkills(data.skills);
           setProjects(data.projects);
-          setAchievement(data.achievement);
+          setAchievement(data.achievements);
           setIsData(true);
         }
       }
@@ -146,22 +146,22 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
       setUser(user);
       console.log(user);
       const { data, error } = await supabase
-        .from("candidate_resume_details")
+        .from("candidate_profile")
         .select("*")
-        .eq("user_id", user.id)
+        .eq("id", user.id)
         .single();
       if (error) {
         console.error("Error fetching data:", error.message);
       } else {
         console.log("Data fetched successfully:", data);
-        setResume(data.resume);
-        setOverview(data.overview);
-        setVideo(data.video);
-        setEducation(data.educations);
-        setExperience(data.experiences);
-        setSkills(data.skills);
-        setProjects(data.projects);
-        setAchievement(data.achievement);
+        setResume(data.resume || "");
+        setOverview(data.overview || "");
+        setVideo(data.video || "");
+        setEducation(data.educations || []);
+        setExperience(data.experiences  || []);
+        setSkills(data.skills || []);
+        setProjects(data.projects || []);
+        setAchievement(data.achievements  || []);
         setIsData(true);
       }
     };

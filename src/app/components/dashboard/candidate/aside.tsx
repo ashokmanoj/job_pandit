@@ -103,7 +103,7 @@ const CandidateAside = ({isOpenSidebar,setIsOpenSidebar}:IProps) => {
       
     } 
   },[user])
-  const completionPercentage = Number(calculateProfileCompletion(candidate?.profile, candidate?.resume)).toFixed(0);
+  const completionPercentage = Number(calculateProfileCompletion(candidate?.profile)).toFixed(0);
  
   const pathname = usePathname();
   return (
@@ -111,9 +111,7 @@ const CandidateAside = ({isOpenSidebar,setIsOpenSidebar}:IProps) => {
     <aside className={`dash-aside-navbar ${isOpenSidebar?'show':''}`}>
       <div className="position-relative">
         <div className="logo text-md-center d-md-block d-flex align-items-center justify-content-between">
-        {!candidate?.profile &&<div className="alert alert-danger fs-14" role="alert">
-                Profile is required. <a href="/dashboard/candidate-dashboard/profile" className="alert-link">Create Here</a>.
-              </div>}
+       
           <button onClick={() => setIsOpenSidebar(false)} className="close-btn d-block d-md-none">
             <i className="bi bi-x-lg"></i>
           </button>
@@ -184,6 +182,9 @@ const CandidateAside = ({isOpenSidebar,setIsOpenSidebar}:IProps) => {
            
           </ul>
         </nav>
+        {!candidate.profile &&<div className="alert alert-danger fs-14" role="alert">
+                Profile is required. <a href="/dashboard/candidate-dashboard/profile" className="alert-link">Create Here</a>.
+              </div>}
         <div className="profile-complete-status">
           <div className="progress-value fw-500">{completionPercentage}%</div>
           <div className="progress-line position-relative">

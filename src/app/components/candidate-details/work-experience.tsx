@@ -1,6 +1,6 @@
 import React from "react";
 
-const WorkExperience = ({experience}:any) => {
+const WorkExperience = ({experience}:{experience:any[]}) => {
   
   return (
     <div className="time-line-data position-relative pt-15">

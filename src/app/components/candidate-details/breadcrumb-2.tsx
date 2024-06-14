@@ -1,7 +1,5 @@
 import React from 'react';
 import Image from "next/image";
-import Link from "next/link";
-import candidate_img from '@/assets/images/candidates/img_01.jpg';
 import shape_1 from '@/assets/images/shape/shape_02.svg';
 import shape_2 from '@/assets/images/shape/shape_03.svg';
 
@@ -26,7 +24,7 @@ const CandidateProfileBreadcrumbTwo = ({ candidate }: { candidate: any }) => {
                 </div>
                 <div className="col-xl-3 order-xl-3">
                   <ul className="cadidate-skills style-none d-flex flex-wrap align-items-center">
-                    {candidate?.resume?.skills?.map((item: any, index: number) => (
+                    {candidate?.profile?.skills?.map((item: any, index: number) => (
                       <li key={index}>{item}</li>
                     ))}
                     <li className="more">2+</li>

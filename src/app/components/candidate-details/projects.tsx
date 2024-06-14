@@ -1,26 +1,29 @@
-'use client'
-import React, { useState } from 'react'
+import React from 'react'
 import Image from 'next/image'
+import ProjectsModel from '../common/popup/projects'
 
-const Projects = ({ item, index }: any) => {
-  const [open, setOpen] = useState(false);
+const Projects = ({ item, index }: { item: any, index: number }) => {
+
 
   return (
-    <div className=" col-xxl-6 col-lg-6" key={index}>
-      <div className="text_1 fw-500 ">
-        <Image
-          src={`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/achievement_images/${item.image}`}
-          alt=""
-          className="w-100  lazy-img rounded "
-          style={{ width: "100%", height: "100%" }}
-          width={500}
-          height={500}
-        />
+    <div key={index}>
+      <div data-bs-toggle="modal"
+        data-bs-target={`#projectsModel${index}`} className=" project-card " key={index}>
+        <div className="text_1 fw-500 ">
+          <Image
+            src={`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/project_images/${item.image}`}
+            alt=""
+            className="w-100  lazy-img border  "
+            style={{width: "100%", height: "100%", objectFit: "cover",aspectRatio: "1/1" , objectPosition: "center",borderTopLeftRadius: "20px", borderTopRightRadius: "10px", borderBottomLeftRadius: "20px", borderBottomRightRadius: "10px"}}
+            width={500}
+            height={500}
+          />
+        </div>
+        <div><h4 className='col-10 text-truncate'>{item.title}</h4></div>
       </div>
-      <a href={item?.link}> <div className='row'><h4 className='col-10'>{item.title}</h4><p className=' col-2'><i className='bi bi-github'></i></p></div></a>
-      <p className={`text-truncate h-40 ${open ? "text-wrap" : ""}`}>{item?.description}. </p>
-      <span className="fw-100 fs-8 text-primary cursor-pointer" onClick={() => setOpen(!open)}>Read More</span>
+      <div><ProjectsModel item={item} index={index} /></div>
     </div>
+
   )
 }
 

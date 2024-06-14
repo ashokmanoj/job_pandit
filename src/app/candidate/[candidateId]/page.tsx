@@ -18,8 +18,9 @@ export const metadata: Metadata = {
 const CandidateProfileDetailsPage = async ({ params }: { params: { candidateId: string } }) => {
 
   const candidate = await fetchCandidate({ candidateId: params.candidateId });
+  console.log(candidate);
 
-  if (!candidate.profile || !candidate.resume||!candidate) {
+  if (!candidate.profile ) {
     return (
       <Wrapper>
         <div className="main-page-wrapper">
@@ -30,7 +31,6 @@ const CandidateProfileDetailsPage = async ({ params }: { params: { candidateId: 
           <ErrorPageArea title="Candidate Not Found" />
         </div>
       </Wrapper>
-
     )
   }
 

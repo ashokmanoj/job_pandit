@@ -7,6 +7,9 @@ import CandidateBio from './bio';
 import VideoPlayer from './videoPlayer';
 import Projects from './projects';
 import ErrorPageArea from '../error/error-page-area';
+import Achievements from './achievements';
+import AchievementsModel from '../common/popup/achivements';
+
 
 
 
@@ -15,24 +18,24 @@ const CandidateDetailsArea = ({ candidate }: { candidate: any }) => {
 
   return (
     <>
-      {candidate.resume ? <section className="candidates-profile pt-100 lg-pt-70 pb-150 lg-pb-80">
+      {candidate.profile.overview ? <section className="candidates-profile pt-100 lg-pt-70 pb-150 lg-pb-80">
         <div className="container">
           <div className="row">
             <div className="col-xxl-9 col-lg-8">
               <div className="candidates-profile-details me-xxl-5 pe-xxl-4">
                 <div className="inner-card border-style mb-65 lg-mb-40">
                   <h3 className="title">Overview</h3>
-                  <p>{candidate.resume?.overview}</p>
+                  <p>{candidate.profile?.overview}</p>
                 </div>
-                {candidate.resume?.video &&
-                (<><h3 className="title">Intro</h3>
-                <div className="video-post d-flex align-items-center justify-content-center mt-25 lg-mt-20 mb-75 lg-mb-50">
-                  <VideoPlayer video={candidate.resume?.video} />
-                </div></>)}
+                {candidate.profile?.video &&
+                  (<><h3 className="title">Intro</h3>
+                    <div className="video-post d-flex align-items-center justify-content-center mt-25 lg-mt-20 mb-75 lg-mb-50">
+                      <VideoPlayer video={candidate.profile?.video} />
+                    </div></>)}
                 <div className="inner-card border-style mb-75 lg-mb-50">
                   <h3 className="title">Education</h3>
                   <div className="time-line-data position-relative pt-15">
-                    {candidate.resume.educations?.map((item: any, index: number) => (
+                    {candidate.profile.educations?.map((item: any, index: number) => (
                       <div className="info position-relative" key={index}>
                         <div className="numb fw-500 rounded-circle d-flex align-items-center justify-content-center">{index + 1}</div>
                         <div className="text_1 fw-500">{item?.college}</div>
@@ -45,24 +48,34 @@ const CandidateDetailsArea = ({ candidate }: { candidate: any }) => {
                 <div className="inner-card border-style mb-75 lg-mb-50">
                   <h3 className="title">Skills</h3>
                   {/* skill area */}
-                  <Skills skills={candidate.resume?.skills} />
+                  <Skills skills={candidate.profile?.skills} />
                   {/* skill area */}
                 </div>
-              {candidate?.resume?.experiences?.length !== 0 && <div className="inner-card border-style mb-60 lg-mb-50">
-                <h3 className="title">Work Experience</h3>
-                {/* WorkExperience */}
-                <WorkExperience experience={candidate.resume?.experiences} />
-                {/* WorkExperience */}
-              </div>}
+                {candidate?.profile?.experiences?.length !== 0 && <div className="inner-card border-style mb-60 lg-mb-50">
+                  <h3 className="title">Work Experience</h3>
+                  {/* WorkExperience */}
+                  <WorkExperience experience={candidate.profile?.experiences} />
+                  {/* WorkExperience */}
+                </div>}
                 {/* <h3 className="title">Projects</h3> */}
                 {/* Candidate Profile Slider */}
                 {/* <CandidateProfileSlider projects={data.projects} /> */}
-                {candidate.resume.projects}
-                {candidate.resume?.projects?.length!==0 && <div className="inner-card border-style mb-75 lg-mb-50">
+
+                {candidate.profile?.projects?.length !== 0 && <div className="inner-card  mb-75 lg-mb-50">
                   <h3 className="title">Projects</h3>
-                  <div className="time-line-data position-relative pt-15 row">
-                    {candidate.resume.projects?.map((item: any, index: number) => (
-                      <Projects item={item} index={index} />
+                  <div className=" pt-15 row">
+                    {candidate.profile.projects?.map((item: any, index: number) => (
+
+                      <div className="col-xxl-4 col-lg-4"  key={index}><Projects item={item} index={index} /></div>
+                    ))}
+                  </div>
+                </div>}
+                {candidate.profile?.achievements?.length !== 0 && <div className="inner-card mb-75 lg-mb-50">
+                  <h3 className="title">Achievements </h3>
+                  <div className=" pt-15 row">
+                    {candidate.profile.achievements?.map((item: any, index: number) => (
+                      <div className="col-xxl-4 col-lg-4" data-bs-toggle="modal" data-bs-target={`#achievementsModal${index}`} key={index}> <Achievements item={item} index={index} />
+                      <div><AchievementsModel item={item} index={index}/></div></div>
                     ))}
                   </div>
                 </div>}
@@ -75,7 +88,7 @@ const CandidateDetailsArea = ({ candidate }: { candidate: any }) => {
                 <div className="cadidate-bio bg-wrapper bg-color mb-60 md-mb-40">
                   <div className="pt-25">
                     <div className="cadidate-avatar m-auto">
-                      <Image src={candidate?.profile?.avatar ? `https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/avatars/${candidate?.profile?.avatar}` : "/assets/images/candidates/01.png"} alt="avatar" className="lazy-img rounded-circle border w-100" width={70} height={70} style={{height:'100%', width:'100%', objectFit:'cover'}} />
+                      <Image src={candidate?.profile?.avatar ? `https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/avatars/${candidate?.profile?.avatar}` : "/assets/images/candidates/01.png"} alt="avatar" className="lazy-img rounded-circle border w-100" width={70} height={70} style={{ height: '100%', width: '100%', objectFit: 'cover' }} />
                     </div>
                   </div>
                   <h3 className="cadidate-name text-center">{candidate?.profile?.name}</h3>
@@ -96,6 +109,7 @@ const CandidateDetailsArea = ({ candidate }: { candidate: any }) => {
           </div>
         </div>
       </section> : <ErrorPageArea title="Candidate Not Found" />}
+
     </>
   );
 };

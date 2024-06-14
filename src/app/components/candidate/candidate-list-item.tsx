@@ -61,7 +61,7 @@ const CandidateListItem = ({ item,style_2=false }: { item:any;style_2?:boolean }
             </div>
             <div className="col-xl-1 col-md-1 col-sm-1">
               <div className="d-flex justify-content-lg-end">
-              {user?.role==='company'|| user?.role==='admin'?<button 
+              {user?.role==='company'|| user?.role==='consultant'?<button 
                   className="save-btn  text-center rounded-circle tran3s mt-10"
                   style={{top:"80px",background:isActive?'#005025':'#fff',color:isActive?'#fff':'#005025'}}
                   onClick={() => handleAddWishlist(item)}

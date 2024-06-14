@@ -80,9 +80,9 @@ const DashboardPortfolio = ({projects,setProjects}:{projects:any ,setProjects:an
       <div className="row" >
       {projects?.map((item:any,index:number)=>
         (
-        <div className="candidate-portfolio-block position-relative mb-25 col-lg-6 col-6" key={index}>
+        <div className="candidate-portfolio-block position-relative mb-25 col-lg-6 col-md-12" key={index}>
           <a href={item.url} className="d-block">
-            <Image src={`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/project_images/${item.image}`} alt="image" className="lazy-img w-100 aspect-ratio-square rounded" style={{ width: '100%', height: 'auto' }} width={500} height={500} />
+            <Image src={`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/project_images/${item.image}`} alt="image" className="lazy-img w-100 aspect-ratio-square rounded" style={{ width: '100%', height: '300px', objectFit: 'cover', aspectRatio: '1/1' }} width={500} height={500} />
           </a>
           <div className="col-6" ><Link href={item.url} target="_blank">{item.url}</Link> </div>
 

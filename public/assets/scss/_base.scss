@@ -475,3 +475,21 @@ hr {opacity: 0.09; margin: 5px 0;}
       transform: rotate(360deg);
   }
   } 
+
+  .project-card{
+    border: 1px solid #E5E5E5;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+
+  }
+ .project-card:hover{
+   transform: scale(1.05);
+   transition: 0.3s;
+   border: #005025 solid 1px;
+   box-shadow: 0 0 10px #005025;
+ }
+
+ 
+
+  

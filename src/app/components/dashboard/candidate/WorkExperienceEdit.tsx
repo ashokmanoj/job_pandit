@@ -1,6 +1,6 @@
 import React from "react";
 
-const WorkExperienceEdit = ({experience,handleDelete}: {experience: [{title:string,company:string,from:string,to:string,description:string}],handleDelete:any}) => {
+const WorkExperienceEdit = ({experience,handleDelete}: {experience: any[],handleDelete:any}) => {
   return (
     <div className="time-line-data position-relative pt-15">
       {experience?.map((item, index) => (
