@@ -1,5 +1,5 @@
 import "./globals.scss";
-import { Metadata } from "next";
+import { Metadata, Viewport } from "next";
 import localFont from 'next/font/local';
 import { EB_Garamond } from "next/font/google";
 import BackToTopCom from "./components/common/back-to-top-com";
@@ -47,7 +47,16 @@ export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
   title: "Job Pandit - Find Your Dream Job",
   description: "Job Pandit is a platform where you can find your next job. We help you find your dream job. Find your next job here.",
+  
 };
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  // Also supported by less commonly used
+  // interactiveWidget: 'resizes-visual',
+}
 
 export default function RootLayout({
   children,
@@ -58,6 +67,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
+      <meta name="viewport" content="width=device-width, initial-scale=0.5" />
       </head>
       <body suppressHydrationWarning={true} className={`${gordita.variable} ${garamond.variable}`}>
           {children}

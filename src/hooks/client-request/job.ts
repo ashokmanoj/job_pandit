@@ -7,7 +7,7 @@ export const fetchJobs = async () => {
       .select('*').order('created_at', { ascending: false });
   const companies = await supabase.from('employer_profile').select('*'); 
   const result = data?.map((d: any) => ({ ...d, company: companies?.data?.find((p: any) => p.id === d.user_id) }));
-  console.log(result);
+  console.log(result,"result in fetch jobs client");
   if(error || companies?.error) {
     return [];
   }
@@ -25,3 +25,24 @@ export const fetchJobs = async () => {
     return { data, error };  
   }
 
+export   const  ApplyJob  = async (job_id:number,candidate_id:string)=>{
+  const supbase = createClient();
+ const { error } = await supbase.from('job_applications').insert([
+    {
+      "jobpost_id": job_id,
+      "candidate_id": candidate_id,
+    }
+  ])
+
+  return {error };
+}
+
+export const fetchMyAppliedJobsByIds = async (job_ids: number[]) => {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from('job_posts')
+    .select('*').in('id', job_ids);
+    console.log(data,error,"data in fetchMyAppliedJobsByIds");
+  return { data, error };
+
+}

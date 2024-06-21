@@ -101,7 +101,7 @@ const {user} = useUserStore();
       return;
     }else{
       setIsAdding(true);
-      if(userOtp === otp){
+      // if(userOtp === otp){
        if(user){
         const { data, error } = await supabase
         .from("user_role")
@@ -125,9 +125,9 @@ const {user} = useUserStore();
         setUserOtp('');
     }
        }
-      }else{
-        notifyError('Invalid OTP')
-      }
+      // }else{
+      //   notifyError('Invalid OTP')
+      // }
     }
 
 setIsAdding(false);
@@ -201,8 +201,8 @@ setIsAdding(false);
                 </div>
                 <div className="dash-input-wrapper mb-20 col-9 position-relative ">
                   <label htmlFor="">Phone Number</label>
-                  <input type="tel" placeholder="Ex:00992887" onChange={(e) => setPhone(e.target.value)} value={phone_number} />
-                  <div className="position-absolute top-50 end-0 translate-middle-y z-1 ">
+                  <input type="tel" placeholder="Ex:9141189940" onChange={(e) => setPhone(e.target.value)} value={phone_number} />
+                  {/* <div className="position-absolute top-50 end-0 translate-middle-y z-1 ">
                     {otpSent ? <div className="pr-10">
                       <button
                         type="button"
@@ -221,17 +221,17 @@ setIsAdding(false);
                         ></span></button></> : <><button type="button" className="btn-nine fw-500 tran3s d-block  btn-margin " onClick={handleSendOTP}>Get OTP</button></>}
                       </div>
                     }
-                  </div>
+                  </div> */}
                 </div>
 
 
               </div>
-              <div className="col-12">
+              {/* <div className="col-12">
                 <div className="dash-input-wrapper mb-20">
                   <label htmlFor="">OTP <span className="text-danger">*</span></label>
                   <input type="text" placeholder="Enter OTP" onChange={(e) => setUserOtp(e.target.value)} value={userOtp} />
                 </div>
-              </div>
+              </div> */}
             </div>
 
             <div className="button-group d-inline-flex align-items-center mt-30">

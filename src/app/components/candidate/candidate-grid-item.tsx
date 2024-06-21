@@ -1,29 +1,19 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useUserStore } from "@/lib/store/user";
-import useSavedCandidateStore from "@/lib/store/savedCandidate";
+import LikeCandidate from "./likeCandidate";
+import SavedCandidate from "./SavedCandidate";
 
 
 const CandidateGridItem = ({ item, style_2 = false }: { item: any; style_2?: boolean }) => {
-  const {user} = useUserStore((state) => state);
-  const {savedCandidates,add_to_list} = useSavedCandidateStore((state) => state);
-  const isActive = savedCandidates.some(p => p.id === item.id);
 
-  // handle add wishlist
-  const handleAddWishlist = (item: any) => {
-    add_to_list(item)
-  };
   return (
     <div
       className={`candidate-profile-card ${item.favorite ? "favourite" : ""} text-center ${style_2 ? 'border-0' : ''} grid-layout mb-25`}
     >
-      <button className="save-btn tran3s" >
-        <i className="bi bi-heart"></i>
-      </button>
-      <button className="save-btn tran3s" style={{top:"40px",color:isActive?"#005025":"#005025",}}  onClick={() => handleAddWishlist(item)} >
-        {isActive ? <i className="bi bi-bookmark-check-fill"></i> : <i className="bi bi-bookmark-check"></i>}
-      </button>
+      <LikeCandidate grid 
+      item_id={item.id} />
+      <SavedCandidate item={item} grid />
       <div className="cadidate-avatar online position-relative d-block m-auto">
         <Link href={`/candidate/${item.id}`} className="rounded-circle">
           <Image src={item?.avatar ? `https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/avatars/${item?.avatar}` : "/assets/images/candidates/01.png"} alt="company-logo" className="lazy-img rounded-circle" style={{ objectFit: "cover", width: "60px", height: "auto", aspectRatio: "1/1" }} width={60} height={60} />

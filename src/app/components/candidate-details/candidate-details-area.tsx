@@ -1,4 +1,4 @@
-'use server'
+
 import React from 'react';
 import Image from 'next/image';
 import Skills from './skills';
@@ -23,6 +23,10 @@ const CandidateDetailsArea = ({ candidate }: { candidate: any }) => {
           <div className="row">
             <div className="col-xxl-9 col-lg-8">
               <div className="candidates-profile-details me-xxl-5 pe-xxl-4">
+              <div className="inner-card border-style mb-65 lg-mb-40">
+                  <h3 className="title">Bio</h3>
+                  <p>{candidate.profile?.bio}</p>
+                </div>
                 <div className="inner-card border-style mb-65 lg-mb-40">
                   <h3 className="title">Overview</h3>
                   <p>{candidate.profile?.overview}</p>

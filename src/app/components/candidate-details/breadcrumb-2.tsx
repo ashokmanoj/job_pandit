@@ -2,6 +2,7 @@ import React from 'react';
 import Image from "next/image";
 import shape_1 from '@/assets/images/shape/shape_02.svg';
 import shape_2 from '@/assets/images/shape/shape_03.svg';
+import LikeCandidate from '../candidate/likeCandidate';
 
 const CandidateProfileBreadcrumbTwo = ({ candidate }: { candidate: any }) => {
   return (
@@ -11,7 +12,7 @@ const CandidateProfileBreadcrumbTwo = ({ candidate }: { candidate: any }) => {
           <div className="d-flex align-items-start align-items-xl-center">
             <div className="cadidate-avatar position-relative d-block me-auto ms-auto">
               <a href="#" className="rounded-circle">
-                <Image src={candidate?.profile?.avatar ?`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/avatars/${candidate.profile?.avatar}`:"/assets/images/candidates/01.png"}alt="" className="lazy-img rounded-circle" style={{height:'70px', width:'70px', objectFit:'cover'}} width={70} height={70} />
+                <Image src={candidate?.profile?.avatar ? `https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/avatars/${candidate.profile?.avatar}` : "/assets/images/candidates/01.png"} alt="" className="lazy-img rounded-circle" style={{ height: '70px', width: '70px', objectFit: 'cover' }} width={70} height={70} />
               </a>
             </div>
             <div className="right-side">
@@ -24,10 +25,10 @@ const CandidateProfileBreadcrumbTwo = ({ candidate }: { candidate: any }) => {
                 </div>
                 <div className="col-xl-3 order-xl-3">
                   <ul className="cadidate-skills style-none d-flex flex-wrap align-items-center">
-                    {candidate?.profile?.skills?.map((item: any, index: number) => (
+                    {candidate?.profile?.skills?.slice(0, 4).map((item: any, index: number) => (
                       <li key={index}>{item}</li>
                     ))}
-                    <li className="more">2+</li>
+                    {candidate?.profile?.skills?.length > 4 && <li className="more">+{candidate?.profile?.skills?.length - 4}</li>}
                   </ul>
                 </div>
                 <div className="col-xl-2 col-md-4 order-xl-1">
@@ -44,7 +45,7 @@ const CandidateProfileBreadcrumbTwo = ({ candidate }: { candidate: any }) => {
                 </div>
                 <div className="col-xl-3 col-md-4 order-xl-4">
                   <div className="d-flex justify-content-md-end">
-                    <a href="#" className="save-btn text-center rounded-circle tran3s"><i className="bi bi-heart"></i></a>
+                    <div className='h-20 w-20 d-flex justify-content-center align-items-center fs-20'><LikeCandidate item_id={candidate?.profile.id} secondary/></div>
                     <a href="#" className="cv-download-btn fw-500 tran3s ms-md-3 sm-mt-20">Download CV</a>
                   </div>
                 </div>

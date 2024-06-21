@@ -8,13 +8,15 @@ export const fetchCandidate = async ({ candidateId} :{  candidateId: string}) =>
       .select('*').eq('id', candidateId).single();
   
     return {profile: data };
-  }
-  export const fetchCandidates = async () => {
+}
+
+export const fetchCandidates = async () => {
     const supabase = createClient();
     const { data, error } = await supabase
       .from('candidate_profile')
-      .select('*')
+      .select('*');
   
 console.log(data, error);
     return  data;
-  }
+}
+  

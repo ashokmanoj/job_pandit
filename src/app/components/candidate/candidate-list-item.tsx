@@ -1,26 +1,19 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import useSavedCandidateStore from "@/lib/store/savedCandidate";
-import { useUserStore } from "@/lib/store/user";
+import LikeCandidate from "./likeCandidate";
+import SavedCandidate from "./SavedCandidate";
 
-const CandidateListItem = ({ item,style_2=false }: { item:any;style_2?:boolean }) => {
-  const {user} = useUserStore((state) => state);
-  const {savedCandidates,add_to_list} = useSavedCandidateStore((state) => state);
-  const isActive = savedCandidates.some(p => p.id === item.id);
+const CandidateListItem = ({ item, style_2 = false }: { item: any; style_2?: boolean }) => {
 
-  // handle add wishlist
-  const handleAddWishlist = (item: any) => {
-    add_to_list(item)
-  };
   return (
     <div
-      className={`candidate-profile-card ${item.favorite ? "favourite" : ""} ${style_2?'border-0':''} list-layout mb-25`}
+      className={`candidate-profile-card ${item.favorite ? "favourite" : ""} ${style_2 ? 'border-0' : ''} list-layout mb-25`}
     >
       <div className="d-flex">
         <div className="cadidate-avatar online position-relative d-block me-auto ms-auto">
           <Link href={`/candidate/${item.id}`} className="rounded-circle">
-          <Image src={item?.avatar ?`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/avatars/${item?.avatar}`:"/assets/images/candidates/01.png"} alt="company-logo" className="lazy-img rounded-circle" style={{objectFit:"cover", width:"60px", height:"auto",aspectRatio:"1/1"}} width={60} height={60} />
+            <Image src={item?.avatar ? `https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/avatars/${item?.avatar}` : "/assets/images/candidates/01.png"} alt="company-logo" className="lazy-img rounded-circle" style={{ objectFit: "cover", width: "60px", height: "auto", aspectRatio: "1/1" }} width={60} height={60} />
           </Link>
         </div>
         <div className="right-side">
@@ -60,27 +53,17 @@ const CandidateListItem = ({ item,style_2=false }: { item:any;style_2?:boolean }
               </div>
             </div>
             <div className="col-xl-1 col-md-1 col-sm-1">
-              <div className="d-flex justify-content-lg-end">
-              {user?.role==='company'|| user?.role==='consultant'?<button 
-                  className="save-btn  text-center rounded-circle tran3s mt-10"
-                  style={{top:"80px",background:isActive?'#005025':'#fff',color:isActive?'#fff':'#005025'}}
-                  onClick={() => handleAddWishlist(item)}
+              <div className="d-flex justify-content-lg-end justify-content-center align-items-center" style={{gap:"10px"}}>
+                <SavedCandidate item={item} /> 
+                <LikeCandidate item_id={item.id} />
 
-                >
-                  <i className="bi bi-bookmark-check"></i>
-              </button>:<></>}
-                </div>
-                </div>
+              </div>
+            </div>
             <div className="col-xl-3 col-md-4">
-              <div className="d-flex justify-content-lg-end">
-                <button 
-                  className="save-btn text-center rounded-circle tran3s mt-10"
-                >
-                  <i className="bi bi-heart"></i>
-                </button>
+              <div className="d-flex justify-content-lg-end justify-content-center align-items-center">
                 
                 <Link href={`/candidate/${item.id}`}
-                  className="profile-btn tran3s ms-md-2 mt-10 sm-mt-20"
+                  className="profile-btn tran3s ms-md-2  sm-mt-20"
                 >
                   View Profile
                 </Link>
