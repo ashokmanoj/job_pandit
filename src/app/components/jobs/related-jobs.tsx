@@ -3,8 +3,6 @@ import React,{useEffect, useRef} from "react";
 import Slider from "react-slick";
 import JobGridItem from "./grid/job-grid-item";
 import { fetchJobs } from "@/hooks/client-request/job";
-import JobListTwo from "./list/job-list-two";
-import ListItem from "./list/list-item";
 
 // slider setting
 const slider_setting = {
@@ -36,7 +34,7 @@ const RelatedJobs = ({category}:{category:string[]}) => {
     fetchJobs().then((data:any) => {
       setJobs(data);
     })
-  })
+  },[category])
   const [jobs, setJobs] = React.useState<any[]>([]);
   const job_items = jobs.filter((job:any) => {
     return category === job.category;

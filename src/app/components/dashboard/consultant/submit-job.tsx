@@ -165,6 +165,9 @@ const SubmitJobArea = ({ setIsOpenSidebar, params }: IProps) => {
                 
                     
                 } else {
+                    if(error.code === "23503"){
+                        notifyError("Please Fill Your Profile First");
+                    }
                     notifyError("something went worng. Please Retry");
                 }
             }

@@ -20,7 +20,7 @@ export const fetchJobs = async () => {
       .select('*').eq('id',id).single();
   const companies = await supabase.from('employer_profile').select('*').eq('id', data?.user_id).single(); 
   const result = { ...data, company: companies?.data };
-  console.log(result);
+  console.log(result,"result in fetch jobs server request");
   if(error || companies?.error) {
     return  null;
   }

@@ -138,7 +138,7 @@ const UserRoleForm = () => {
     // on submit
     const onSubmit = async (formData: IFormData) => {
         setIsUploading(true);
-        if (otp === userOtp && otpSent) {
+        // if (otp === userOtp && otpSent) {
             if (user) {
                 const { data, error } = await supabase
                     .from("user_role")
@@ -168,11 +168,11 @@ const UserRoleForm = () => {
             } else {
                 notifyError("Something went wrong. Please try again");
             }
-        } else {
-            notifyError("Invalid OTP");
-            setIsUploading(false);
-            return
-        }
+        // } else {
+        //     notifyError("Invalid OTP");
+        //     setIsUploading(false);
+        //     return
+        // }
         reset();
         setIsLoading(false);
         setOtpSent(false);
@@ -258,7 +258,7 @@ const UserRoleForm = () => {
                         <div className="help-block with-errors">
                             <ErrorMsg msg={errors.phoneNumber?.message!} />
                         </div>
-                        <div className="position-absolute top-50 end-0 translate-middle-y z-1 ">
+                        {/* <div className="position-absolute top-50 end-0 translate-middle-y z-1 ">
                             {otpSent ? <div className="pr-10">
 
                                 <button
@@ -278,10 +278,10 @@ const UserRoleForm = () => {
                                     ></span></button></> : <><button type="button" className="btn-nine fw-500 tran3s d-block  btn-margin " onClick={() => generateAndSendOtp(watch("countryCode"), watch("phoneNumber"))}>Get OTP</button></>}
                                 </div>
                             }
-                        </div>
+                        </div> */}
                     </div>
                 </div>
-                <div className="col-12">
+                {/* <div className="col-12">
                     <div className="input-group-meta position-relative mb-25">
                         <label htmlFor="otp">Enter OTP</label>
                         <input
@@ -292,10 +292,10 @@ const UserRoleForm = () => {
                             name="otp"
                         />
                         <div className="help-block with-errors">
-                            {/* error */}
+                            
                         </div>
                     </div>
-                </div>
+                </div> */}
                 <div className="col-12">
                     {isUploading ? (
                         <button

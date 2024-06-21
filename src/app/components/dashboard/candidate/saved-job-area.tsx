@@ -43,7 +43,7 @@ const SavedJobArea = ({setIsOpenSidebar}:IProps) => {
         </div>
 
         <div className="wrapper">
-          {job_items.map((j) => (
+          {job_items.length > 0 ? job_items.map((j) => (
             <div
               key={j.id}
               className="job-list-one style-two position-relative mb-20"
@@ -100,52 +100,14 @@ const SavedJobArea = ({setIsOpenSidebar}:IProps) => {
                 </div>
               </div>
             </div>
-          ))}
+          )):<div className="text-center">
+          <h3 className="main-title m0">No Saved Jobs</h3>
+          <p className="mb-0">You haven't saved any job yet</p>
+          <Link style={{color:"#005025",textDecoration:"underline"}} href="/job">Find  Jobs Here.</Link>
+        </div>}
         </div>
-        {job_items && (
-                <div className=" dash-pagination d-flex justify-content-end mt-30 pt-30 lg-pt-20 d-sm-flex align-items-center justify-content-between">
-                  <p className="m0 order-sm-last text-center text-sm-start xs-pb-20">
-                    Showing{" "}
-                    <span className="text-dark fw-500">{itemOffset + 1}</span>{" "}
-                    to{" "}
-                    <span className="text-dark fw-500">
-                      {Math.min(itemOffset + 6, job_items.length)}
-                    </span>{" "}
-                    of{" "}
-                    <span className="text-dark fw-500">{job_items.length}</span>
-                  </p>
-                  {job_items.length > 6 && (
-                    <Pagination
-                      pageCount={pageCount}
-                      handlePageClick={handlePageClick}
-                    />
-                  )}
-                </div>
-              )}
-        <div className="dash-pagination d-flex justify-content-end mt-30">
-          <ul className="style-none d-flex align-items-center">
-            <li>
-              <a href="#" className="active">
-                1
-              </a>
-            </li>
-            <li>
-              <a href="#">2</a>
-            </li>
-            <li>
-              <a href="#">3</a>
-            </li>
-            <li>..</li>
-            <li>
-              <a href="#">7</a>
-            </li>
-            <li>
-              <a href="#">
-                <i className="bi bi-chevron-right"></i>
-              </a>
-            </li>
-          </ul>
-        </div>
+        
+        
       </div>
     </div>
   );

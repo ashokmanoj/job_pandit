@@ -72,7 +72,7 @@ const handleShort = (item: { value: string; label: string }) => {
                 Filter
               </button>
               {/* filter area start */}
-              <CandidateV1FilterArea candidates_data={candidates_data}  />
+              {/* <CandidateV1FilterArea candidates_data={candidates_data}  /> */}
               {/* filter area end */}
             </div>
 
