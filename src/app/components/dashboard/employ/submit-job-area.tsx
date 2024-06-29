@@ -217,7 +217,7 @@ const SubmitJobArea = ({ setIsOpenSidebar, params }: IProps) => {
             <label htmlFor="">Job Description <span className="text-danger">*</span></label>
             <textarea
               className="size-lg"
-              placeholder="Write about the job in details..."
+              placeholder="Write about your job details here..."
               onChange={(e) => setDescription(e.target.value)}
               value={description}
             ></textarea>

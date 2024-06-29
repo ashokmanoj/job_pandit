@@ -21,8 +21,8 @@ const HeroBannerSix = ({jobs}:{jobs:any}) => {
         <div className="position-relative">
           <div className="row">
             <div className="col-xxl-8 col-xl-9 col-lg-8 m-auto text-center">
-              <h1 className="wow fadeInUp w-100" data-wow-delay="0.3s ;">Access Elite Talent for Any Job</h1>
-              <p className="text-md text-white mt-25 mb-55 lg-mb-40 wow fadeInUp" data-wow-delay="0.4s">Maximize Your Potential with High-Quality Job Opportunities and Earn from Renowned Brands.  </p>
+              <h1 className="wow fadeInUp w-100" data-wow-delay="0.3s ;">Find your dream job with top companies</h1>
+              <p className="text-md text-white mt-25 mb-55 lg-mb-40 wow fadeInUp" data-wow-delay="0.4s">Access the best job listings to kickstart your future.</p>
             </div>
           </div>
           <div className="position-relative">

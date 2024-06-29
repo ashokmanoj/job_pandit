@@ -291,7 +291,7 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
             </div>
             <div className="col-md-6">
               <div className="dash-input-wrapper mb-30">
-                <label htmlFor="">Founded Date*</label>
+                <label htmlFor="">Company Founded Date*</label>
                 <input
                   type="date"
                   onChange={(e) => setDate(e.target.value)}
@@ -315,7 +315,7 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
                 <label htmlFor="">Phone Number <span className="text-danger">*</span></label>
                 <input
                   type="tel"
-                  placeholder="Ex : +91 91723801729"
+                  placeholder="Ex : +91 723801729"
                   onChange={(e) => setPhone(e.target.value)}
                   value={phone}
                 />
@@ -329,12 +329,12 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
             <label htmlFor="">About Company*</label>
             <textarea
               className="size-lg"
-              placeholder="Write something interesting about you...."
+              placeholder="Write about"
               onChange={(e) => setAbout(e.target.value)}
               value={about}
             ></textarea>
             <div className="alert-text">
-              Brief description for your company. URLs are hyperlinked.
+              Brief description for your company. Max 500 characters.
             </div>
           </div>
         </div>
