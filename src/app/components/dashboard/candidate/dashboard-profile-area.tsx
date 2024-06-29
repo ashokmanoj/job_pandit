@@ -345,7 +345,7 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
               value={bio}
             ></textarea>
             <div className="alert-text">
-              Brief description for your profile. URLs are hyperlinked.
+              Brief description for your profile. Max 500 characters.
             </div>
           </div>
         </div>

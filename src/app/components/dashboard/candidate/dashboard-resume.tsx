@@ -191,7 +191,7 @@ const DashboardResume = ({ setIsOpenSidebar }: IProps) => {
                 value={overview}
               ></textarea>
               <div className="alert-text">
-                Brief description for your resume. URLs are hyperlinked.
+                Brief description for your resume. It will appear on your profile.
               </div>
             </div>
 

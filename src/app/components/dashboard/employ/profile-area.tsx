@@ -272,7 +272,7 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
                 <label htmlFor="">Website*</label>
                 <input
                   type="text"
-                  placeholder="Ex : http://google.com"
+                  placeholder="Ex : https://google.com"
                   onChange={(e) => setWebsite(e.target.value)}
                   value={website}
                 />
@@ -280,13 +280,13 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
             </div>
             <div className="col-md-6">
               <div className="dash-input-wrapper mb-30">
-                <label htmlFor="">Founded Date*</label>
+                <label htmlFor="">Company Registered Date*</label>
                 <input
                   type="date"
                   onChange={(e) => setDate(e.target.value)}
                   value={date}
                 />
-              </div>
+              </div>  
             </div>
             <div className="col-md-6">
               <div className="dash-input-wrapper mb-30">
@@ -318,12 +318,12 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
             <label htmlFor="">About Company*</label>
             <textarea
               className="size-lg"
-              placeholder="Write something interesting about you...."
+              placeholder="Write something interesting about your company...."
               onChange={(e) => setAbout(e.target.value)}
               value={about}
             ></textarea>
             <div className="alert-text">
-              Brief description for your company. URLs are hyperlinked.
+              Brief description for your company. Max 500 characters.
             </div>
           </div>
         </div>
@@ -380,7 +380,7 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
                 <label htmlFor="">Address <span className="text-danger">*</span></label>
                 <input
                   type="text"
-                  placeholder="Ex : Cowrasta, Chandana, Gazipur Sadar"
+                  placeholder="Ex : No. 1, 1st Street, Mysore"
                   onChange={(e) => setAddress(e.target.value)}
                   value={address}
                 />
