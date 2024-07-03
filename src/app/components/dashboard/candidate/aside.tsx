@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image, { StaticImageData } from "next/image";
 import { usePathname } from "next/navigation";
-import logo from "@/assets/images/logo/logo_j.png";
 import profile_icon_1 from "@/assets/dashboard/images/icon/icon_23.svg";
 import profile_icon_2 from "@/assets/dashboard/images/icon/icon_24.svg";
 import profile_icon_3 from "@/assets/dashboard/images/icon/icon_25.svg";
@@ -14,8 +13,6 @@ import nav_2 from "@/assets/dashboard/images/icon/icon_2.svg";
 import nav_2_active from "@/assets/dashboard/images/icon/icon_2_active.svg";
 import nav_3 from "@/assets/dashboard/images/icon/icon_3.svg";
 import nav_3_active from "@/assets/dashboard/images/icon/icon_3_active.svg";
-import nav_5 from "@/assets/dashboard/images/icon/icon_5.svg";
-import nav_5_active from "@/assets/dashboard/images/icon/icon_5_active.svg";
 import nav_6 from "@/assets/dashboard/images/icon/icon_6.svg";
 import nav_6_active from "@/assets/dashboard/images/icon/icon_6_active.svg";
 import nav_7 from "@/assets/dashboard/images/icon/icon_7.svg";
@@ -122,14 +119,14 @@ const CandidateAside = ({isOpenSidebar,setIsOpenSidebar}:IProps) => {
           </div>
           <div className="user-name-data">
             <button
-              className="user-name dropdown-toggle"
+              className="user-name dropdown-toggle text-wrap"
               type="button"
               id="profile-dropdown"
               data-bs-toggle="dropdown"
               data-bs-auto-close="outside"
               aria-expanded="false"
             >
-              {candidate?.profile?.name}
+              {candidate?candidate?.profile?.name: user?.first_name + " " + user?.last_name}
             </button>
             <ul className="dropdown-menu" aria-labelledby="profile-dropdown">
               <li>

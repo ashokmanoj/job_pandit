@@ -134,7 +134,7 @@ const EmployAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
                 data-bs-auto-close="outside"
                 aria-expanded="false"
               >
-                {company?.company_name}
+                {company?company?.company_name:user?.first_name}
               </button>
               
               <ul className="dropdown-menu" aria-labelledby="profile-dropdown">
