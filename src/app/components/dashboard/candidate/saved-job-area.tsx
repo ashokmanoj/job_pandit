@@ -7,7 +7,6 @@ import ShortSelect from "../../common/short-select";
 import ActionDropdown from "./action-dropdown";
 import useWishlistStore from "@/lib/store/wishlist";
 import formatAmount from "@/hooks/funcs/formateAmount";
-import Pagination from "@/ui/pagination";
 
 // props type 
 type IProps = {
@@ -16,12 +15,11 @@ type IProps = {
 
 const SavedJobArea = ({setIsOpenSidebar}:IProps) => {
   const { wishlist, add_to_wishlist,remove_wishlist_product} = useWishlistStore();
-  const job_items = wishlist;
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
 
   const handlePageClick = (event: { selected: number }) => {
-    const newOffset = (event.selected * 6) % job_items.length;
+    const newOffset = (event.selected * 6) % wishlist.length;
     setItemOffset(newOffset);
   };
   
@@ -43,7 +41,7 @@ const SavedJobArea = ({setIsOpenSidebar}:IProps) => {
         </div>
 
         <div className="wrapper">
-          {job_items.length > 0 ? job_items.map((j) => (
+          {wishlist.length > 0 ? wishlist.map((j) => (
             <div
               key={j.id}
               className="job-list-one style-two position-relative mb-20"
@@ -52,7 +50,7 @@ const SavedJobArea = ({setIsOpenSidebar}:IProps) => {
                 <div className="col-xxl-3 col-lg-4">
                   <div className="job-title d-flex align-items-center">
                     <a href="#" className="logo">
-                    <Image src={j?.company?.avatar ?`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/employer_avatars/${j.company?.avatar}`:"/assets/images/candidates/01.png"} alt="company-logo" className="lazy-img rounded-circle m-auto" style={{objectFit:"cover", width:"auto", height:"auto"}} width={60} height={60} />
+                    <Image src={j?.company?.avatar ?`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/employer_avatars/${j.company?.avatar}`:"/assets/images/candidates/01.png"} alt="company-logo" className="lazy-img rounded-circle m-auto" style={{objectFit:"cover", width:"60px", height:"60px" }} width={60} height={60} />
                     </a>
                     <a href="#" className="title fw-500 tran3s">
                       {j.title}

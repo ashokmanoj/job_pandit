@@ -13,3 +13,14 @@ if(!error) {
     return { data: [], error };
     
 }
+
+
+
+export const fetchApplicationsByIds = async (ids:string[]) => {
+    const supabase = createClient();
+    const { data, error } = await supabase
+      .from('job_applications')
+      .select('*').in('jobpost_id', ids);
+      return { data, error };
+
+}

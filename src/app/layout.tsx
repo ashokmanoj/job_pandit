@@ -65,10 +65,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-      <meta name="viewport" content="width=device-width, initial-scale=0.5" />
-      </head>
       <body suppressHydrationWarning={true} className={`${gordita.variable} ${garamond.variable}`}>
           {children}
         <BackToTopCom />

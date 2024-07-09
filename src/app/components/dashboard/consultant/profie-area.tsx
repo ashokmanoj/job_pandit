@@ -154,7 +154,7 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
           console.log(error);
         } else {
           notifySuccess("Profile Updated Successfully");
-          
+          setIsData(!isData);
         }
       } else {
         if (user) {
@@ -187,8 +187,10 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
           console.log(data, error);
           if (!error) {
             notifySuccess("Profile Created Successfully");
+            setIsData(!isData);
           } else {
             notifyError("something went worng. Please Retry");
+
           }
         }
       }
@@ -232,7 +234,7 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
   };
   useEffect(() => {
     fetchUser();
-  }, []);
+  }, [user,isData]);
 
   return (
     <div className="dashboard-body">
