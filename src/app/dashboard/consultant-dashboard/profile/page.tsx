@@ -1,13 +1,13 @@
 'use client'
 import React,{useEffect, useState} from 'react';
 import Wrapper from '@/layouts/wrapper';
-import EmployProfileArea from '@/app/components/dashboard/consultant/profie-area';
-import EmployAside from '@/app/components/dashboard/consultant/aside';
+import ConsultantProfileArea from '@/app/components/dashboard/consultant/profie-area';
+import ConsultantAside from '@/app/components/dashboard/consultant/aside';
 import { useRouter } from 'next/navigation';
 import { getRole } from '@/hooks/client-request/getRole';
 
 
-const EmployDashboardProfilePage = () => {
+const ConsultantDashboardProfilePage = () => {
   const [isOpenSidebar,setIsOpenSidebar] = useState<boolean>(false);
   const router= useRouter();
   useEffect(() => {
@@ -28,15 +28,15 @@ const EmployDashboardProfilePage = () => {
 
     <div className='main-page-wrapper'>
       {/* aside start */}
-      <EmployAside isOpenSidebar={isOpenSidebar} setIsOpenSidebar={setIsOpenSidebar}/>
+      <ConsultantAside isOpenSidebar={isOpenSidebar} setIsOpenSidebar={setIsOpenSidebar}/>
       {/* aside end  */}
 
       {/* profile area start */}
-      <EmployProfileArea setIsOpenSidebar={setIsOpenSidebar}/>
+      <ConsultantProfileArea setIsOpenSidebar={setIsOpenSidebar}/>
       {/* profile area end */}
     </div>
     </Wrapper>
   );
 };
 
-export default EmployDashboardProfilePage;
+export default ConsultantDashboardProfilePage;

@@ -1,6 +1,6 @@
 import React from 'react';
 import Wrapper from '@/layouts/wrapper';
-import EmployDashboardMain from '@/app/components/dashboard/employ';
+import ConsultantDashboardMain from '@/app/components/dashboard/consultant';
 import { getRole } from '@/hooks/user/getRole';
 import { redirect } from 'next/navigation';
 import { fetchCompanyDashboard } from '@/hooks/server-request/company';
@@ -25,7 +25,7 @@ if (!consultant) {
 
   return (
     <Wrapper>
-      <EmployDashboardMain />
+      <ConsultantDashboardMain />
     </Wrapper>
   );
 };

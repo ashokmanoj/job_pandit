@@ -95,7 +95,7 @@ type IProps = {
   setIsOpenSidebar: React.Dispatch<React.SetStateAction<boolean>>
 
 }
-const EmployAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
+const ConsultantAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
   const {user,setUser} = useUserStore();
   const [company,setCompany] = useState<any>({});
   
@@ -226,4 +226,4 @@ const EmployAside = ({ isOpenSidebar, setIsOpenSidebar }: IProps) => {
   );
 };
 
-export default EmployAside;
+export default ConsultantAside;

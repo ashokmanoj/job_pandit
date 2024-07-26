@@ -23,7 +23,7 @@ type memberType = {
   email: string;
 };
 
-const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
+const ConsultantProfileArea = ({ setIsOpenSidebar }: IProps) => {
   const [avatar, setAvatar] = useState<string>("");
   const [companyname, setCompanyname] = useState<string>("");
   const [companyType, setCompanyType] = useState<any>("");
@@ -493,4 +493,4 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
   );
 };
 
-export default EmployProfileArea;
+export default ConsultantProfileArea;

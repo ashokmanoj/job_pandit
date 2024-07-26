@@ -1,88 +1,69 @@
 "use client";
-import React from "react";
-import * as Yup from "yup";
-import { Resolver, useForm } from "react-hook-form";
-import ErrorMsg from "../common/error-msg";
+import React, { FormEvent, useState } from "react";
 import emailjs from "@emailjs/browser";
 import { notifyError, notifySuccess } from "@/utils/toast";
 
-// form data type
-type IFormData = {
-  name: string;
-  email: string;
-  subject?: string;
-  message: string;
-};
 
-// schema
-const schema = Yup.object().shape({
-  name: Yup.string().required().label("Name"),
-  email: Yup.string().required().email().label("Email"),
-  subject: Yup.string().label("Subject"),
-  message: Yup.string().required().label("Subject"),
-});
-// resolver
-const resolver: Resolver<IFormData> = async (values) => {
-  return {
-    values: values.name ? values : {},
-    errors: !values.name
-      ? {
-          name: {
-            type: "required",
-            message: "Name is required.",
-          },
-          email: {
-            type: "required",
-            message: "Email is required.",
-          },
-          message: {
-            type: "required",
-            message: "Message is required.",
-          },
-        }
-      : {},
-  };
-};
 const ContactForm = () => {
-  // react hook form
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<IFormData>({ resolver });
-  // on submit
-  const onSubmit = (data: IFormData) => {
-    const templateParams = {
-      name: data.name,
-      email: data.email,
-      subject: data.subject,
-      message: data.message,
-    };
-    if (data) {
-      emailjs
-        .send(
-          'service_gnu2rla', 
-          'template_ilrquco', 
-          templateParams,
-          'tDbxqotWh8Z0dv0h6'
-        )
-        .then(
-          (response) => {
-            // console.log("SUCCESS!", response.status, response.text);
-            notifySuccess('Your message sent successfully');
-          },
-          (err) => {
-            // console.log("FAILED...", err);
-            notifyError(err?.text);
-          }
-        );
-    }
+  
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
+  const [isUploading, setIsUploading] = useState<boolean>(false);
 
-    reset();
-  };
+  // react hook form
+ const handleSubmit = (e:FormEvent) => {
+   e.preventDefault();
+
+   const serviceID = "service_uu61fim";
+   const templateID = "template_qkvavw7";
+   const publickKey = "m6m3UJbRwKeLaezwW";
+
+   const templateParams = {
+
+    from_name: name,
+    from_email: email,
+    to_name: "JobPandit",
+    subject: subject,
+    message: message
+
+   };
+   const validateEmail = (email: string): boolean => {
+		const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		return re.test(String(email).toLowerCase());
+	};
+
+   
+    if(!validateEmail(email)){
+      notifyError('Please enter a valid email address');
+		}
+    else if(name===''){
+      notifyError('Please enter your name');
+    }
+    else if(message===''){
+      notifyError('Please enter your message');
+    }
+    else if(subject===''){
+      notifyError('Please enter your subject');
+    }
+    else{
+      emailjs.send(serviceID, templateID, templateParams, publickKey)
+   .then((response) => {
+    console.log('SUCCESS!', response.status, response.text);
+    notifySuccess("Email sent successfully");
+   setTimeout(window.location.reload.bind(window.location), 2000); })
+  }
+  
+  //  .catch((err) => {
+  //   console.log('FAILED...', err);
+  //   notifyError("Failed to send email");
+  //  });
+ }
+
+  
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form >
       <div className="messages"></div>
       <div className="row controls">
         <div className="col-sm-6">
@@ -91,11 +72,10 @@ const ContactForm = () => {
             <input
               type="text"
               placeholder="Your Name*"
-              {...register("name", { required: `Name is required!` })}
               name="name"
+              onChange={(e) => setName(e.target.value)}
             />
             <div className="help-block with-errors">
-              <ErrorMsg msg={errors.name?.message!} />
             </div>
           </div>
         </div>
@@ -105,11 +85,10 @@ const ContactForm = () => {
             <input
               type="email"
               placeholder="Email Address*"
-              {...register("email", { required: `Email is required!` })}
               name="email"
+              onChange={(e) => setEmail(e.target.value)}
             />
             <div className="help-block with-errors">
-              <ErrorMsg msg={errors.email?.message!} />
             </div>
           </div>
         </div>
@@ -117,10 +96,10 @@ const ContactForm = () => {
           <div className="input-group-meta form-group mb-35">
             <label htmlFor="">Subject (optional)</label>
             <input
-              {...register("subject", { required: false })}
               type="text"
               placeholder="Write about the subject here.."
               name="subject"
+              onChange={(e) => setSubject(e.target.value)}
             />
           </div>
         </div>
@@ -128,18 +107,35 @@ const ContactForm = () => {
           <div className="input-group-meta form-group mb-35">
             <textarea
               placeholder="Your message*"
-              {...register("message", { required: `Message is required!` })}
               name="message"
+              onChange={(e) => setMessage(e.target.value)}
             />
             <div className="help-block with-errors">
-              <ErrorMsg msg={errors.message?.message!} />
             </div>
           </div>
         </div>
         <div className="col-12">
-          <button className="btn-eleven fw-500 tran3s d-block">
+        {isUploading ? (
+            <button
+              className="btn-eleven fw-500 tran3s d-block mt-20"
+              type="button"
+              disabled
+            >
+              <span
+                className="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              Loading...
+            </button>
+          ) : (
+          <button className="btn-eleven fw-500 tran3s d-block" onClick={handleSubmit}>
             Send Message
           </button>
+          )}
+          {/* <button className="btn-eleven fw-500 tran3s d-block mt-10 " >
+             Cancle
+          </button> */}
         </div>
       </div>
     </form>

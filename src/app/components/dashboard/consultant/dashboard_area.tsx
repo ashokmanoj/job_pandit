@@ -14,19 +14,21 @@ import { fetchCompany } from "@/hooks/client-request/company";
 import useSavedCandidateStore from "@/lib/store/savedCandidate";
 import ConsultantGraph from "./ConsultantGraph";
 import { fetchApplicationsByIds } from "@/hooks/client-request/application";
+import processPostedJobsData from "@/hooks/funcs/ConsultantData";
 
 // props type 
 type IProps = {
   setIsOpenSidebar: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const EmployDashboardArea = ({ setIsOpenSidebar }: IProps) => {
+const ConsultantDashboardArea = ({ setIsOpenSidebar }: IProps) => {
   const job_items = [...job_data.reverse().slice(0, 6)];
   const handleJobs = (item: { value: string; label: string }) => { };
   const { user } = useUserStore((state) => state);
   const [companyData, setCompanyData] = useState({} as any);
   const [myApplications, setMyApplications] = useState([] as any);
   const { savedCandidates } = useSavedCandidateStore();
+  const [ data, setData ] = useState([] as any);
 
   useEffect(() => {
     if (user?.id) {
@@ -50,7 +52,18 @@ const EmployDashboardArea = ({ setIsOpenSidebar }: IProps) => {
     return myApplications?.filter((a: any) => a.jobpost_id === id)
   }
 
-  console.log(companyData, myApplications, 'Consultant Dash');
+  useEffect(() => {
+    if(myApplications && companyData?.job_posts){
+     
+      const data = processPostedJobsData( companyData?.job_posts,myApplications);
+      setData(data);
+
+    }
+  }, [myApplications,companyData.job_posts])
+  console.log(myApplications,companyData?.job_posts,'Consultant Dash')
+  console.log(companyData.vendor_companies, 'vendor companies')
+
+
   return (
     <div className="dashboard-body">
       <div className="position-relative">
@@ -62,15 +75,15 @@ const EmployDashboardArea = ({ setIsOpenSidebar }: IProps) => {
         <div className="row">
           <CardItem img={icon_4} title="Posted Jobs" value={companyData?.job_posts?.length ? companyData?.job_posts?.length + "" : "0"} />
           <CardItem img={icon_2} title="Applications" value={myApplications?.length ? myApplications?.length + "" : "0"} />
-          <CardItem img={icon_3} title="Vendors Company" value={companyData?.vendor_companies?.length ? companyData?.vendor_companies?.length + "" : "0"} />
-          <CardItem img={icon_1} title="Saved Jobs" value={savedCandidates?.length ? savedCandidates?.length + "" : "0"} />
+          <CardItem img={icon_3} title="Employees in Company" value={companyData?.company_size ? companyData?.company_size + "" : "0"} />
+          <CardItem img={icon_1} title="Saved Candidates" value={savedCandidates?.length ? savedCandidates?.length + "" : "0"} />
         </div>
 
         <div className="row d-flex pt-50 lg-pt-10">
           <div className="col-xl-7 col-lg-6 d-flex flex-column">
             <div className="user-activity-chart bg-white border-20 mt-30 h-100">
-              <h4 className="dash-title-two">Job Views</h4>
-              <div className="d-sm-flex align-items-center job-list">
+              <h4 className="dash-title-two">Week Activity</h4>
+              {/* <div className="d-sm-flex align-items-center job-list">
                 <div className="fw-500 pe-3">Jobs:</div>
                 <div className="flex-fill xs-mt-10">
                   <NiceSelect
@@ -84,9 +97,9 @@ const EmployDashboardArea = ({ setIsOpenSidebar }: IProps) => {
                     placeholder="Search Jobs"
                   />
                 </div>
-              </div>
+              </div> */}
               <div className="ps-5 pe-5 mt-50">
-                <ConsultantGraph data={[]} />
+                <ConsultantGraph data={data} />
               </div>
             </div>
           </div>
@@ -163,4 +176,4 @@ const EmployDashboardArea = ({ setIsOpenSidebar }: IProps) => {
   );
 };
 
-export default EmployDashboardArea;
+export default ConsultantDashboardArea;
