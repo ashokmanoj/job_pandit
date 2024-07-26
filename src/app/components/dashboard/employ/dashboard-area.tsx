@@ -1,15 +1,20 @@
 "use client";
-import React from "react";
+import React, { use, useEffect, useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import job_data from "@/data/job-data";
 import icon_1 from "@/assets/dashboard/images/icon/icon_12.svg";
 import icon_2 from "@/assets/dashboard/images/icon/icon_13.svg";
 import icon_3 from "@/assets/dashboard/images/icon/icon_14.svg";
 import icon_4 from "@/assets/dashboard/images/icon/icon_15.svg";
-import main_graph from "@/assets/dashboard/images/main-graph.png";
 import DashboardHeader from "../candidate/dashboard-header";
 import { CardItem } from "../candidate/dashboard-area";
 import NiceSelect from "@/ui/nice-select";
+import { useUserStore } from "@/lib/store/user";
+import { fetchCompany } from "@/hooks/client-request/company";
+import useSavedCandidateStore from "@/lib/store/savedCandidate";
+import { fetchApplicationsByIds } from "@/hooks/client-request/application";
+import EmployGraph from "./EmployGraph";
+import processPostedJobsData from "@/hooks/funcs/CompanyData";
 
 // props type 
 type IProps = {
@@ -19,6 +24,43 @@ type IProps = {
 const EmployDashboardArea = ({setIsOpenSidebar}:IProps) => {
   const job_items = [...job_data.reverse().slice(0, 6)];
   const handleJobs = (item: { value: string; label: string }) => {};
+  const { user } = useUserStore((state) => state);
+  const [companyData, setCompanyData] = useState({} as any);
+  const [myApplications, setMyApplications] = useState([] as any);
+  const { savedCandidates } = useSavedCandidateStore();
+  const [ data, setData ] = useState([] as any);
+
+  useEffect(() => {
+    if (user?.id) {
+      fetchCompany({ id: user?.id }).then((data) => {
+        setCompanyData(data.data);
+        console.log(data.data.job_posts?.map((item: any) => item.id));
+        if (data.data.job_posts?.map((item: any) => item.id).length > 0) {
+          fetchApplicationsByIds(data.data.job_posts?.map((item: any) => item.id)).then((data) => {
+            setMyApplications(data.data);
+          })
+
+        }
+      });
+
+    }
+  }, [user]);
+
+  function AppliedCandidates(id: string) {
+    console.log(id, "id")
+    console.log(myApplications.filter((a: any) => a.jobpost_id === id))
+    return myApplications?.filter((a: any) => a.jobpost_id === id)
+  }
+
+  useEffect(() => {
+    if(myApplications && companyData?.job_posts){
+     
+      const data = processPostedJobsData( companyData?.job_posts,myApplications);
+      setData(data);
+
+    }
+  }, [myApplications,companyData?.job_posts])
+  console.log(companyData?.job_posts, myApplications, 'Consultant Dash');
   return (
     <div className="dashboard-body">
       <div className="position-relative">
@@ -27,11 +69,11 @@ const EmployDashboardArea = ({setIsOpenSidebar}:IProps) => {
         {/* header end */}
 
         <h2 className="main-title">Dashboard</h2>
-        <div className="row">
-          <CardItem img={icon_1} title="Total Visitor" value="1.7k+" />
-          <CardItem img={icon_2} title="Shortlisted" value="03" />
-          <CardItem img={icon_3} title="Views" value="2.1k" />
-          <CardItem img={icon_4} title="Applied Job" value="07" />
+        <div className="row d-flex  align-items-center text-center">
+          <CardItem img={icon_4} title="Posted Jobs" value={companyData?.job_posts?.length ? companyData?.job_posts?.length + "" : "0"} />
+          <CardItem img={icon_2} title="Applications" value={myApplications?.length ? myApplications?.length + "" : "0"} />
+          <CardItem img={icon_3} title="Members" value={companyData?.member?.length ? companyData?.member?.length + "" : "0"} />
+          <CardItem img={icon_1} title="Saved Candidates" value={savedCandidates?.length ? savedCandidates?.length + "" : "0"} />
         </div>
 
         <div className="row d-flex pt-50 lg-pt-10">
@@ -42,18 +84,10 @@ const EmployDashboardArea = ({setIsOpenSidebar}:IProps) => {
                 <div className="fw-500 pe-3">Jobs:</div>
                 <div className="flex-fill xs-mt-10">
                   <NiceSelect
-                    options={[
-                      {
-                        value: "Web-&-Mobile-Prototype-designer",
-                        label: "Web & Mobile Prototype designer....",
-                      },
-                      { value: "Document Writer", label: "Document Writer" },
-                      {
-                        value: "Outbound Call Service",
-                        label: "Outbound Call Service",
-                      },
-                      { value: "Product Designer", label: "Product Designer" },
-                    ]}
+                    options={companyData?.job_posts?.length > 0 ? companyData?.job_posts.map((j: any) => ({
+                      value: j.id,
+                      label: j.title
+                      })) : []}
                     defaultCurrent={0}
                     onChange={(item) => handleJobs(item)}
                     name="Search Jobs"
@@ -61,11 +95,7 @@ const EmployDashboardArea = ({setIsOpenSidebar}:IProps) => {
                 </div>
               </div>
               <div className="ps-5 pe-5 mt-50">
-                <Image
-                  src={main_graph}
-                  alt="main-graph"
-                  className="lazy-img m-auto"
-                />
+                <EmployGraph data={data}/>
               </div>
             </div>
           </div>
@@ -73,28 +103,37 @@ const EmployDashboardArea = ({setIsOpenSidebar}:IProps) => {
             <div className="recent-job-tab bg-white border-20 mt-30 w-100">
               <h4 className="dash-title-two">Posted Job</h4>
               <div className="wrapper">
-                {job_items.map((j) => (
+                {companyData?.job_posts?.length > 0 ? companyData?.job_posts.map((j: any) => (
                   <div
                     key={j.id}
                     className="job-item-list d-flex align-items-center"
                   >
                     <div>
-                      <Image
-                        src={j.logo}
+                      {j.company_logo ? <Image
+                        src={j.company_logo ? `https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/employer_avatars/${j.company_logo}` : "/assets/images/candidates/01.png"}
                         alt="logo"
                         width={40}
                         height={40}
-                        className="lazy-img logo"
-                      />
+                        className="lazy-img logo rounded-circle"
+                        style={{ minWidth: "40px", height: "40px", objectFit: "cover", aspectRatio: "1/1", }}
+                      /> : <Image
+                        src={companyData.avatar?`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/employer_avatars/${companyData.avatar}` : "/assets/images/candidates/01.png"}
+                        alt="logo"
+                        width={40}
+                        height={40}
+                        className="lazy-img logo rounded-circle"
+                        style={{ minWidth: "40px", height: "40px", objectFit: "cover", aspectRatio: "1/1", }}
+                      />}
                     </div>
                     <div className="job-title">
                       <h6 className="mb-5">
-                        <a href="#">{j.duration}</a>
+                        <a href="#">{j.title}</a>
                       </h6>
                       <div className="meta">
-                        <span>Fulltime</span> . <span>{j.location}</span>
+                        <a href="#" className=""> Applied Candidates: <span style={{ color: "green" }}>{" "}{AppliedCandidates(j.id).length}</span></a>
                       </div>
                     </div>
+
                     <div className="job-action">
                       <button
                         className="action-btn dropdown-toggle"
@@ -123,7 +162,7 @@ const EmployDashboardArea = ({setIsOpenSidebar}:IProps) => {
                       </ul>
                     </div>
                   </div>
-                ))}
+                )) : <><p>No Jobs Posted</p></>}
               </div>
             </div>
           </div>

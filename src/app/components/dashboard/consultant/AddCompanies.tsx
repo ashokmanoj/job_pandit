@@ -17,7 +17,7 @@ const AddCompanies = ({ company, setCompany }: { company: any, setCompany: any }
         if (eduVal.company_name === '') {
             return notifyError('Please Enter name')
         } else if (eduVal.company_logo === '') {
-            return notifyError('Please Enter designation')
+            return notifyError('Please Upload Logo')
         }
         else if (eduVal.company_location === '') {
             return notifyError('Please Enter email')
@@ -126,7 +126,7 @@ const AddCompanies = ({ company, setCompany }: { company: any, setCompany: any }
                             </div>
                             :
                             <>
-                                <a href="#" className="dash-btn-one coursor-pointer" onClick={handleAdd}><i className="bi bi-plus"></i> Add more</a></>}
+                                <a  className="dash-btn-one coursor-pointer" onClick={handleAdd}><i className="bi bi-plus"></i> Add more</a></>}
                     </div>
                 </div>
             </div>

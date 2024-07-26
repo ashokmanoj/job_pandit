@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 // internal
@@ -10,6 +10,8 @@ import shape from "@/assets/images/shape/shape_28.svg";
 import { WidgetOne, WidgetThree, WidgetTwo } from "./component/footer-widgets";
 import SocialLinks from "./component/social-links";
 import { notifyError, notifySuccess } from "@/utils/toast";
+import { createClient } from "@/utils/supabase/client";
+
 
 const FooterOne = ({
 	bottom_bg,
@@ -20,16 +22,54 @@ const FooterOne = ({
 	style_2?: boolean;
 	style_3?: boolean;
 }) => {
-	const [email,setEmail] = useState<string>("");
+	const [email, setEmail] = useState<string>('');
+	const [error, setError] = useState<string>('');
+	const supabase = createClient();
 
-	const emailsucess=()=>{
-		if(email===""){
-			notifyError("Please Enter Email");
-		}else{
-			notifySuccess("Email sent successfully");
-			window.location.replace("https://jobpandit.in/contact");
+	// const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
+	// 	setEmail(e.target.value);
+	// 	setError('');  // Clear error message on change
+	// };
+
+	const validateEmail = (email: string): boolean => {
+		const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		return re.test(String(email).toLowerCase());
+	};
+
+	const handleSubmit = async (e: FormEvent) => {
+		e.preventDefault();
+		if (email === '') {
+			notifyError('Please enter a valid email address');
+		}
+		else if (!validateEmail(email)) {
+			notifyError('Please enter a valid email address');
+		}
+		else {
+
+			setEmail('');
+		}
+
+
+		try {
+			if (email) {
+				const { data, error } = await supabase
+					.from('enquiry_email')
+					.insert([
+						{ email: email },
+					]);
+				console.log('Data inserted successfully:', data);
+				if (error) {
+					console.log('Error inserting Email', error);
+				} else {
+					notifySuccess('Email Sent successfully:');
+				}
+			}
+		}
+		catch (error) {
+			console.log('Error inserting Email', error);
 		}
 	}
+
 	return (
 		<div className={`footer-one ${style_2 ? "bg-two white-version" : ""}`}>
 			<div className="container">
@@ -61,17 +101,26 @@ const FooterOne = ({
 							<p className={`${style_2 ? "text-white" : ""}`}>
 								Join & get important new regularly
 							</p>
-							<form className={`d-flex ${style_3 ? 'border-style' : ''}`}>
-								<input type="email" placeholder="Enter your email*" required onChange={(e) => setEmail(e.target.value)}/>
-								<button onClick={emailsucess}>Send</button>
-							</form>
+							<div>
+								<form className={`d-flex ${style_3 ? 'border-style' : ''}`}>
+									<input
+										type="email"
+										value={email}
+										onChange={(e) => setEmail(e.target.value)}
+										required
+									/>
+
+									{error && <p style={{ color: 'red' }}>{error}</p>}
+									<button type="submit" onClick={handleSubmit}>Submit</button>
+								</form>
+							</div>
 							<p className="note">
 								We only send interesting and relevant emails.
 							</p>
 						</div>
 					</div>
 				</div>
-			</div>
+			</div >
 			<div
 				className={`bottom-footer ${bottom_bg} ${style_2 ? "mt-50 lg-mt-20" : ""}`}
 			>
@@ -100,7 +149,7 @@ const FooterOne = ({
 					</div>
 				</div>
 			</div>
-		</div>
+		</div >
 	);
 };
 

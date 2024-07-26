@@ -27,7 +27,7 @@ const CandidateItem = ({ item }: { item:any }) => {
             <div className="col-xl-3">
               <div className="position-relative">
                 <h4 className="candidate-name mb-0">
-                  <a href="#" className="tran3s">
+                  <a href="/candidate" className="tran3s">
                     {item.name}
                   </a>
                 </h4>

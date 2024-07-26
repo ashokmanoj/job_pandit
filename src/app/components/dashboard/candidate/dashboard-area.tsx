@@ -5,12 +5,10 @@ import icon_1 from "@/assets/dashboard/images/icon/icon_6.svg";
 import icon_2 from "@/assets/images/icon/icon_07.svg";
 import icon_3 from "@/assets/dashboard/images/icon/heart-alt-svgrepo-com.svg";
 import icon_4 from "@/assets/dashboard/images/icon/icon_31.svg";
-import main_graph from "@/assets/dashboard/images/main-graph.png";
 import DashboardHeader from "./dashboard-header";
 import { fetchCandidatesDash } from "@/hooks/client-request/candidate";
 import { useUserStore } from "@/lib/store/user";
 import useSavedCandidateStore from "@/lib/store/savedCandidate";
-import { fetchMyApplications } from "@/hooks/client-request/application";
 import { fetchMyAppliedJobsByIds } from "@/hooks/client-request/job";
 import CandidateGraph from "./CandidateProfile";
 import { fetchLikes } from "@/hooks/client-request/likes";
@@ -18,9 +16,9 @@ import processLikesData from "@/hooks/funcs/CandidateData";
 
 // card item
 export function CardItem({
-img,
-value,
-title,
+  img,
+  value,
+  title,
 }: {
   img: StaticImageData;
   value: string;
@@ -42,55 +40,51 @@ title,
     </div>
   );
 }
+
 // props type 
 type IProps = {
   setIsOpenSidebar: React.Dispatch<React.SetStateAction<boolean>>
 }
-const DashboardArea = ({setIsOpenSidebar}:IProps) => {
- 
- const {user} = useUserStore();
- const [candidateData, seCandidateData] = useState({} as any);
- const  {savedCandidates} = useSavedCandidateStore();
- const [appliedJobs, setAppliedJobs] = useState([] as any);
- const [likedData, setLikedData] = useState([] as any);
- const [data,setData] = useState([] as any);
-   useEffect(() => {
-    function fetchData(user_id:string) {
+
+const DashboardArea = ({ setIsOpenSidebar }: IProps) => {
+  const { user } = useUserStore();
+  const [candidateData, setCandidateData] = useState({} as any);
+  const { savedCandidates } = useSavedCandidateStore();
+  const [appliedJobs, setAppliedJobs] = useState([] as any);
+  const [likedData, setLikedData] = useState([] as any);
+  const [data, setData] = useState([] as any);
+
+  useEffect(() => {
+    function fetchData(user_id: string) {
       fetchCandidatesDash(user_id).then((data) => {
-        seCandidateData(data);
-        fetchMyAppliedJobsByIds(data.job_applications.map((j:any) => j.jobpost_id)).then((data) => {
+        setCandidateData(data);
+        fetchMyAppliedJobsByIds(data.job_applications.map((j: any) => j.jobpost_id)).then((data) => {
           setAppliedJobs(data.data);
         });
-        
-      })
+      });
     }
 
-
-    if(user?.id) {
+    if (user?.id) {
       fetchData(user.id);
-      fetchLikes(user.id).then(({data}) => {
+      fetchLikes(user.id).then(({ data }) => {
         setLikedData(data);
-      })
-    };
-  
-   
-   
-    
-  
-   },[user]);
-
-   useEffect(() => {
-    console.log(candidateData.job_applications,likedData, "candidateData and likedData")
-    if(candidateData.job_applications && likedData) {
-      const data = processLikesData(likedData,candidateData?.job_applications);
-      console.log(data, "data")
-    setData(data);
+      });
     }
-    
-   },[candidateData.job_applications,likedData]);
- console.log(candidateData,appliedJobs,likedData, "candidateData and appliedJobs")
+  }, [user]);
 
+  useEffect(() => {
+    console.log(candidateData.job_applications, likedData, "candidateData and likedData");
+    if (candidateData.job_applications && likedData) {
+      const data = processLikesData(likedData, candidateData?.job_applications);
+      console.log(data, "data");
+      setData(data);
+    }
+  }, [candidateData.job_applications, likedData]);
 
+  const pendingApplicationsCount = candidateData?.job_applications?.filter((app: any) => app.status === "Pending").length || 0;
+  const shortlistedApplicationsCount = candidateData?.job_applications?.filter((app: any) => app.status === "Shortlisted").length || 0;
+
+  console.log(candidateData, appliedJobs, likedData, "candidateData and appliedJobs");
 
   return (
     <div className="dashboard-body">
@@ -98,10 +92,11 @@ const DashboardArea = ({setIsOpenSidebar}:IProps) => {
         <DashboardHeader setIsOpenSidebar={setIsOpenSidebar} />
         <h2 className="main-title">Dashboard</h2>
         <div className="row">
-          <CardItem img={icon_4} title="Applied Job" value={candidateData?.job_applications?candidateData?.job_applications?.length+"":"0"} />
-          <CardItem img={icon_2} title="Shortlisted" value={candidateData?.job_applications?candidateData?.job_applications?.length+"":"0"} />
-          <CardItem img={icon_3} title="Profile Likes" value={likedData?.length+''} />
-          <CardItem img={icon_1} title="Saved Jobs" value={savedCandidates?.length+''}/>
+          <CardItem img={icon_4} title="Applied Jobs" value={candidateData?.job_applications?.length ? candidateData?.job_applications?.length + "" : "0"} />
+          {/* <CardItem img={icon_2} title="Pending Applications" value={pendingApplicationsCount + ""} /> */}
+          <CardItem img={icon_2} title="Shortlisted" value={shortlistedApplicationsCount + ""} />
+          <CardItem img={icon_3} title="Profile Likes" value={likedData?.length + ''} />
+          <CardItem img={icon_1} title="Saved Jobs" value={savedCandidates?.length + ''} />
         </div>
 
         <div className="row d-flex pt-50 lg-pt-10">
@@ -109,32 +104,27 @@ const DashboardArea = ({setIsOpenSidebar}:IProps) => {
             <div className="user-activity-chart bg-white border-20 mt-30 h-100">
               <h4 className="dash-title-two">Profile Views</h4>
               <div className="ps-5 pe-5 mt-50">
-                {/* <Image
-                  src={main_graph}
-                  alt="main-graph"
-                  className="lazy-img m-auto"
-                /> */}
                 <CandidateGraph data={data} />
               </div>
             </div>
           </div>
           <div className="col-xl-5 col-lg-6 d-flex">
             <div className="recent-job-tab bg-white border-20 mt-30 w-100">
-              <h4 className="dash-title-two">Recent Applied Job</h4>
+              <h4 className="dash-title-two">Recent Applied Jobs</h4>
               <div className="wrapper">
-                {appliedJobs.length > 0 ?appliedJobs?.map((j:any) => (
+                {appliedJobs.length > 0 ? appliedJobs?.map((j: any) => (
                   <div
                     key={j.id}
                     className="job-item-list d-flex align-items-center"
                   >
                     <div>
                       <Image
-                        src={j.company_logo?`https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/employer_avatars/${j.company_logo}`:"/assets/images/candidates/01.png"}
+                        src={j.company_logo ? `https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/employer_avatars/${j.company_logo}` : "/assets/images/candidates/01.png"}
                         alt="logo"
                         width={40}
                         height={40}
                         className="lazy-img logo rounded-circle"
-                        style={{minWidth:"40px",height:"40px", objectFit:"cover",aspectRatio:"1/1",}}
+                        style={{ minWidth: "40px", height: "40px", objectFit: "cover", aspectRatio: "1/1", }}
                       />
                     </div>
                     <div className="job-title">
@@ -145,9 +135,11 @@ const DashboardArea = ({setIsOpenSidebar}:IProps) => {
                         <span>{j.location}</span>.<span>{j.job_type}</span>
                       </div>
                     </div>
-                      {candidateData?.job_applications.map((job:any)=>{if(job.jobpost_id===j.id) return <a key={job.id} href={`/job/${j.id}`} className="meta" style={{whiteSpace:"nowrap" ,backgroundColor:job.status==="Shortlisted"?"lightgreen":job.status==="Rejected"?"red":"gray",color:"white",fontSize:"10px", padding:"2px 5px",borderRadius:"5px" }}>{job.status}</a>})}       
+                    {candidateData?.job_applications.map((job: any) => {
+                      if (job.jobpost_id === j.id) return <a key={job.id} href={`/job/${j.id}`} className="meta" style={{ whiteSpace: "nowrap", backgroundColor: job.status === "Shortlisted" ? "lightgreen" : job.status === "Rejected" ? "red" : "gray", color: "white", fontSize: "10px", padding: "2px 5px", borderRadius: "5px" }}>{job.status}</a>
+                    })}
                   </div>
-                )): <p>No Jobs Applied</p>}
+                )) : <p>No Jobs Applied</p>}
               </div>
             </div>
           </div>

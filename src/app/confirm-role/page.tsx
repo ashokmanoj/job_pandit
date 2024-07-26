@@ -22,6 +22,9 @@ const ConfirmRolePage = async () => {
   if(role==='company'){
     redirect('/dashboard/employ-dashboard/');
   }
+  if(role === 'consultant'){
+    redirect('/dashboard/consultant-dashboard/');
+  }
  if(role !=='user'){
    redirect('/');
  }

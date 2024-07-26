@@ -1,33 +1,26 @@
 import React from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-// Define the type for the data prop
-interface GraphData {
-  name: string;
-  postedJobs: number;
-  applications: number;
-  savedCandidates: number;
-  vendors: number;
-}
 
-const ConsultantGraph = ({ data }: { data: GraphData[] }) => {
+
+
+const EmployGraph = ({ data }: { data: any }) => {
   const [opacity, setOpacity] = React.useState({
-    applications: 1,
     postedJobs: 1,
-    savedCandidates: 1,
-    vendors: 1,
+    applications: 1,
+    
   });
 
   const handleMouseEnter = (o: any) => {
     const { dataKey } = o;
 
-    setOpacity((prev) => ({ ...prev, [dataKey]: 0.5 }));
+    setOpacity((op) => ({ ...op, [dataKey]: 0.5 }));
   };
 
   const handleMouseLeave = (o: any) => {
     const { dataKey } = o;
 
-    setOpacity((prev) => ({ ...prev, [dataKey]: 1 }));
+    setOpacity((op) => ({ ...op, [dataKey]: 1 }));
   };
 
   return (
@@ -51,12 +44,13 @@ const ConsultantGraph = ({ data }: { data: GraphData[] }) => {
           <Legend onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} />
           <Line type="monotone" dataKey="postedJobs" strokeOpacity={opacity.postedJobs} stroke="#8884d8" activeDot={{ r: 8 }} />
           <Line type="monotone" dataKey="applications" strokeOpacity={opacity.applications} stroke="#82ca9d" />
-          {/* <Line type="monotone" dataKey="vendors" strokeOpacity={opacity.vendors} stroke="#82ca9d" />
-          <Line type="monotone" dataKey="savedCandidates" strokeOpacity={opacity.savedCandidates} stroke="#82ca9d" /> */}
+          {/* <Line type="monotone" dataKey="shortlists" strokeOpacity={opacity.shortlists} stroke="#ffc658" /> */}
         </LineChart>
       </ResponsiveContainer>
     </div>
   );
 };
 
-export default ConsultantGraph;
+
+
+export default EmployGraph;
