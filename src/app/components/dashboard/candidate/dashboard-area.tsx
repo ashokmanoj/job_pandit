@@ -13,6 +13,7 @@ import { fetchMyAppliedJobsByIds } from "@/hooks/client-request/job";
 import CandidateGraph from "./CandidateProfile";
 import { fetchLikes } from "@/hooks/client-request/likes";
 import processLikesData from "@/hooks/funcs/CandidateData";
+import useWishlistStore from "@/lib/store/wishlist";
 
 // card item
 export function CardItem({
@@ -53,6 +54,7 @@ const DashboardArea = ({ setIsOpenSidebar }: IProps) => {
   const [appliedJobs, setAppliedJobs] = useState([] as any);
   const [likedData, setLikedData] = useState([] as any);
   const [data, setData] = useState([] as any);
+  const { wishlist } = useWishlistStore();
 
   useEffect(() => {
     function fetchData(user_id: string) {
@@ -96,7 +98,7 @@ const DashboardArea = ({ setIsOpenSidebar }: IProps) => {
           {/* <CardItem img={icon_2} title="Pending Applications" value={pendingApplicationsCount + ""} /> */}
           <CardItem img={icon_2} title="Shortlisted" value={shortlistedApplicationsCount + ""} />
           <CardItem img={icon_3} title="Profile Likes" value={likedData?.length + ''} />
-          <CardItem img={icon_1} title="Saved Jobs" value={savedCandidates?.length + ''} />
+          <CardItem img={icon_1} title="Saved Jobs" value={wishlist?.length + ''} />
         </div>
 
         <div className="row d-flex pt-50 lg-pt-10">
