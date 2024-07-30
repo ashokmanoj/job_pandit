@@ -26,9 +26,9 @@ const Companies = ({
                             <Image src={item?.company_logo ? `https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/employer_avatars/${item?.company_logo}` : "/assets/images/candidates/01.png"} alt="company-logo" className="lazy-img rounded-circle" style={{ objectFit: "cover", width: "auto", height: "auto", maxWidth: "60px", maxHeight: "60px", aspectRatio: "1/1" }} width={60} height={60} />
                         </Link>
                         <h5 className="text-center">
-                            <Link href={`/company/${item?.id}`} className="company-name tran3s  mx-10px">
+                            <div  className="company-name tran3s  mx-10px">
                                 {item?.company_name.charAt(0).toUpperCase().concat(item?.company_name?.slice(1))}
-                            </Link>
+                            </div>
                         </h5>
 
                         <p style={{marginBottom:"0px"}}><span className="fw-500"><i className="bi bi-geo-alt-fill"></i></span>{item?.company_location?.charAt(0).toUpperCase().concat(item?.company_location?.slice(1))}</p>
