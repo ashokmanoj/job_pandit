@@ -154,7 +154,7 @@ const ConsultantProfileArea = ({ setIsOpenSidebar }: IProps) => {
           console.log(error);
         } else {
           notifySuccess("Profile Updated Successfully");
-          setIsData(!isData);
+          // setIsData(!isData);
         }
       } else {
         if (user) {
@@ -187,7 +187,7 @@ const ConsultantProfileArea = ({ setIsOpenSidebar }: IProps) => {
           console.log(data, error);
           if (!error) {
             notifySuccess("Profile Created Successfully");
-            setIsData(!isData);
+            // setIsData(!isData);
           } else {
             notifyError("something went worng. Please Retry");
 
@@ -234,7 +234,7 @@ const ConsultantProfileArea = ({ setIsOpenSidebar }: IProps) => {
   };
   useEffect(() => {
     fetchUser();
-  }, [user,isData]);
+  }, [user?.id]);
 
   return (
     <div className="dashboard-body">
