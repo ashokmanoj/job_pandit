@@ -22,36 +22,32 @@ const FooterOne = ({
 	style_2?: boolean;
 	style_3?: boolean;
 }) => {
+	// States
 	const [email, setEmail] = useState<string>('');
 	const [error, setError] = useState<string>('');
+	const [ submit, setSubmit ] = useState<any>('submited');
+	const [ isUploading, setIsUploading ] = useState<boolean>(false);
 	const supabase = createClient();
-
-	// const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-	// 	setEmail(e.target.value);
-	// 	setError('');  // Clear error message on change
-	// };
-
+	
+	// Email Validation
 	const validateEmail = (email: string): boolean => {
 		const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 		return re.test(String(email).toLowerCase());
 	};
 
+	// Handle Submit
 	const handleSubmit = async (e: FormEvent) => {
 		e.preventDefault();
-		if (email === '') {
+		if (!validateEmail(email)) {
 			notifyError('Please enter a valid email address');
 		}
-		else if (!validateEmail(email)) {
+		else if (email === '') {
 			notifyError('Please enter a valid email address');
 		}
-		else {
-
-			setEmail('');
-		}
-
 
 		try {
-			if (email) {
+			if (validateEmail(email) && email) {
+				setIsUploading(true);
 				const { data, error } = await supabase
 					.from('enquiry_email')
 					.insert([
@@ -61,6 +57,8 @@ const FooterOne = ({
 				if (error) {
 					console.log('Error inserting Email', error);
 				} else {
+					setIsUploading(false);
+					setEmail('');
 					notifySuccess('Email Sent successfully:');
 				}
 			}
@@ -111,7 +109,20 @@ const FooterOne = ({
 									/>
 
 									{error && <p style={{ color: 'red' }}>{error}</p>}
-									<button type="submit" onClick={handleSubmit}>Submit</button>
+									{isUploading ? 
+            <button  
+              type="submit"
+			  disabled
+            >
+              <span
+                className="spinner-border spinner-border-sm container" 
+                role="status"
+                aria-hidden="true"
+              ></span>
+            </button>
+           : 
+            <button type="submit" onClick={handleSubmit}>Submit</button>    
+          }
 								</form>
 							</div>
 							<p className="note">

@@ -18,8 +18,10 @@ const AddMember = ({ member, setMember }: { member: any, setMember: any }) => {
      return notifyError('Please Enter email')
     }
     else{
+      setUploading(true)
       setMember([...member, eduVal])
       setEduVal({ name: '', designation: '', email: '' })
+      setUploading(false)
     }
    
   }
@@ -99,7 +101,7 @@ const AddMember = ({ member, setMember }: { member: any, setMember: any }) => {
                   </div>
                 : 
                 <>
-      <a href="#" className="dash-btn-one coursor-pointer" onClick={handleAdd}><i className="bi bi-plus"></i> Add more</a></>}
+      <a  className="dash-btn-one coursor-pointer" onClick={handleAdd}><i className="bi bi-plus"></i> Add more</a></>}
     </div>
     </div>
       </div>

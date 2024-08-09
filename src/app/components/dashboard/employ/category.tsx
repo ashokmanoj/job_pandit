@@ -12,6 +12,7 @@ const category = ({category, setCategory,title}:{category:any, setCategory:any,t
           { value: "Digital Marketing", label: "Digital Marketing" },
           { value: "BPO", label: "BPO" },
           { value: "IT", label: "IT" },
+          { value: "IT", label: "IT" },
           { value: "Networking", label: "Networking" },
           { value: "Data Analysis", label: "Data Analysis" },
           { value: "Cloud Computing", label: "Cloud Computing" },

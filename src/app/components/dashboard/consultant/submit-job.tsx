@@ -401,10 +401,11 @@ const SubmitJobArea = ({ setIsOpenSidebar, params }: IProps) => {
 
                 <div className="button-group d-inline-flex align-items-center mt-30">
 
-                        <button className="dash-btn-two tran3s me-3" onClick={handlePost}>
+                      {isUploading ? <button className="dash-btn-two tran3s me-3" disabled>
+                        <span className="spinner-border spinner-border-sm"></span>Posting...</button> :  <button className="dash-btn-two tran3s me-3" onClick={handlePost}>
                             Post
                         </button>
-                   
+}
                     <a
                         href="#"
                         className="dash-cancel-btn tran3s"

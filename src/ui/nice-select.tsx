@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState, useCallback, useRef } from "react";
 import { useClickAway } from "react-use";
 
@@ -17,7 +17,7 @@ type IPropType = {
   name: string;
 };
 
-const NiceSelect = ({
+const NiceSelect: React.FC<IPropType> = ({
   options,
   defaultCurrent,
   placeholder,
@@ -25,26 +25,26 @@ const NiceSelect = ({
   onChange,
   value,
   name,
-}: IPropType) => {
+}) => {
   const [open, setOpen] = useState(false);
-  const [current, setCurrent] = useState(options[defaultCurrent]);
+  const [current, setCurrent] = useState<Option>(options[defaultCurrent]);
   const [search, setSearch] = useState("");
   const onClose = useCallback(() => {
     setOpen(false);
     setSearch(""); // Clear search when closing
   }, []);
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   useClickAway(ref, onClose);
 
-  const currentHandler = (item: { value: string; label: string }) => {
+  const currentHandler = (item: Option) => {
     setCurrent(item);
     onChange(item);
     onClose();
   };
 
-  const filteredOptions = options.filter(option => 
-    option.label?.toLowerCase().includes(search.toLowerCase())
+  const filteredOptions = options.filter(option =>
+    (option.label?.toString() || "").toLowerCase().includes(search.toLowerCase())
   );
 
   return (
@@ -55,29 +55,32 @@ const NiceSelect = ({
       onClick={() => setOpen(true)}
       ref={ref}
     >
-      {open&&<input 
-            type="text" 
-            value={search} 
-            onChange={(e) => setSearch(e.target.value)} 
-            placeholder='Search...'
-            style={{border: 'none', outline: 'none',height: '90%',zIndex:100}}
-          />}
-      {!open&&<span className="current">{value ? value : current ? current.label : placeholder}</span>}
-     
+      {open && (
+        <input 
+          type="text" 
+          value={search} 
+          onChange={(e) => setSearch(e.target.value)} 
+          placeholder='Search...'
+          style={{ border: 'none', outline: 'none', height: '90%', zIndex: 100 }}
+        />
+      )}
+      {!open && (
+        <span className="current">
+          {value ? value : current ? current.label : placeholder}
+        </span>
+      )}
       {open && (
         <>
-           
           <ul
             className="list"
             role="menubar"
             onClick={(e) => e.stopPropagation()}
           >
-            
             {filteredOptions.map((item, i) => (
               <li
                 key={i}
                 data-value={item.value}
-                className={`option ${item.value === current?.value ? "selected focus" : ""}`}
+                className={`option ${item.value === current.value ? "selected focus" : ""}`}
                 role="menuitem"
                 onClick={() => currentHandler(item)}
               >

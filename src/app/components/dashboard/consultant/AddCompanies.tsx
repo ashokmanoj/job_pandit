@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import { notifyError } from '@/utils/toast';
 import Category from '../employ/category';
 import AddCompanyLogo from './addCompanyLogo';
-import MemberEdit from '../employ/MemberEdit';
 import Companies from './companies';
 
 
@@ -15,19 +14,21 @@ const AddCompanies = ({ company, setCompany }: { company: any, setCompany: any }
     const handleAdd = (e: any) => {
         e.preventDefault();
         if (eduVal.company_name === '') {
-            return notifyError('Please Enter name')
+            return notifyError('Please Enter Vendor Name')
         } else if (eduVal.company_logo === '') {
-            return notifyError('Please Upload Logo')
+            return notifyError('Please Upload Vendor Logo')
         }
         else if (eduVal.company_location === '') {
-            return notifyError('Please Enter email')
+            return notifyError('Please Enter Location')
         }
         else if (eduVal.company_sector === '') {
-            return notifyError('Please Enter email')
+            return notifyError('Please Enter Sector')
         }
         else {
+            setUploading(true)
             setCompany([...company, eduVal])
             setEduVal({ company_name: '', company_logo: '', company_location: '', company_sector: '' })
+            setUploading(false)
         }
 
     }
@@ -85,7 +86,7 @@ const AddCompanies = ({ company, setCompany }: { company: any, setCompany: any }
                                         </div>
                                         <div className="col-lg-10">
                                             <div className="dash-input-wrapper mb-30">
-                                                <input type="text" placeholder="Ex : Google" value={eduVal.company_name} onChange={(e) => setEduVal({ ...eduVal, company_name: e.target.value })} />
+                                                <input type="text" placeholder="Ex : Google" value={eduVal.company_name} onChange={(e) => setEduVal({ ...eduVal, company_name: e.target.value })}  />
                                             </div>
                                         </div>
                                     </div>

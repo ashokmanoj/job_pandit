@@ -18,9 +18,10 @@ type IProps = {
 };
 
 type memberType = {
-  name: string;
-  designation: string;
-  email: string;
+  company_name: string,
+  company_logo: string,
+  company_location: string,
+  company_sector: string
 };
 
 const ConsultantProfileArea = ({ setIsOpenSidebar }: IProps) => {
@@ -47,7 +48,7 @@ const ConsultantProfileArea = ({ setIsOpenSidebar }: IProps) => {
   const [user, setUser] = useState<any>(null);
   const [isData, setIsData] = useState<boolean>(false);
   const [isUploading, setIsUploading] = useState<boolean>(false);
-  
+
 
   useEffect(() => {
     // Generate the map source dynamically based on the address
@@ -125,6 +126,7 @@ const ConsultantProfileArea = ({ setIsOpenSidebar }: IProps) => {
 
     try {
       if (isData) {
+        setIsUploading(true)
         console.log(user?.id);
         const { data, error } = await supabase
           .from("employer_profile")
@@ -153,11 +155,13 @@ const ConsultantProfileArea = ({ setIsOpenSidebar }: IProps) => {
         if (error) {
           console.log(error);
         } else {
+          setIsUploading(false)
           notifySuccess("Profile Updated Successfully");
           // setIsData(!isData);
         }
       } else {
         if (user) {
+          setIsUploading(true)
           const { data, error } = await supabase
             .from("employer_profile")
             .insert([
@@ -186,6 +190,7 @@ const ConsultantProfileArea = ({ setIsOpenSidebar }: IProps) => {
           console.log(" create Data ");
           console.log(data, error);
           if (!error) {
+            setIsUploading(false)
             notifySuccess("Profile Created Successfully");
             // setIsData(!isData);
           } else {
@@ -244,22 +249,22 @@ const ConsultantProfileArea = ({ setIsOpenSidebar }: IProps) => {
         {/* header end */}
 
         <h2 className="main-title">Profile</h2>
-        {isData &&<div >
+        {isData && <div >
           <Link href={`/company/${user?.id}`} className="btn-two mb-30">
-          View Profile</Link>
+            View Profile</Link>
         </div>}
         <div className="bg-white card-box border-20">
           <div className="row position-relative">
             <EmployUploadPhoto avatar={avatar} setAvatar={setAvatar} />
-        
-            
-            
+
+
+
             <div className="col-md-6">
               <div className="dash-input-wrapper mb-30">
                 <label htmlFor="">Company Name <span className="text-danger">*</span></label>
                 <input
                   type="text"
-                  placeholder="Ex : Amazon"
+                  placeholder="Ex : Amazon Inc."
                   onChange={(e) => setCompanyname(e.target.value)}
                   value={companyname}
                 />
@@ -267,7 +272,7 @@ const ConsultantProfileArea = ({ setIsOpenSidebar }: IProps) => {
               </div>
             </div>
             <div className="col-md-6">
-              <Company_Type companyType={companyType} setCompanyType={setCompanyType}/>
+              <Company_Type companyType={companyType} setCompanyType={setCompanyType} />
             </div>
             <div className="col-md-6">
               <div className="dash-input-wrapper mb-30">
@@ -324,14 +329,14 @@ const ConsultantProfileArea = ({ setIsOpenSidebar }: IProps) => {
               </div>
             </div>
             <div className="col-md-6">
-            <Category category={category} setCategory={setCategory} />
+              <Category category={category} setCategory={setCategory} />
             </div>
           </div>
           <div className="dash-input-wrapper">
             <label htmlFor="">About Company*</label>
             <textarea
               className="size-lg"
-              placeholder="Write about"
+              placeholder="Write about your company"
               onChange={(e) => setAbout(e.target.value)}
               value={about}
             ></textarea>
@@ -393,7 +398,7 @@ const ConsultantProfileArea = ({ setIsOpenSidebar }: IProps) => {
                 <label htmlFor="">Address <span className="text-danger">*</span></label>
                 <input
                   type="text"
-                  placeholder="Ex : Cowrasta, Chandana, Gazipur Sadar"
+                  placeholder="Ex : Chikkamagalore"
                   onChange={(e) => setAddress(e.target.value)}
                   value={address}
                 />
@@ -465,7 +470,7 @@ const ConsultantProfileArea = ({ setIsOpenSidebar }: IProps) => {
         <AddCompanies company={companies} setCompany={setCompanies} />
 
         <div className="button-group d-inline-flex align-items-center mt-30">
-        {isUploading ? (
+          {isUploading ? (
             <button
               className="btn-eleven fw-500 tran3s d-block mt-20"
               type="button"
@@ -479,10 +484,10 @@ const ConsultantProfileArea = ({ setIsOpenSidebar }: IProps) => {
               Loading...
             </button>
           ) : (
-            
+
             <button className="dash-btn-two tran3s me-3" onClick={handleSave}>
-                Save
-              </button>
+              Save
+            </button>
           )}
           <button className="dash-cancel-btn tran3s" onClick={handleCancle}>
             Cancel
