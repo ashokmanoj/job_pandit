@@ -55,10 +55,11 @@ const DashboardPortfolio = ({projects,setProjects}:{projects:any ,setProjects:an
         } else {
           console.log("Image uploaded successfully:", data);
           
-
+          setUploading(true);
           setProjects([...projects,{...val , image:data.path}])
           setVal({title:'',description:'',url:'',image:''})
           setFile(null)
+          setUploading(false);
           
         }
     }
@@ -166,9 +167,21 @@ const DashboardPortfolio = ({projects,setProjects}:{projects:any ,setProjects:an
           </div>
         </div>
       </div>
+      {uploading? (<button
+              className="dash-btn-one"
+              type="button"
+              disabled
+            >
+              <span
+                className="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              Loading...
+            </button>):(
       <button className="dash-btn-one" onClick={handleAddPortfolio}>
         <i className="bi bi-plus"></i> Add more
-      </button>
+      </button>)}
     </div>
   );
 };

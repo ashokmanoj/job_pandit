@@ -61,7 +61,7 @@ const ConsultantDashboardArea = ({ setIsOpenSidebar }: IProps) => {
     }
   }, [myApplications,companyData.job_posts])
   console.log(myApplications,companyData?.job_posts,'Consultant Dash')
-  console.log(companyData.vendor_companies, 'vendor companies')
+  console.log(companyData.vender_companies, 'vendor companies')
 
 
   return (
@@ -75,7 +75,7 @@ const ConsultantDashboardArea = ({ setIsOpenSidebar }: IProps) => {
         <div className="row">
           <CardItem img={icon_4} title="Posted Jobs" value={companyData?.job_posts?.length ? companyData?.job_posts?.length + "" : "0"} />
           <CardItem img={icon_2} title="Applications" value={myApplications?.length ? myApplications?.length + "" : "0"} />
-          <CardItem img={icon_3} title="Employees in Company" value={companyData?.company_size ? companyData?.company_size + "" : "0"} />
+          <CardItem img={icon_3} title="Vendor Companies" value={companyData.vender_companies?.length ? companyData.vender_companies?.length + "" : "0"} />
           <CardItem img={icon_1} title="Saved Candidates" value={savedCandidates?.length ? savedCandidates?.length + "" : "0"} />
         </div>
 

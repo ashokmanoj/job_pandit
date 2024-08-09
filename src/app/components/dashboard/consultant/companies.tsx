@@ -20,11 +20,11 @@ const Companies = ({
                     <div
                         className={`company-grid-layout ${item.isFav ? "favourite" : ""} mb-30 position-relative`}
                     >
-                        <Link href={`/company/${item?.index}`}
+                        <div
                             className="company-logo me-auto ms-auto rounded-circle"
                         >
                             <Image src={item?.company_logo ? `https://fipiqdxkchoddvgjmhdz.supabase.co/storage/v1/object/public/employer_avatars/${item?.company_logo}` : "/assets/images/candidates/01.png"} alt="company-logo" className="lazy-img rounded-circle" style={{ objectFit: "cover", width: "auto", height: "auto", maxWidth: "60px", maxHeight: "60px", aspectRatio: "1/1" }} width={60} height={60} />
-                        </Link>
+                        </div>
                         <h5 className="text-center">
                             <div className="company-name tran3s  mx-10px">
                                 {item?.company_name.charAt(0).toUpperCase().concat(item?.company_name?.slice(1))}

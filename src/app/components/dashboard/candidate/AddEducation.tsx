@@ -20,6 +20,10 @@ const AddEducation = ({ education, setEducation }: { education: any[], setEducat
     }
     else if(eduVal.description===''){
      return notifyError('Please Enter Description')
+    }else if(eduVal.from > eduVal.to){
+      return notifyError('From Date should be less than To Date')
+    }else if(eduVal.to === eduVal.from){
+      return notifyError('From Date should be less than To Date')
     }
     else{
       setEducation([...education, eduVal])

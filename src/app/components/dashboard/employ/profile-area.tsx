@@ -123,6 +123,7 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
 
     try {
       if (isData) {
+        setIsUploading(true);
         console.log(user?.id);
         const { data, error } = await supabase
           .from("employer_profile")
@@ -150,11 +151,13 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
         if (error) {
           console.log(error);
         } else {
+          setIsUploading(false);
           notifySuccess("Profile Updated Successfully");
           
         }
       } else {
         if (user) {
+          setIsUploading(true);
           const { data, error } = await supabase
             .from("employer_profile")
             .insert([
@@ -182,6 +185,7 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
           console.log(" create Data ");
           console.log(data, error);
           if (!error) {
+            setIsUploading(false);
             notifySuccess("Profile Created Successfully");
           } else {
             notifyError("something went worng. Please Retry");
@@ -247,7 +251,7 @@ const EmployProfileArea = ({ setIsOpenSidebar }: IProps) => {
                 <label htmlFor="">Company Name <span className="text-danger">*</span></label>
                 <input
                   type="text"
-                  placeholder="Ex : Amazon"
+                  placeholder="Ex : Amazon Inc."
                   onChange={(e) => setCompanyname(e.target.value)}
                   value={companyname}
                 />

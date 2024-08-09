@@ -53,7 +53,7 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
         setSingleLink({ label: "", value: "" });
         setAddress(data.address);
         setCountry(data.country);
-        setCity(data.city);
+        setCity(data.location);
         setPinCode(data.pincode);
         setState(data.state);
         setIsData(true);
@@ -151,14 +151,16 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
       try {
          setAddress(address);
         if (isData) {
+          setUploading(true);
           const supabase = createClient();
           console.log(user.id)
-          const { data, error } = await supabase.from('candidate_profile').update({ avatar, name,contact_email: contactEmail,qualification,experience, gender, dob, bio, address, country, city, pincode, state, social_links: socialLinks, mapSrc }).eq('id', user.id).select('*').single();
+          const { data, error } = await supabase.from('candidate_profile').update({ avatar, name,contact_email: contactEmail,qualification,experience, gender, dob, bio, address, country, location:city, pincode, state, social_links: socialLinks, mapSrc }).eq('id', user.id).select('*').single();
           console.log("updata Data ")
           if (error) {
             notifyError("something went worng. Please Retry");
             console.log(error,"error in update");
           } else {
+            setUploading(false);
             notifySuccess("Profile Updated Successfully");
             setAvatar(data.avatar);
             setName(data.name);
@@ -172,7 +174,7 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
             setSingleLink({ label: "", value: "" });
             setAddress(data.address);
             setCountry(data.country);
-            setCity(data.city);
+            setCity(data.location);
             setPinCode(data.pincode);
             setState(data.state);
             setIsData(true);
@@ -180,11 +182,13 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
 
         } else {
           if (user) {
+            setUploading(true);
             const supabase = createClient();
             console.log(user?.id, avatar, name, contactEmail, qualification, experience, gender, dob, bio, address, country, city, pincode, state, socialLinks, mapSrc);
-            const { data, error } = await supabase.from('candidate_profile').insert([{ id: user?.id, avatar, name, contact_email: contactEmail,qualification,experience, gender, dob, bio, address, country, city, pincode, state, social_links: socialLinks.slice(1, socialLinks.length), mapSrc }]).select('*').single();
+            const { data, error } = await supabase.from('candidate_profile').insert([{ id: user?.id, avatar, name, contact_email: contactEmail,qualification,experience, gender, dob, bio, address, country, location: city, pincode, state, social_links: socialLinks.slice(1, socialLinks.length), mapSrc }]).select('*').single();
             console.log("error insert Data ", error,data)
             if (!error) {
+              setUploading(false);
               notifySuccess("Profile Created Successfully");
               setAvatar(data.avatar);
               setName(data.name);
@@ -198,7 +202,7 @@ const DashboardProfileArea = ({ setIsOpenSidebar }: IProps) => {
               setSingleLink({ label: "", value: "" });
               setAddress(data.address);
               setCountry(data.country);
-              setCity(data.city);
+              setCity(data.location);
               setPinCode(data.pincode);
               setState(data.state);
 

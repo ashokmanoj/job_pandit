@@ -5,9 +5,14 @@ import FilterCandidateLocation from "./filter-location";
 import FilterCandidateExperience from "./filter-experince";
 import JobPrices from "../../jobs/filter/job-prices";
 import FilterEnglishFluency from "./filter-english-fluency";
+import useCandidateFilterStore from "@/lib/store/candidate";
 
 const CandidateV1FilterArea = ({candidates_data}:{candidates_data:any}) => {
-  
+  const { resetFilter } = useCandidateFilterStore((state) => state);
+  const handleReset = () => {
+    resetFilter()
+  }
+
   return (
     <div
       className="filter-area-tab offcanvas offcanvas-start"
@@ -168,12 +173,12 @@ const CandidateV1FilterArea = ({candidates_data}:{candidates_data:any}) => {
           </div>
         </div>
 
-        <a
-          href="#"
+        <button
+          onClick={handleReset}
           className="btn-ten fw-500 text-white w-100 text-center tran3s mt-30"
         >
-          Apply Filter
-        </a>
+          Reset Filter
+        </button>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
 import CandidateGridItem from "./candidate-grid-item";
 import CandidateListItem from "./candidate-list-item";
@@ -7,55 +7,50 @@ import ShortSelect from "../common/short-select";
 import useCandidateFilterStore from "@/lib/store/candidate";
 import slugify from "slugify";
 
-const CandidateV1Area = ({style_2=false,candidates_data}:{style_2?:boolean,candidates_data:any}) => {
+interface Candidate {
+  id: number;
+  skills: string[];
+  gender: string;
+  education: string;
+  experience: string;
+  english_fluency: string;
+  city: string; // Assuming city is a string type
+}
+
+const CandidateV1Area = ({ style_2 = false, candidates_data }: { style_2?: boolean, candidates_data: any }) => {
   const [jobType, setJobType] = useState<string>(style_2 ? "list" : "grid");
-
-  let all_candidate_data = candidates_data;
-  console.log(candidates_data,"candidates_data");
-
-
-  const {location,education,experience,english_fluency,skills,gender} = useCandidateFilterStore();
-  const [currentItems, setCurrentItems] = useState<any[] | null>(null);
-  const [filterItems, setFilterItems] = useState<any[]>([]);
+  const { location, education, experience, english_fluency, skills, gender } = useCandidateFilterStore();
+  const [currentItems, setCurrentItems] = useState<Candidate[] | null>(null);
+  const [filterItems, setFilterItems] = useState<Candidate[]>([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
-  const [shortValue, setShortValue] = useState('');
+  const [shortValue, setShortValue] = useState<string>('');
 
   useEffect(() => {
-    // Filter the job_data array based on the selected filters
-    let filteredData = all_candidate_data
-      .filter((item: { skills: string | string[]; }) => skills.length !== 0 ? skills.some((c) => item.skills.includes(c)) : true)
-      .filter((item: {gender: string; }) => (gender? item.gender === gender : true))
+    // Filter the candidates_data array based on the selected filters
+    let filteredData = candidates_data
+      .filter((item: { skills: string | string[]; }) => skills.length !== 0 ? skills.some((c) => item.skills?.toString().includes(c)) : true)
+      .filter((item: { gender: string; }) => (gender ? item.gender === gender : true))
       .filter((item: { education: string; }) => (education ? item.education === education : true))
       .filter((item: { experience: string; }) => (experience ? item.experience === experience : true))
       .filter((item: { english_fluency: string; }) => (english_fluency ? item.english_fluency === english_fluency : true))
-      .filter((l: {city: string; }) => location ? slugify(l.city.split(',').join('-').toLowerCase(),'-') === location : true)
-      
+      .filter((l: any) => location ? slugify((l.city || '').split(',').join('-').toLowerCase(), '-') === location : true);
 
     const endOffset = itemOffset + 8;
-    setFilterItems(filteredData)
+    setFilterItems(filteredData);
     setCurrentItems(filteredData.slice(itemOffset, endOffset));
     setPageCount(Math.ceil(filteredData.length / 8));
-  }, [
-    itemOffset,
-    8,
-    experience,
-    location,
-    education,
-    english_fluency,
-    gender,
-    shortValue
-  ]);
+  }, [itemOffset, candidates_data, experience, location, education, english_fluency, gender, shortValue, skills]);
 
-
-const handlePageClick = (event: { selected: number }) => {
-    const newOffset = (event.selected * 8) % all_candidate_data.length;
+  const handlePageClick = (event: { selected: number }) => {
+    const newOffset = (event.selected * 8) % candidates_data.length;
     setItemOffset(newOffset);
   };
 
-const handleShort = (item: { value: string; label: string }) => {
-  setShortValue(item.value)
-}
+  const handleShort = (item: { value: string; label: string }) => {
+    setShortValue(item.value);
+  };
+
   return (
     <>
       <section className="candidates-profile pt-110 lg-pt-80 pb-160 xl-pb-150 lg-pb-80">
@@ -72,7 +67,7 @@ const handleShort = (item: { value: string; label: string }) => {
                 Filter
               </button>
               {/* filter area start */}
-              {/* <CandidateV1FilterArea candidates_data={candidates_data}  /> */}
+              {/* <CandidateV1FilterArea candidates_data={candidates_data} /> */}
               {/* filter area end */}
             </div>
 
@@ -80,8 +75,7 @@ const handleShort = (item: { value: string; label: string }) => {
               <div className="ms-xxl-5 ms-xl-3">
                 <div className="upper-filter d-flex justify-content-between align-items-center mb-20">
                   <div className="total-job-found">
-                    All <span className="text-dark fw-500">1,270</span>{" "}
-                    candidates found
+                    All <span className="text-dark fw-500">{candidates_data.length}</span> candidates found
                   </div>
                   <div className="d-flex align-items-center">
                     <div className="short-filter d-flex align-items-center">
@@ -105,11 +99,9 @@ const handleShort = (item: { value: string; label: string }) => {
                   </div>
                 </div>
 
-                <div
-                  className={`accordion-box grid-style ${jobType === "grid" ? "show" : ""}`}
-                >
+                <div className={`accordion-box grid-style ${jobType === "grid" ? "show" : ""}`}>
                   <div className="row">
-                    {currentItems&&currentItems.map((item) => (
+                    {currentItems && currentItems.map(item => (
                       <div key={item.id} className="col-xxl-4 col-sm-6 d-flex">
                         <CandidateGridItem item={item} />
                       </div>
@@ -117,34 +109,27 @@ const handleShort = (item: { value: string; label: string }) => {
                   </div>
                 </div>
 
-                <div
-                  className={`accordion-box list-style ${jobType === "list" ? "show" : ""}`}
-                >
-                  {filterItems.map((item) => (
+                <div className={`accordion-box list-style ${jobType === "list" ? "show" : ""}`}>
+                  {filterItems.map(item => (
                     <CandidateListItem key={item.id} item={item} />
                   ))}
                 </div>
 
                 <div className="pt-20 d-sm-flex align-items-center justify-content-between">
                   <p className="m0 order-sm-last text-center text-sm-start xs-pb-20">
-                    Showing <span className="text-dark fw-500">1 to 20</span> of{" "}
-                    <span className="text-dark fw-500">1,270</span>
+                    Showing <span className="text-dark fw-500">{itemOffset + 1}</span> of <span className="text-dark fw-500">{candidates_data.length}</span>
                   </p>
                   <div className="d-flex justify-content-center">
                     <ul className="pagination-two d-flex align-items-center style-none">
-                      <li className="active">
-                        <a href="#">1</a>
-                      </li>
+                      {Array.from({ length: pageCount }, (_, index) => (
+                        <li key={index} className={itemOffset / 8 === index ? 'active' : ''}>
+                          <a onClick={() => handlePageClick({ selected: index })}>{index + 1}</a>
+                        </li>
+                      ))}
                       <li>
-                        <a href="#">2</a>
-                      </li>
-                      <li>
-                        <a href="#">3</a>
-                      </li>
-                      <li>
-                        <a href="#">
+                        <button onClick={() => handlePageClick({ selected: (itemOffset / 8) + 1 })}>
                           <i className="bi bi-chevron-right"></i>
-                        </a>
+                        </button>
                       </li>
                     </ul>
                   </div>

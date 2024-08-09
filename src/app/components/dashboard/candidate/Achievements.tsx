@@ -54,10 +54,11 @@ const Achievements = ({achievement,setAchievement}:{achievement:any ,setAchievem
         } else {
           console.log("Image uploaded successfully:", data);
           
-
+          setUploading(true);
           setAchievement([...achievement,{...valuee , image:data.path}])
           setValuee({title:'',description:'',image:''})
           setFile(null)
+          setUploading(false);
           
         }
     }
@@ -151,9 +152,21 @@ const Achievements = ({achievement,setAchievement}:{achievement:any ,setAchievem
           </div>
         </div>
       </div>
+      {uploading? (<button
+              className="dash-btn-one"
+              type="button"
+              disabled
+            >
+              <span
+                className="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              Loading...
+            </button>):(
       <button className="dash-btn-one" onClick={handleAddAchiev}>
         <i className="bi bi-plus"></i> Add more
-      </button>
+      </button>)}
     </div>
   );
 };
